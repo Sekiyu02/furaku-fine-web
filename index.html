@@ -2155,7 +2155,7 @@
     /* ========== Split Screen - Core Services ========== */
     .split-screen {
       display: flex;
-      height: 380px;
+      height: 480px;
       margin-bottom: 3rem;
       overflow: hidden;
     }
@@ -2177,15 +2177,21 @@
       text-decoration: none !important;
     }
 
-    /* Non-hovered panel: reduce text size */
+    /* Non-hovered panel: reduce text size and fade */
     .split-screen:hover .split-panel:not(:hover) .split-panel-title {
-      font-size: clamp(1.25rem, 2vw, 1.75rem);
+      font-size: clamp(1.2rem, 1.8vw, 1.5rem);
       transition: font-size 0.5s ease-out;
     }
 
     .split-screen:hover .split-panel:not(:hover) .split-panel-logo img {
-      height: 32px;
+      height: 28px;
       transition: height 0.5s ease-out;
+    }
+
+    .split-screen:hover .split-panel:not(:hover) .split-panel-tagline,
+    .split-screen:hover .split-panel:not(:hover) .split-panel-desc {
+      opacity: 0.4;
+      transition: opacity 0.5s ease-out;
     }
 
     .split-panel-bg {
@@ -2242,24 +2248,24 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 2.5rem 2.5rem;
+      padding: 3rem 2.5rem;
       color: var(--white);
       min-height: 0;
     }
 
     .split-panel-logo {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       opacity: 0.9;
     }
 
     .split-panel-logo img {
-      height: 40px;
+      height: 36px;
       width: auto;
     }
 
     .split-panel-title {
       font-family: "Noto Serif JP", serif;
-      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-size: clamp(1.4rem, 2.2vw, 1.8rem);
       font-weight: 500;
       margin-bottom: 1rem;
       line-height: 1.5;
@@ -2267,33 +2273,31 @@
     }
 
     .split-panel-tagline {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: var(--orange-light);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       font-style: italic;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.4s ease, color 0.4s ease;
     }
 
     .split-panel:hover .split-panel-tagline {
-      opacity: 1;
-      transform: translateY(0);
+      color: var(--orange-primary);
     }
 
     .split-panel-desc {
-      font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.8);
-      line-height: 1.9;
-      max-width: 400px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 2;
+      max-width: 380px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.4s ease, color 0.4s ease;
     }
 
     .split-panel:hover .split-panel-desc {
-      opacity: 1;
-      transform: translateY(0);
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .split-panel-link {
