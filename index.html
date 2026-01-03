@@ -2157,10 +2157,15 @@
       text-decoration: none !important;
     }
 
-    /* Ensure non-hovered panel content stays visible */
-    .split-screen:hover .split-panel:not(:hover) .split-panel-content {
-      transform: scale(0.95);
-      transition: transform 0.5s ease-out;
+    /* Non-hovered panel: reduce text size */
+    .split-screen:hover .split-panel:not(:hover) .split-panel-title {
+      font-size: clamp(1.25rem, 2vw, 1.75rem);
+      transition: font-size 0.5s ease-out;
+    }
+
+    .split-screen:hover .split-panel:not(:hover) .split-panel-logo img {
+      height: 32px;
+      transition: height 0.5s ease-out;
     }
 
     .split-panel-bg {
@@ -2234,10 +2239,11 @@
 
     .split-panel-title {
       font-family: "Noto Serif JP", serif;
-      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
       font-weight: 500;
       margin-bottom: 1rem;
-      line-height: 1.4;
+      line-height: 1.5;
+      transition: font-size 0.5s ease-out;
     }
 
     .split-panel-tagline {
