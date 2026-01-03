@@ -775,6 +775,13 @@
               <h2 class="admin-card-title">新規追加</h2>
             </div>
             <form id="voiceForm">
+              <div class="form-group">
+                <label class="form-label">掲載ページ *</label>
+                <select class="form-input" id="voiceTarget" required>
+                  <option value="recruitment">採用支援 (recruitment.html)</option>
+                  <option value="medical">医療特化 (medical.html)</option>
+                </select>
+              </div>
               <div class="form-row">
                 <div class="form-group">
                   <label class="form-label">企業名 *</label>
@@ -814,6 +821,7 @@
             <table class="data-table">
               <thead>
                 <tr>
+                  <th>掲載ページ</th>
                   <th>企業名</th>
                   <th>お名前</th>
                   <th>役職</th>
@@ -823,7 +831,7 @@
               </thead>
               <tbody id="voiceTableBody">
                 <tr>
-                  <td colspan="5" style="text-align: center; color: var(--text-body);">まだお客様の声が登録されていません</td>
+                  <td colspan="6" style="text-align: center; color: var(--text-body);">まだお客様の声が登録されていません</td>
                 </tr>
               </tbody>
             </table>
@@ -911,11 +919,20 @@
 
           <div class="admin-card">
             <div class="admin-card-header">
-              <h2 class="admin-card-title">お客様の声 HTMLコード</h2>
-              <button class="btn btn-sm btn-outline" onclick="copyCode('voiceCode')">コピー</button>
+              <h2 class="admin-card-title">お客様の声（採用支援用）HTMLコード</h2>
+              <button class="btn btn-sm btn-outline" onclick="copyCode('voiceCodeRecruitment')">コピー</button>
             </div>
             <p style="margin-bottom: 1rem; color: var(--text-body); font-size: 0.9rem;">recruitment.html の「お客様の声」セクション内に貼り付けてください。</p>
-            <div class="code-output" id="voiceCode"><!-- お客様の声がありません --></div>
+            <div class="code-output" id="voiceCodeRecruitment"><!-- 採用支援用のお客様の声がありません --></div>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">お客様の声（医療特化用）HTMLコード</h2>
+              <button class="btn btn-sm btn-outline" onclick="copyCode('voiceCodeMedical')">コピー</button>
+            </div>
+            <p style="margin-bottom: 1rem; color: var(--text-body); font-size: 0.9rem;">medical.html の「お客様の声」セクション内に貼り付けてください。</p>
+            <div class="code-output" id="voiceCodeMedical"><!-- 医療特化用のお客様の声がありません --></div>
           </div>
 
           <div class="admin-card">
@@ -1152,6 +1169,7 @@
       e.preventDefault();
       const voice = {
         id: Date.now(),
+        target: document.getElementById('voiceTarget').value,
         company: document.getElementById('voiceCompany').value,
         name: document.getElementById('voiceName').value,
         position: document.getElementById('voicePosition').value,
@@ -1217,11 +1235,13 @@
 
       // Voice Table
       const voiceBody = document.getElementById('voiceTableBody');
+      const targetNames = { recruitment: '採用支援', medical: '医療特化' };
       if (data.voice.length === 0) {
-        voiceBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-body);">まだお客様の声が登録されていません</td></tr>';
+        voiceBody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-body);">まだお客様の声が登録されていません</td></tr>';
       } else {
         voiceBody.innerHTML = data.voice.map(v => `
           <tr>
+            <td><span class="status-badge" style="background: ${v.target === 'medical' ? 'var(--navy)' : 'var(--orange-primary)'}; color: white;">${targetNames[v.target] || '採用支援'}</span></td>
             <td>${v.company}</td>
             <td>${v.name}</td>
             <td>${v.position || '-'}</td>
@@ -1260,12 +1280,32 @@
     }
 
     function updateExportCode() {
-      // Voice Code
-      const voiceCode = document.getElementById('voiceCode');
-      if (data.voice.length === 0) {
-        voiceCode.textContent = '<!-- お客様の声がありません -->';
+      // Voice Code - Recruitment (採用支援用)
+      const voiceCodeRecruitment = document.getElementById('voiceCodeRecruitment');
+      const recruitmentVoices = data.voice.filter(v => v.status === 'published' && (v.target === 'recruitment' || !v.target));
+      if (recruitmentVoices.length === 0) {
+        voiceCodeRecruitment.textContent = '<!-- 採用支援用のお客様の声がありません -->';
       } else {
-        voiceCode.textContent = data.voice.filter(v => v.status === 'published').map(v => `
+        voiceCodeRecruitment.textContent = recruitmentVoices.map(v => `
+<div class="voice-card">
+  <div class="voice-card-header">
+    ${v.image ? `<img src="${v.image}" alt="${v.name}" class="voice-avatar">` : '<div class="voice-avatar-placeholder"></div>'}
+    <div class="voice-meta">
+      <p class="voice-company">${v.company}</p>
+      <p class="voice-name">${v.name} 様${v.position ? ` / ${v.position}` : ''}</p>
+    </div>
+  </div>
+  <p class="voice-comment">${v.comment}</p>
+</div>`).join('\n');
+      }
+
+      // Voice Code - Medical (医療特化用)
+      const voiceCodeMedical = document.getElementById('voiceCodeMedical');
+      const medicalVoices = data.voice.filter(v => v.status === 'published' && v.target === 'medical');
+      if (medicalVoices.length === 0) {
+        voiceCodeMedical.textContent = '<!-- 医療特化用のお客様の声がありません -->';
+      } else {
+        voiceCodeMedical.textContent = medicalVoices.map(v => `
 <div class="voice-card">
   <div class="voice-card-header">
     ${v.image ? `<img src="${v.image}" alt="${v.name}" class="voice-avatar">` : '<div class="voice-avatar-placeholder"></div>'}
