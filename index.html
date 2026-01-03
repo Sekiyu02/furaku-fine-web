@@ -300,35 +300,13 @@
     .menu-nav a {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
-      font-family: "Noto Serif JP", serif;
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
-      color: var(--white);
+      gap: 1rem;
+      color: rgba(255,255,255,0.8);
       text-decoration: none;
-      padding: 1rem 0;
+      padding: 0.5rem 0;
       transform: translateY(100%);
-      transition: transform 0.5s ease, color 0.3s ease, padding-left 0.3s ease;
+      transition: transform 0.5s ease;
       position: relative;
-    }
-
-    .menu-nav a::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 1px;
-      background: linear-gradient(90deg, var(--orange-primary), transparent);
-      transition: width 0.4s ease;
-    }
-
-    .menu-nav a:hover::before {
-      width: 100%;
-    }
-
-    .menu-nav a:hover {
-      color: var(--orange-primary);
-      padding-left: 0.5rem;
     }
 
     .fullscreen-menu.active .menu-nav a {
@@ -342,15 +320,29 @@
     .menu-nav li:nth-child(5) a { transition-delay: 0.3s; }
     .menu-nav li:nth-child(6) a { transition-delay: 0.35s; }
     .menu-nav li:nth-child(7) a { transition-delay: 0.4s; }
+    .menu-nav li:nth-child(8) a { transition-delay: 0.45s; }
+    .menu-nav li:nth-child(9) a { transition-delay: 0.5s; }
+
+    .menu-nav-contact {
+      padding-top: 1rem;
+    }
+
+    .menu-nav-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
     .menu-nav-number {
       font-family: "Cormorant Garamond", serif;
-      font-size: 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 500;
       color: var(--orange-primary);
-      letter-spacing: 0.2em;
+      letter-spacing: 0.1em;
       min-width: 70px;
       padding: 0.4rem 0.75rem;
       border: 1px solid rgba(230, 118, 53, 0.3);
+      border-radius: 4px;
       text-align: center;
       transition: all 0.3s ease;
     }
@@ -359,6 +351,67 @@
       background: var(--orange-primary);
       color: var(--white);
       border-color: var(--orange-primary);
+      transform: scale(1.1);
+    }
+
+    .menu-nav-line {
+      display: block;
+      width: 0;
+      height: 1px;
+      background: var(--orange-primary);
+      transition: width 0.3s ease;
+    }
+
+    .menu-nav a:hover .menu-nav-line {
+      width: 32px;
+    }
+
+    .menu-nav-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-nav-en {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(230, 118, 53, 0.7);
+      margin-bottom: 0.25rem;
+      transition: color 0.3s ease;
+    }
+
+    .menu-nav a:hover .menu-nav-en {
+      color: var(--orange-primary);
+    }
+
+    .menu-nav-ja {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .menu-nav a:hover .menu-nav-ja {
+      color: var(--orange-primary);
+    }
+
+    .menu-nav-ja::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 1px;
+      background: var(--orange-primary);
+      transition: width 0.3s ease;
+    }
+
+    .menu-nav a:hover .menu-nav-ja::after {
+      width: 100%;
     }
 
     .menu-right {
@@ -1826,17 +1879,16 @@
       gap: 3rem;
     }
 
+    .footer-logos {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
     .footer-logo {
-      margin-bottom: 1rem;
-    }
-
-    .footer-logo img {
-      height: 40px;
+      height: 36px;
       width: auto;
-    }
-
-    .footer-logo span {
-      color: var(--orange-primary);
     }
 
     .footer-tagline {
@@ -2304,14 +2356,42 @@
   <div class="fullscreen-menu" id="fullscreenMenu">
     <div class="menu-left">
       <ul class="menu-nav">
-        <li><a href="#philosophy"><span class="menu-nav-number">01</span>理念</a></li>
-        <li><a href="#services"><span class="menu-nav-number">02</span>サービス</a></li>
-        <li><a href="#message"><span class="menu-nav-number">03</span>代表メッセージ</a></li>
-        <li><a href="#team"><span class="menu-nav-number">04</span>チーム</a></li>
-        <li><a href="#works"><span class="menu-nav-number">05</span>実績</a></li>
-        <li><a href="knowledge.html"><span class="menu-nav-number">06</span>ナレッジ</a></li>
-        <li><a href="#company"><span class="menu-nav-number">07</span>会社概要</a></li>
-        <li><a href="mailto:info@furakufine.com"><span class="menu-nav-number">CONTACT</span>お問い合わせ</a></li>
+        <li><a href="index.html">
+          <span class="menu-nav-badge"><span class="menu-nav-number">HOME</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Home</span><span class="menu-nav-ja">ホーム</span></span>
+        </a></li>
+        <li><a href="#philosophy">
+          <span class="menu-nav-badge"><span class="menu-nav-number">01</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Philosophy</span><span class="menu-nav-ja">理念</span></span>
+        </a></li>
+        <li><a href="#services">
+          <span class="menu-nav-badge"><span class="menu-nav-number">02</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Services</span><span class="menu-nav-ja">サービス</span></span>
+        </a></li>
+        <li><a href="#message">
+          <span class="menu-nav-badge"><span class="menu-nav-number">03</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Message</span><span class="menu-nav-ja">代表メッセージ</span></span>
+        </a></li>
+        <li><a href="#team">
+          <span class="menu-nav-badge"><span class="menu-nav-number">04</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Team</span><span class="menu-nav-ja">チーム</span></span>
+        </a></li>
+        <li><a href="#works">
+          <span class="menu-nav-badge"><span class="menu-nav-number">05</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Works</span><span class="menu-nav-ja">実績</span></span>
+        </a></li>
+        <li><a href="knowledge.html">
+          <span class="menu-nav-badge"><span class="menu-nav-number">06</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Knowledge</span><span class="menu-nav-ja">ナレッジ</span></span>
+        </a></li>
+        <li><a href="#company">
+          <span class="menu-nav-badge"><span class="menu-nav-number">07</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Company</span><span class="menu-nav-ja">会社概要</span></span>
+        </a></li>
+        <li class="menu-nav-contact"><a href="mailto:info@furakufine.com">
+          <span class="menu-nav-badge"><span class="menu-nav-number">CONTACT</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Contact</span><span class="menu-nav-ja">お問い合わせ</span></span>
+        </a></li>
       </ul>
     </div>
     <div class="menu-right">
@@ -2818,8 +2898,9 @@
     <div class="footer-container">
       <div class="footer-top">
         <div>
-          <div class="footer-logo">
-            <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+          <div class="footer-logos">
+            <img src="assets/images/logo-jp.svg" alt="富楽ファイン" class="footer-logo">
+            <img src="assets/images/logo-medical.svg" alt="富楽メディカル" class="footer-logo">
           </div>
           <p class="footer-tagline">すべての人に、豊かさと楽しさを。</p>
         </div>

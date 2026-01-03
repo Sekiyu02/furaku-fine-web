@@ -341,15 +341,29 @@
     .menu-nav li:nth-child(4) a { transition-delay: 0.25s; }
     .menu-nav li:nth-child(5) a { transition-delay: 0.3s; }
     .menu-nav li:nth-child(6) a { transition-delay: 0.35s; }
+    .menu-nav li:nth-child(7) a { transition-delay: 0.4s; }
+    .menu-nav li:nth-child(8) a { transition-delay: 0.45s; }
+
+    .menu-nav-contact {
+      padding-top: 1rem;
+    }
+
+    .menu-nav-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
     .menu-nav-number {
       font-family: "Cormorant Garamond", serif;
-      font-size: 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 500;
       color: var(--orange-primary);
-      letter-spacing: 0.2em;
+      letter-spacing: 0.1em;
       min-width: 70px;
       padding: 0.4rem 0.75rem;
       border: 1px solid rgba(230, 118, 53, 0.3);
+      border-radius: 4px;
       text-align: center;
       transition: all 0.3s ease;
     }
@@ -358,6 +372,67 @@
       background: var(--orange-primary);
       color: var(--white);
       border-color: var(--orange-primary);
+      transform: scale(1.1);
+    }
+
+    .menu-nav-line {
+      display: block;
+      width: 0;
+      height: 1px;
+      background: var(--orange-primary);
+      transition: width 0.3s ease;
+    }
+
+    .menu-nav a:hover .menu-nav-line {
+      width: 32px;
+    }
+
+    .menu-nav-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-nav-en {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(230, 118, 53, 0.7);
+      margin-bottom: 0.25rem;
+      transition: color 0.3s ease;
+    }
+
+    .menu-nav a:hover .menu-nav-en {
+      color: var(--orange-primary);
+    }
+
+    .menu-nav-ja {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .menu-nav a:hover .menu-nav-ja {
+      color: var(--orange-primary);
+    }
+
+    .menu-nav-ja::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 1px;
+      background: var(--orange-primary);
+      transition: width 0.3s ease;
+    }
+
+    .menu-nav a:hover .menu-nav-ja::after {
+      width: 100%;
     }
 
     .menu-right {
@@ -1770,17 +1845,16 @@
       gap: 2rem;
     }
 
-    .footer-logo {
-      margin-bottom: 0.75rem;
+    .footer-logos {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
     }
 
-    .footer-logo img {
+    .footer-logo {
       height: 36px;
       width: auto;
-    }
-
-    .footer-logo span {
-      color: var(--orange-primary);
     }
 
     .footer-tagline {
@@ -2018,12 +2092,38 @@
   <div class="fullscreen-menu" id="fullscreenMenu">
     <div class="menu-left">
       <ul class="menu-nav">
-        <li><a href="index.html"><span class="menu-nav-number">HOME</span>ホーム</a></li>
-        <li><a href="#approach"><span class="menu-nav-number">01</span>課題と解決</a></li>
-        <li><a href="#phases"><span class="menu-nav-number">02</span>6フェーズ</a></li>
-        <li><a href="#roadmap"><span class="menu-nav-number">03</span>ロードマップ</a></li>
-        <li><a href="#features"><span class="menu-nav-number">04</span>アプローチ</a></li>
-        <li><a href="mailto:info@furakufine.com"><span class="menu-nav-number">CONTACT</span>お問い合わせ</a></li>
+        <li><a href="index.html">
+          <span class="menu-nav-badge"><span class="menu-nav-number">HOME</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Home</span><span class="menu-nav-ja">ホーム</span></span>
+        </a></li>
+        <li><a href="#problem">
+          <span class="menu-nav-badge"><span class="menu-nav-number">01</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Problem & Solution</span><span class="menu-nav-ja">課題と解決</span></span>
+        </a></li>
+        <li><a href="#phases">
+          <span class="menu-nav-badge"><span class="menu-nav-number">02</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">6 Phases</span><span class="menu-nav-ja">6フェーズ</span></span>
+        </a></li>
+        <li><a href="#roadmap">
+          <span class="menu-nav-badge"><span class="menu-nav-number">03</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Roadmap</span><span class="menu-nav-ja">ロードマップ</span></span>
+        </a></li>
+        <li><a href="#features">
+          <span class="menu-nav-badge"><span class="menu-nav-number">04</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Approach</span><span class="menu-nav-ja">アプローチ</span></span>
+        </a></li>
+        <li><a href="#voice">
+          <span class="menu-nav-badge"><span class="menu-nav-number">05</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Voice</span><span class="menu-nav-ja">お客様の声</span></span>
+        </a></li>
+        <li><a href="#faq">
+          <span class="menu-nav-badge"><span class="menu-nav-number">06</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">FAQ</span><span class="menu-nav-ja">よくある質問</span></span>
+        </a></li>
+        <li class="menu-nav-contact"><a href="mailto:info@furakufine.com">
+          <span class="menu-nav-badge"><span class="menu-nav-number">CONTACT</span><span class="menu-nav-line"></span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Contact</span><span class="menu-nav-ja">お問い合わせ</span></span>
+        </a></li>
       </ul>
     </div>
     <div class="menu-right">
@@ -2623,8 +2723,9 @@
     <div class="footer-container">
       <div class="footer-top">
         <div>
-          <div class="footer-logo">
-            <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+          <div class="footer-logos">
+            <img src="assets/images/logo-jp.svg" alt="富楽ファイン" class="footer-logo">
+            <img src="assets/images/logo-medical.svg" alt="富楽メディカル" class="footer-logo">
           </div>
           <p class="footer-tagline">すべての人に、豊かさと楽しさを。</p>
         </div>
