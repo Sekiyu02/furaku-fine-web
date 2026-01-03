@@ -2102,32 +2102,38 @@
         text-align: center;
       }
 
+      /* ========== Mobile Only Line Break ========== */
+      .sp-br {
+        display: block;
+      }
+
       /* ========== Split Screen - Mobile (CORE SERVICES) ========== */
       .split-screen {
         flex-direction: column;
         height: auto !important;
         display: flex !important;
+        gap: 0;
+      }
+
+      .split-divider {
+        display: none !important;
       }
 
       .split-panel {
         flex: none !important;
-        height: 320px !important;
+        height: 300px !important;
         width: 100% !important;
         position: relative !important;
         display: block !important;
+        margin-bottom: 1rem;
+      }
+
+      .split-panel:last-of-type {
+        margin-bottom: 0;
       }
 
       .split-panel:hover {
         flex: none !important;
-      }
-
-      /* Ensure both panels are visible */
-      .split-panel + .split-divider {
-        display: none;
-      }
-
-      .split-panel + .split-panel {
-        margin-top: 0;
       }
 
       /* Split Panel Text - Always Visible on Mobile */
@@ -2135,26 +2141,31 @@
         opacity: 1 !important;
         transform: translateY(0) !important;
         padding: 1.5rem !important;
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
       }
 
       .split-panel-title {
-        font-size: 1.5rem !important;
+        font-size: 1.25rem !important;
       }
 
       .split-panel-desc {
         opacity: 0.9 !important;
         max-height: none !important;
-        font-size: 0.85rem !important;
-        line-height: 1.7 !important;
+        font-size: 0.8rem !important;
+        line-height: 1.6 !important;
       }
 
       .split-panel-link {
         opacity: 1 !important;
-        font-size: 0.8rem !important;
+        font-size: 0.75rem !important;
+        margin-top: 1rem !important;
       }
 
       .split-panel-overlay {
-        background: rgba(21, 42, 69, 0.6) !important;
+        background: rgba(21, 42, 69, 0.65) !important;
       }
 
       /* ========== Mobile Section Padding ========== */
@@ -2180,9 +2191,14 @@
         letter-spacing: 0.15em;
       }
 
-      .philosophy-title,
+      /* 1. Philosophy Title - 文字切れ修正 */
+      .philosophy-title {
+        font-size: 1.4rem !important;
+        margin-bottom: 1.25rem;
+        line-height: 1.7 !important;
+      }
+
       .services-title,
-      .message-title,
       .team-title,
       .knowledge-title,
       .company-title,
@@ -2257,14 +2273,46 @@
         padding: 1rem 2rem !important;
       }
 
-      /* ========== Mobile Message Section ========== */
+      /* ========== 3. Mobile Message Section ========== */
+      .message-content h2 {
+        font-size: 1.25rem !important;
+        line-height: 1.6 !important;
+      }
+
       .message-text {
         font-size: 0.9rem !important;
         line-height: 2 !important;
       }
 
-      .message-title {
+      /* ========== 4. Team Section ========== */
+      .team-subtitle {
+        font-size: 0.9rem !important;
+        line-height: 1.6 !important;
+      }
+
+      /* ========== 5. CTA Section - 中央揃え修正 ========== */
+      .contact-cta {
+        padding: 6rem 1.5rem !important;
+      }
+
+      .contact-cta h2 {
         font-size: 1.35rem !important;
+        text-align: center !important;
+        line-height: 1.5 !important;
+      }
+
+      .contact-cta p {
+        font-size: 0.85rem !important;
+        text-align: center !important;
+      }
+
+      /* ========== 6. Footer - 余白修正 ========== */
+      .footer-brand {
+        margin-bottom: 2.5rem !important;
+      }
+
+      .footer-links {
+        margin-top: 0 !important;
       }
 
       /* ========== Mobile Hover → Active States ========== */
@@ -2293,6 +2341,13 @@
       /* ========== Mobile Custom Cursor - Ensure Hidden ========== */
       .custom-cursor {
         display: none !important;
+      }
+    }
+
+    /* PC版では sp-br を非表示 */
+    @media (min-width: 901px) {
+      .sp-br {
+        display: none;
       }
     }
 
@@ -2943,7 +2998,7 @@
         <span class="section-label">MESSAGE</span>
         <h2>
           組織は「<span class="highlight">人</span>」でできている。<br>
-          だからこそ、人の課題に向き合う。
+          だからこそ、<br class="sp-br">人の課題に向き合う。
         </h2>
         <div class="message-text">
           <p>
@@ -2971,7 +3026,7 @@
       <div class="team-header reveal">
         <span class="section-label stagger-text">TEAM</span>
         <h2 class="team-title stagger-text">私たちについて</h2>
-        <p class="team-subtitle">採用と組織の課題に、真摯に向き合うメンバーです。</p>
+        <p class="team-subtitle">採用と組織の課題に、<br class="sp-br">真摯に向き合うメンバーです。</p>
       </div>
 
       <div class="team-grid">
