@@ -805,7 +805,7 @@
 
     /* ========== Services Section ========== */
     .services {
-      padding: 7rem 2rem 5rem;
+      padding: 5rem 2rem 5rem;
       background: var(--white);
       position: relative;
       overflow: hidden;
@@ -1016,13 +1016,14 @@
       border-left: 3px solid var(--orange-primary);
       padding: 2.5rem 2rem;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-left-color 0.4s ease;
       box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
     }
 
     .sub-service-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 15px 40px rgba(230, 118, 53, 0.15);
+      border-left-color: var(--orange-light);
     }
 
     .sub-service-icon {
@@ -2101,19 +2102,220 @@
         text-align: center;
       }
 
-      /* Split Screen - Mobile */
+      /* ========== Split Screen - Mobile (CORE SERVICES) ========== */
       .split-screen {
         flex-direction: column;
-        height: auto;
+        height: auto !important;
+        display: flex !important;
       }
 
       .split-panel {
         flex: none !important;
-        height: 500px;
+        height: 320px !important;
+        width: 100% !important;
+        position: relative !important;
+        display: block !important;
       }
 
       .split-panel:hover {
         flex: none !important;
+      }
+
+      /* Ensure both panels are visible */
+      .split-panel + .split-divider {
+        display: none;
+      }
+
+      .split-panel + .split-panel {
+        margin-top: 0;
+      }
+
+      /* Split Panel Text - Always Visible on Mobile */
+      .split-panel-content {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        padding: 1.5rem !important;
+      }
+
+      .split-panel-title {
+        font-size: 1.5rem !important;
+      }
+
+      .split-panel-desc {
+        opacity: 0.9 !important;
+        max-height: none !important;
+        font-size: 0.85rem !important;
+        line-height: 1.7 !important;
+      }
+
+      .split-panel-link {
+        opacity: 1 !important;
+        font-size: 0.8rem !important;
+      }
+
+      .split-panel-overlay {
+        background: rgba(21, 42, 69, 0.6) !important;
+      }
+
+      /* ========== Mobile Section Padding ========== */
+      .philosophy,
+      .services,
+      .message,
+      .team,
+      .works,
+      .knowledge,
+      .company {
+        padding: 5rem 1.5rem !important;
+      }
+
+      /* ========== Mobile Typography - Optimized ========== */
+      body, p {
+        font-size: 0.95rem !important;
+        line-height: 1.75 !important;
+      }
+
+      .section-label {
+        font-size: 0.65rem !important;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.15em;
+      }
+
+      .philosophy-title,
+      .services-title,
+      .message-title,
+      .team-title,
+      .knowledge-title,
+      .company-title,
+      .section-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 1.25rem;
+      }
+
+      .philosophy-text {
+        font-size: 0.9rem !important;
+        line-height: 2;
+      }
+
+      /* Card headings */
+      h3,
+      .sub-service-card h4,
+      .knowledge-card h3,
+      .team-name {
+        font-size: 1.1rem !important;
+      }
+
+      /* ========== Mobile Grid Layouts ========== */
+      .works-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem;
+      }
+
+      .sub-services {
+        gap: 1.25rem !important;
+      }
+
+      .sub-service-card {
+        padding: 1.75rem 1.5rem !important;
+      }
+
+      .sub-service-card p {
+        font-size: 0.8rem !important;
+      }
+
+      /* ========== Mobile Hero ========== */
+      .hero {
+        min-height: 600px;
+        height: calc(var(--vh, 1vh) * 100);
+      }
+
+      .hero-content {
+        padding: 0 1.5rem;
+      }
+
+      .hero-title {
+        font-size: 1.75rem !important;
+        line-height: 1.35;
+      }
+
+      .hero-subtitle {
+        font-size: 0.9rem !important;
+        line-height: 1.8;
+      }
+
+      .hero-tagline {
+        font-size: 0.85rem !important;
+        padding: 0.5rem 1rem !important;
+      }
+
+      .hero-cta {
+        font-size: 0.85rem !important;
+        padding: 1rem 2rem !important;
+      }
+
+      /* ========== Mobile Message Section ========== */
+      .message-text {
+        font-size: 0.9rem !important;
+        line-height: 2 !important;
+      }
+
+      .message-title {
+        font-size: 1.35rem !important;
+      }
+
+      /* ========== Mobile Hover → Active States ========== */
+      .sub-service-card:active {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(230, 118, 53, 0.12);
+      }
+
+      .knowledge-card:active {
+        transform: translateY(-5px);
+      }
+
+      .work-card:active {
+        transform: scale(1.02);
+      }
+
+      /* Disable hover transforms on touch */
+      @media (hover: none) {
+        .sub-service-card:hover,
+        .knowledge-card:hover,
+        .work-card:hover {
+          transform: none;
+        }
+      }
+
+      /* ========== Mobile Custom Cursor - Ensure Hidden ========== */
+      .custom-cursor {
+        display: none !important;
+      }
+    }
+
+    /* ========== Touch Device Specific ========== */
+    @media (hover: none) and (pointer: coarse) {
+      .custom-cursor {
+        display: none !important;
+      }
+
+      /* Disable magnetic effects */
+      .magnetic-btn {
+        transform: none !important;
+      }
+
+      /* Split panel always show content */
+      .split-panel-content {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .split-panel-desc {
+        opacity: 0.85;
+        max-height: none;
       }
     }
 
@@ -2155,7 +2357,9 @@
     /* ========== Split Screen - Core Services ========== */
     .split-screen {
       display: flex;
-      height: 480px;
+      height: 60vh;
+      min-height: 520px;
+      max-height: 700px;
       margin-bottom: 3rem;
       overflow: hidden;
     }
@@ -2217,7 +2421,7 @@
     }
 
     .split-panel:hover .split-panel-overlay {
-      background: rgba(21, 42, 69, 0.4);
+      background: rgba(21, 42, 69, 0.6);
     }
 
     /* Text readability gradient on hover */
@@ -2304,19 +2508,18 @@
       display: inline-flex;
       align-items: center;
       gap: 0.75rem;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       color: var(--orange-light);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       letter-spacing: 0.1em;
       text-decoration: none;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s, gap 0.3s ease;
+      opacity: 0.6;
+      transform: translateY(0);
+      transition: opacity 0.4s ease, gap 0.3s ease;
     }
 
     .split-panel:hover .split-panel-link {
       opacity: 1;
-      transform: translateY(0);
     }
 
     .split-panel-link:hover {
@@ -3029,6 +3232,18 @@
   </footer>
 
   <script>
+    // ========== Mobile Detection & Performance ==========
+    const isMobile = window.innerWidth <= 900;
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    // Set --vh variable for mobile viewport height
+    function setVH() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    setVH();
+    window.addEventListener('resize', setVH);
+
     // ========== Loading Screen ==========
     window.addEventListener('load', () => {
       setTimeout(() => {
@@ -3158,34 +3373,39 @@
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // ========== Parallax Effect (Optimized) ==========
-    const parallaxElements = document.querySelectorAll('.parallax');
-    let parallaxTicking = false;
+    // ========== Parallax Effect (Optimized) - PC Only ==========
+    if (!isMobile && !isTouchDevice) {
+      const parallaxElements = document.querySelectorAll('.parallax');
+      let parallaxTicking = false;
 
-    function updateParallaxElements() {
-      const windowCenterY = window.innerHeight / 2;
-      parallaxElements.forEach(el => {
-        const speed = parseFloat(el.dataset.speed) || 0.1;
-        const rect = el.getBoundingClientRect();
-        // Only calculate if element is near viewport
-        if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
-          const centerY = rect.top + rect.height / 2;
-          const offset = (centerY - windowCenterY) * speed;
-          el.style.transform = `translate(-50%, calc(-50% + ${offset}px))`;
-        }
-      });
-      parallaxTicking = false;
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!parallaxTicking) {
-        requestAnimationFrame(updateParallaxElements);
-        parallaxTicking = true;
+      function updateParallaxElements() {
+        const windowCenterY = window.innerHeight / 2;
+        parallaxElements.forEach(el => {
+          const speed = parseFloat(el.dataset.speed) || 0.1;
+          const rect = el.getBoundingClientRect();
+          // Only calculate if element is near viewport
+          if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
+            const centerY = rect.top + rect.height / 2;
+            const offset = (centerY - windowCenterY) * speed;
+            el.style.transform = `translate(-50%, calc(-50% + ${offset}px))`;
+          }
+        });
+        parallaxTicking = false;
       }
-    }, { passive: true });
+
+      window.addEventListener('scroll', () => {
+        if (!parallaxTicking) {
+          requestAnimationFrame(updateParallaxElements);
+          parallaxTicking = true;
+        }
+      }, { passive: true });
+    }
 
     // ========== Custom Cursor (Optimized) ==========
     (function() {
+      // Skip on mobile/touch devices
+      if (isTouchDevice || isMobile) return;
+
       const cursor = document.getElementById('customCursor');
       if (!cursor) return;
 
@@ -3370,36 +3590,38 @@
       });
     });
 
-    // ========== 2. Inner Image Parallax (Optimized - uses Lenis callback) ==========
-    const parallaxImages = document.querySelectorAll('.parallax-img');
-    let imgParallaxTicking = false;
+    // ========== 2. Inner Image Parallax (Optimized) - PC Only ==========
+    if (!isMobile && !isTouchDevice) {
+      const parallaxImages = document.querySelectorAll('.parallax-img');
+      let imgParallaxTicking = false;
 
-    function updateImageParallax() {
-      const windowHeight = window.innerHeight;
-      parallaxImages.forEach(img => {
-        const wrap = img.closest('.parallax-img-wrap');
-        if (!wrap) return;
-        const rect = wrap.getBoundingClientRect();
+      function updateImageParallax() {
+        const windowHeight = window.innerHeight;
+        parallaxImages.forEach(img => {
+          const wrap = img.closest('.parallax-img-wrap');
+          if (!wrap) return;
+          const rect = wrap.getBoundingClientRect();
 
-        // 画面内に入っている時だけ計算
-        if (rect.top < windowHeight && rect.bottom > 0) {
-          const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
-          const move = -10 + (progress * 20);
-          img.style.transform = `translateY(${move}%) scale(1.1)`;
-        }
-      });
-      imgParallaxTicking = false;
-    }
-
-    // Use native scroll event for parallax
-    window.addEventListener('scroll', () => {
-      if (!imgParallaxTicking) {
-        requestAnimationFrame(updateImageParallax);
-        imgParallaxTicking = true;
+          // 画面内に入っている時だけ計算
+          if (rect.top < windowHeight && rect.bottom > 0) {
+            const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+            const move = -10 + (progress * 20);
+            img.style.transform = `translateY(${move}%) scale(1.1)`;
+          }
+        });
+        imgParallaxTicking = false;
       }
-    }, { passive: true });
-    // Initial call
-    updateImageParallax();
+
+      // Use native scroll event for parallax
+      window.addEventListener('scroll', () => {
+        if (!imgParallaxTicking) {
+          requestAnimationFrame(updateImageParallax);
+          imgParallaxTicking = true;
+        }
+      }, { passive: true });
+      // Initial call
+      updateImageParallax();
+    }
 
     // ========== 3. Dynamic Footer Height for Reveal ==========
     function setFooterHeight() {
