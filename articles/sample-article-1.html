@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ========== ↓ 記事ごとに変更 ↓ ========== -->
+  <title>採用ブランディングとは？中小企業が今すぐ始めるべき理由 | 株式会社富楽ファイン</title>
+  <meta name="description" content="採用難の時代、大手企業との待遇競争に勝つことは難しい。しかし、理念や文化を武器にした「選ばれる採用」なら、中小企業でも実現できます。">
+  <!-- ========== ↑ 記事ごとに変更 ↑ ========== -->
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  <!-- End Google Analytics 4 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange-primary: #E67635;
+      --orange-light: #F5A66A;
+      --orange-dark: #C45A1A;
+      --navy: #1e3a5f;
+      --navy-dark: #152a45;
+      --white: #ffffff;
+      --off-white: #FAF8F5;
+      --text-dark: #1a1a1a;
+      --text-body: #4a4a4a;
+      --gray-light: #f0f2f4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.8;
+    }
+
+    /* ========== Header ========== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 3rem;
+      background: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 36px;
+      width: auto;
+    }
+
+    .logo span {
+      color: var(--orange-primary);
+    }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--orange-primary);
+    }
+
+    .nav-contact {
+      background: var(--orange-primary);
+      color: var(--white) !important;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+    }
+
+    /* ========== Article Header ========== */
+    .article-header {
+      padding: 10rem 2rem 4rem;
+      background: var(--navy-dark);
+      position: relative;
+    }
+
+    .article-header-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-category {
+      background: var(--orange-primary);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.75rem;
+    }
+
+    .article-category.column {
+      background: var(--orange-primary);
+    }
+
+    .article-category.report {
+      background: var(--navy);
+    }
+
+    .article-category.news {
+      background: #2d8659;
+    }
+
+    .article-date {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .article-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.5;
+    }
+
+    /* ========== Article Thumbnail ========== */
+    .article-thumbnail {
+      max-width: 900px;
+      margin: -3rem auto 0;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .article-thumbnail img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    /* ========== Article Content ========== */
+    .article-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .article-body {
+      font-size: 1rem;
+      line-height: 2.2;
+      color: var(--text-body);
+    }
+
+    .article-body h2 {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      margin: 3rem 0 1.5rem;
+      padding-left: 1rem;
+      border-left: 4px solid var(--orange-primary);
+    }
+
+    .article-body h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 2.5rem 0 1rem;
+    }
+
+    .article-body p {
+      margin-bottom: 1.5rem;
+    }
+
+    .article-body ul,
+    .article-body ol {
+      margin: 1.5rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .article-body li {
+      margin-bottom: 0.75rem;
+    }
+
+    .article-body blockquote {
+      background: var(--off-white);
+      border-left: 4px solid var(--orange-primary);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      font-style: italic;
+    }
+
+    .article-body img {
+      width: 100%;
+      margin: 2rem 0;
+      border-radius: 4px;
+    }
+
+    .article-body a {
+      color: var(--orange-primary);
+      text-decoration: underline;
+    }
+
+    .article-body strong {
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    /* ========== CTA Box ========== */
+    .article-cta {
+      background: var(--off-white);
+      padding: 3rem;
+      margin-top: 4rem;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    .article-cta h3 {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .article-cta p {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--orange-primary);
+      color: var(--white);
+      padding: 1rem 2rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .article-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(230, 118, 53, 0.3);
+    }
+
+    /* ========== Related Articles ========== */
+    .related-articles {
+      background: var(--gray-light);
+      padding: 5rem 2rem;
+    }
+
+    .related-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .related-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .related-card {
+      background: var(--white);
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .related-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .related-card-image {
+      aspect-ratio: 16/10;
+      overflow: hidden;
+    }
+
+    .related-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .related-card-content {
+      padding: 1.25rem;
+    }
+
+    .related-card-date {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.8rem;
+      color: var(--text-body);
+    }
+
+    .related-card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-top: 0.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ========== Back to Knowledge ========== */
+    .back-link {
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .back-link a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-body);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-link a:hover {
+      color: var(--orange-primary);
+    }
+
+    /* ========== Footer ========== */
+    footer {
+      background: var(--navy-dark);
+      padding: 5rem 2rem 2rem;
+      color: var(--white);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+
+    .footer-logo {
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo img {
+      height: 36px;
+      width: auto;
+    }
+
+    .footer-logo span {
+      color: var(--orange-primary);
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 4rem;
+    }
+
+    .footer-links-group h4 {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--orange-light);
+      margin-bottom: 1rem;
+    }
+
+    .footer-links-group ul {
+      list-style: none;
+    }
+
+    .footer-links-group li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links-group a {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links-group a:hover {
+      color: var(--orange-light);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+      text-align: center;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 900px) {
+      header {
+        padding: 1rem 1.5rem;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/logo-jp.svg" alt="富楽ファイン">
+    </a>
+    <nav>
+      <a href="../index.html#philosophy">PHILOSOPHY</a>
+      <a href="../index.html#services">SERVICE</a>
+      <a href="../knowledge.html">KNOWLEDGE</a>
+      <a href="../index.html#company">COMPANY</a>
+      <a href="../index.html#contact" class="nav-contact">CONTACT</a>
+    </nav>
+  </header>
+
+  <!-- Article Header -->
+  <!-- ========== ↓ 記事ごとに変更 ↓ ========== -->
+  <section class="article-header">
+    <div class="article-header-content">
+      <div class="article-meta">
+        <span class="article-category column">COLUMN</span>
+        <time class="article-date">2025.01.15</time>
+      </div>
+      <h1 class="article-title">採用ブランディングとは？中小企業が今すぐ始めるべき理由</h1>
+    </div>
+  </section>
+
+  <!-- Article Thumbnail -->
+  <div class="article-thumbnail">
+    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" alt="採用ブランディング">
+  </div>
+  <!-- ========== ↑ 記事ごとに変更 ↑ ========== -->
+
+  <!-- Article Content -->
+  <article class="article-content">
+    <!-- ========== ↓ 記事本文 ↓ ========== -->
+    <div class="article-body">
+      <p>
+        「良い人材が採用できない」「採用してもすぐに辞めてしまう」——多くの中小企業が抱えるこの課題。その根本的な解決策として注目されているのが「採用ブランディング」です。
+      </p>
+      <p>
+        本記事では、採用ブランディングとは何か、そしてなぜ中小企業こそ今すぐ始めるべきなのかを解説します。
+      </p>
+
+      <h2>採用ブランディングとは？</h2>
+      <p>
+        採用ブランディングとは、<strong>自社の理念・文化・働く環境の魅力を言語化し、求職者に伝えること</strong>で、「この会社で働きたい」と思ってもらえる状態をつくる活動です。
+      </p>
+      <p>
+        単なる求人広告や採用サイトの制作とは異なり、「なぜこの会社が存在するのか」「どんな想いで事業をしているのか」という本質的な部分を起点にします。
+      </p>
+
+      <h2>なぜ今、採用ブランディングが必要なのか</h2>
+      
+      <h3>1. 待遇競争には限界がある</h3>
+      <p>
+        大手企業との給与・福利厚生の競争で勝つことは、中小企業にとって現実的ではありません。しかし、「理念への共感」や「働く環境の魅力」は、資本力に関係なく勝負できる領域です。
+      </p>
+
+      <h3>2. 採用のミスマッチを防げる</h3>
+      <p>
+        条件だけで入社を決めた人は、条件の良い会社が見つかれば転職してしまいます。一方、理念に共感して入社した人は、困難があっても一緒に乗り越えてくれる傾向があります。
+      </p>
+
+      <h3>3. 採用コストの削減につながる</h3>
+      <p>
+        採用ブランディングが成功すると、自社の魅力が自然と広まり、紹介会社への依存度が下がります。長期的に見れば、大きなコスト削減効果があります。
+      </p>
+
+      <blockquote>
+        採用ブランディングは、一度やれば終わりではなく、継続的に育てていくもの。だからこそ、早く始めた企業ほど大きなアドバンテージを得られます。
+      </blockquote>
+
+      <h2>採用ブランディングの始め方</h2>
+      <p>
+        採用ブランディングは、以下のステップで進めていきます。
+      </p>
+      <ol>
+        <li><strong>理念の言語化</strong>：経営者の想い、創業の原点、大切にしている価値観を明確にする</li>
+        <li><strong>現場の魅力の可視化</strong>：実際に働く社員の声、日常の風景を伝える</li>
+        <li><strong>一貫したメッセージ設計</strong>：採用LP、求人票、SNSなど、すべての発信を統一する</li>
+        <li><strong>継続的な発信</strong>：作って終わりではなく、定期的にコンテンツを更新する</li>
+      </ol>
+
+      <h2>まとめ</h2>
+      <p>
+        採用ブランディングは、採用難の時代を生き抜くための「本質的な投資」です。待遇で勝てなくても、理念と文化で選ばれる会社になることは可能です。
+      </p>
+      <p>
+        富楽ファインでは、採用ブランディングの企画から実行、継続的な改善まで、伴走型でサポートしています。「何から始めればいいかわからない」という方も、まずはお気軽にご相談ください。
+      </p>
+    </div>
+    <!-- ========== ↑ 記事本文 ↑ ========== -->
+
+    <!-- CTA Box -->
+    <div class="article-cta">
+      <h3>採用ブランディングのご相談</h3>
+      <p>理念の言語化から採用LP制作、継続的な発信まで、<br>貴社の採用を伴走支援します。</p>
+      <a href="../index.html#contact" class="article-cta-btn">
+        お問い合わせ
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </article>
+
+  <!-- Related Articles -->
+  <section class="related-articles">
+    <div class="related-container">
+      <h2 class="related-title">関連記事</h2>
+      <div class="related-grid">
+        <a href="sample-article-3.html" class="related-card">
+          <div class="related-card-image">
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80" alt="">
+          </div>
+          <div class="related-card-content">
+            <time class="related-card-date">2025.01.05</time>
+            <h3 class="related-card-title">「理念浸透」が採用成功の鍵である理由</h3>
+          </div>
+        </a>
+        <a href="sample-article-5.html" class="related-card">
+          <div class="related-card-image">
+            <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=600&q=80" alt="">
+          </div>
+          <div class="related-card-content">
+            <time class="related-card-date">2024.12.20</time>
+            <h3 class="related-card-title">採用LP制作で失敗しないための5つのポイント</h3>
+          </div>
+        </a>
+        <a href="sample-article-2.html" class="related-card">
+          <div class="related-card-image">
+            <img src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=600&q=80" alt="">
+          </div>
+          <div class="related-card-content">
+            <time class="related-card-date">2025.01.10</time>
+            <h3 class="related-card-title">【事業報告】医療法人A様の採用ブランディング支援を開始</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Knowledge -->
+  <div class="back-link">
+    <a href="../knowledge.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      ナレッジ一覧に戻る
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">
+            <img src="../assets/images/logo-jp.svg" alt="富楽ファイン">
+          </div>
+          <p class="footer-tagline">すべての人に、豊かさと楽しさを。</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-group">
+            <h4>SERVICE</h4>
+            <ul>
+              <li><a href="../recruitment.html">採用ブランディング伴走支援</a></li>
+              <li><a href="../medical.html">医療特化型採用支援</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-group">
+            <h4>COMPANY</h4>
+            <ul>
+              <li><a href="../index.html#company">会社概要</a></li>
+              <li><a href="#">プライバシーポリシー</a></li>
+              <li><a href="../index.html#contact">お問い合わせ</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Furaku Fine Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

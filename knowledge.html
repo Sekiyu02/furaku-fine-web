@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ナレッジ | 株式会社富楽ファイン</title>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  <!-- End Google Analytics 4 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange-primary: #E67635;
+      --orange-light: #F5A66A;
+      --orange-dark: #C45A1A;
+      --navy: #1e3a5f;
+      --navy-dark: #152a45;
+      --white: #ffffff;
+      --off-white: #FAF8F5;
+      --text-dark: #1a1a1a;
+      --text-body: #4a4a4a;
+      --gray-light: #f0f2f4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.8;
+    }
+
+    /* ========== Header ========== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 3rem;
+      background: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 36px;
+      width: auto;
+    }
+
+    .logo span {
+      color: var(--orange-primary);
+    }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--orange-primary);
+    }
+
+    .nav-contact {
+      background: var(--orange-primary);
+      color: var(--white) !important;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+    }
+
+    /* ========== Page Header ========== */
+    .page-header {
+      padding: 10rem 2rem 5rem;
+      background: var(--navy-dark);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: 'KNOWLEDGE';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(6rem, 15vw, 12rem);
+      color: rgba(255,255,255,0.03);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .page-header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: var(--orange-light);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .page-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ========== Filter ========== */
+    .filter-section {
+      padding: 3rem 2rem;
+      background: var(--off-white);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .filter-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.75rem 1.5rem;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.1);
+      font-size: 0.85rem;
+      color: var(--text-body);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--orange-primary);
+      border-color: var(--orange-primary);
+      color: var(--white);
+    }
+
+    /* ========== Articles Grid ========== */
+    .articles-section {
+      padding: 5rem 2rem;
+      background: var(--off-white);
+    }
+
+    .articles-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .article-card {
+      background: var(--white);
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .article-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    }
+
+    .article-card-image {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+    }
+
+    .article-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .article-card:hover .article-card-image img {
+      transform: scale(1.1);
+    }
+
+    .article-card-category {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--orange-primary);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.75rem;
+    }
+
+    .article-card-category.column {
+      background: var(--orange-primary);
+    }
+
+    .article-card-category.report {
+      background: var(--navy);
+    }
+
+    .article-card-category.news {
+      background: #2d8659;
+    }
+
+    .article-card-content {
+      padding: 1.5rem;
+    }
+
+    .article-card-date {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.85rem;
+      color: var(--text-body);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .article-card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .article-card-excerpt {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      line-height: 1.8;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ========== Pagination ========== */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 4rem;
+    }
+
+    .pagination a,
+    .pagination span {
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.1);
+      color: var(--text-body);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .pagination a:hover,
+    .pagination span.current {
+      background: var(--orange-primary);
+      border-color: var(--orange-primary);
+      color: var(--white);
+    }
+
+    /* ========== Footer ========== */
+    footer {
+      background: var(--navy-dark);
+      padding: 5rem 2rem 2rem;
+      color: var(--white);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+
+    .footer-logo {
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo img {
+      height: 36px;
+      width: auto;
+    }
+
+    .footer-logo span {
+      color: var(--orange-primary);
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 4rem;
+    }
+
+    .footer-links-group h4 {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--orange-light);
+      margin-bottom: 1rem;
+    }
+
+    .footer-links-group ul {
+      list-style: none;
+    }
+
+    .footer-links-group li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links-group a {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links-group a:hover {
+      color: var(--orange-light);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+      text-align: center;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 900px) {
+      header {
+        padding: 1rem 1.5rem;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .articles-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+    </a>
+    <nav>
+      <a href="index.html#philosophy">PHILOSOPHY</a>
+      <a href="index.html#services">SERVICE</a>
+      <a href="knowledge.html">KNOWLEDGE</a>
+      <a href="index.html#company">COMPANY</a>
+      <a href="index.html#contact" class="nav-contact">CONTACT</a>
+    </nav>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="page-header-content">
+      <span class="page-label">KNOWLEDGE</span>
+      <h1 class="page-title">ナレッジ</h1>
+      <p class="page-subtitle">採用・組織づくりに関するコラムや、弊社の取り組みをお届けします。</p>
+    </div>
+  </section>
+
+  <!-- Filter -->
+  <section class="filter-section">
+    <div class="filter-container">
+      <button class="filter-btn active" data-filter="all">ALL</button>
+      <button class="filter-btn" data-filter="column">COLUMN</button>
+      <button class="filter-btn" data-filter="report">REPORT</button>
+      <button class="filter-btn" data-filter="news">NEWS</button>
+    </div>
+  </section>
+
+  <!-- Articles Grid -->
+  <section class="articles-section">
+    <div class="articles-container">
+      <div class="articles-grid">
+        <!-- Article 1 -->
+        <a href="articles/sample-article-1.html" class="article-card" data-category="column">
+          <div class="article-card-image">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="">
+            <span class="article-card-category column">COLUMN</span>
+          </div>
+          <div class="article-card-content">
+            <time class="article-card-date">2025.01.15</time>
+            <h3 class="article-card-title">採用ブランディングとは？中小企業が今すぐ始めるべき理由</h3>
+            <p class="article-card-excerpt">採用難の時代、大手企業との待遇競争に勝つことは難しい。しかし、理念や文化を武器にした「選ばれる採用」なら...</p>
+          </div>
+        </a>
+
+        <!-- Article 2 -->
+        <a href="articles/sample-article-2.html" class="article-card" data-category="report">
+          <div class="article-card-image">
+            <img src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=800&q=80" alt="">
+            <span class="article-card-category report">REPORT</span>
+          </div>
+          <div class="article-card-content">
+            <time class="article-card-date">2025.01.10</time>
+            <h3 class="article-card-title">【事業報告】医療法人A様の採用ブランディング支援を開始しました</h3>
+            <p class="article-card-excerpt">このたび、関東エリアで複数のクリニックを展開される医療法人A様の採用ブランディング支援を開始いたしました...</p>
+          </div>
+        </a>
+
+        <!-- Article 3 -->
+        <a href="articles/sample-article-3.html" class="article-card" data-category="column">
+          <div class="article-card-image">
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80" alt="">
+            <span class="article-card-category column">COLUMN</span>
+          </div>
+          <div class="article-card-content">
+            <time class="article-card-date">2025.01.05</time>
+            <h3 class="article-card-title">「理念浸透」が採用成功の鍵である理由</h3>
+            <p class="article-card-excerpt">多くの企業が採用に苦戦する中、継続的に良い人材を採用できている企業には共通点がある。それは「理念の浸透」...</p>
+          </div>
+        </a>
+
+        <!-- Article 4 -->
+        <a href="articles/sample-article-4.html" class="article-card" data-category="news">
+          <div class="article-card-image">
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80" alt="">
+            <span class="article-card-category news">NEWS</span>
+          </div>
+          <div class="article-card-content">
+            <time class="article-card-date">2025.01.01</time>
+            <h3 class="article-card-title">新年のご挨拶｜2025年も「なんとかする力」で</h3>
+            <p class="article-card-excerpt">あけましておめでとうございます。旧年中は格別のご厚情を賜り、誠にありがとうございました。本年も変わらぬご支援...</p>
+          </div>
+        </a>
+
+        <!-- Article 5 -->
+        <a href="articles/sample-article-5.html" class="article-card" data-category="column">
+          <div class="article-card-image">
+            <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=800&q=80" alt="">
+            <span class="article-card-category column">COLUMN</span>
+          </div>
+          <div class="article-card-content">
+            <time class="article-card-date">2024.12.20</time>
+            <h3 class="article-card-title">採用LP制作で失敗しないための5つのポイント</h3>
+            <p class="article-card-excerpt">採用LPを制作したものの、応募が増えない。そんな悩みを抱える企業は少なくありません。成功する採用LPには...</p>
+          </div>
+        </a>
+
+        <!-- Article 6 -->
+        <a href="articles/sample-article-6.html" class="article-card" data-category="report">
+          <div class="article-card-image">
+            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80" alt="">
+            <span class="article-card-category report">REPORT</span>
+          </div>
+          <div class="article-card-content">
+            <time class="article-card-date">2024.12.15</time>
+            <h3 class="article-card-title">【事業報告】製造業B社様の理念浸透プログラムが完了しました</h3>
+            <p class="article-card-excerpt">約6ヶ月間にわたり支援させていただいた製造業B社様の理念浸透プログラムが無事完了いたしました。今回の...</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <span class="current">1</span>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">→</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">
+            <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+          </div>
+          <p class="footer-tagline">すべての人に、豊かさと楽しさを。</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-group">
+            <h4>SERVICE</h4>
+            <ul>
+              <li><a href="recruitment.html">採用ブランディング伴走支援</a></li>
+              <li><a href="medical.html">医療特化型採用支援</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-group">
+            <h4>COMPANY</h4>
+            <ul>
+              <li><a href="index.html#company">会社概要</a></li>
+              <li><a href="#">プライバシーポリシー</a></li>
+              <li><a href="index.html#contact">お問い合わせ</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Furaku Fine Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Category Filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const articleCards = document.querySelectorAll('.article-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+
+        // Filter articles
+        articleCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

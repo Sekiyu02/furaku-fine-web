@@ -1,0 +1,2833 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>株式会社富楽ファイン | 理念を、経営のOSへ。</title>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  <!-- End Google Analytics 4 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange-primary: #E67635;
+      --orange-light: #F5A66A;
+      --orange-dark: #C45A1A;
+      --navy: #1e3a5f;
+      --navy-dark: #152a45;
+      --white: #ffffff;
+      --off-white: #FAF8F5;
+      --text-dark: #1a1a1a;
+      --text-body: #4a4a4a;
+      --gray-light: #f0f2f4;
+    }
+
+    /* ========== Custom Cursor ========== */
+    .custom-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--orange-primary);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
+      opacity: 0;
+    }
+
+    .custom-cursor.visible {
+      opacity: 1;
+    }
+
+    .custom-cursor.hover {
+      width: 50px;
+      height: 50px;
+      background: rgba(230, 118, 53, 0.2);
+      border-color: var(--orange-light);
+    }
+
+    .custom-cursor.clicking {
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    /* Hide on touch devices */
+    @media (hover: none) and (pointer: coarse) {
+      .custom-cursor {
+        display: none !important;
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    /* ========== Loading Screen ========== */
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--navy-dark);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-logo {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--white);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: loadingFadeUp 1s ease 0.3s forwards;
+    }
+
+    .loading-logo span {
+      color: var(--orange-primary);
+    }
+
+    .loading-tagline {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: loadingFadeUp 1s ease 0.6s forwards;
+      letter-spacing: 0.2em;
+    }
+
+    .loading-bar {
+      width: 200px;
+      height: 2px;
+      background: rgba(255,255,255,0.2);
+      margin-top: 3rem;
+      overflow: hidden;
+      opacity: 0;
+      animation: loadingFadeUp 1s ease 0.9s forwards;
+    }
+
+    .loading-bar-inner {
+      height: 100%;
+      background: var(--orange-primary);
+      width: 0;
+      animation: loadingProgress 2s ease 1s forwards;
+    }
+
+    @keyframes loadingFadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes loadingProgress {
+      to { width: 100%; }
+    }
+
+    /* ========== Header ========== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s ease, padding 0.4s ease;
+    }
+
+    header.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 3rem;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      z-index: 1001;
+    }
+
+    .logo img {
+      height: 36px;
+      width: auto;
+      transition: filter 0.4s ease;
+    }
+
+    header.scrolled .logo img {
+      /* スクロール時も同じロゴを使用（グラデーションロゴのため） */
+    }
+
+    .logo span {
+      color: var(--orange-primary);
+    }
+
+    /* Menu Button */
+    .menu-btn {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 1001;
+      background: none;
+      border: none;
+    }
+
+    .menu-btn-line {
+      width: 28px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled .menu-btn-line {
+      background: var(--text-dark);
+    }
+
+    .menu-btn.active .menu-btn-line {
+      background: var(--white);
+    }
+
+    .menu-btn.active .menu-btn-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+
+    .menu-btn.active .menu-btn-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-btn.active .menu-btn-line:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    /* ========== Fullscreen Menu ========== */
+    .fullscreen-menu {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, #0d1f33 50%, var(--navy-dark) 100%);
+      z-index: 999;
+      display: flex;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .fullscreen-menu::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E67635' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .fullscreen-menu::after {
+      content: 'MENU';
+      position: absolute;
+      bottom: 10%;
+      left: -5%;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(8rem, 20vw, 18rem);
+      color: rgba(230, 118, 53, 0.03);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      pointer-events: none;
+    }
+
+    .fullscreen-menu.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .menu-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 4rem 4rem 6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-nav {
+      list-style: none;
+    }
+
+    .menu-nav li {
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+    }
+
+    .menu-nav a {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      color: var(--white);
+      text-decoration: none;
+      padding: 1rem 0;
+      transform: translateY(100%);
+      transition: transform 0.5s ease, color 0.3s ease, padding-left 0.3s ease;
+      position: relative;
+    }
+
+    .menu-nav a::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--orange-primary), transparent);
+      transition: width 0.4s ease;
+    }
+
+    .menu-nav a:hover::before {
+      width: 100%;
+    }
+
+    .menu-nav a:hover {
+      color: var(--orange-primary);
+      padding-left: 0.5rem;
+    }
+
+    .fullscreen-menu.active .menu-nav a {
+      transform: translateY(0);
+    }
+
+    .menu-nav li:nth-child(1) a { transition-delay: 0.1s; }
+    .menu-nav li:nth-child(2) a { transition-delay: 0.15s; }
+    .menu-nav li:nth-child(3) a { transition-delay: 0.2s; }
+    .menu-nav li:nth-child(4) a { transition-delay: 0.25s; }
+    .menu-nav li:nth-child(5) a { transition-delay: 0.3s; }
+    .menu-nav li:nth-child(6) a { transition-delay: 0.35s; }
+    .menu-nav li:nth-child(7) a { transition-delay: 0.4s; }
+
+    .menu-nav-number {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.75rem;
+      color: var(--orange-primary);
+      letter-spacing: 0.2em;
+      min-width: 70px;
+      padding: 0.4rem 0.75rem;
+      border: 1px solid rgba(230, 118, 53, 0.3);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .menu-nav a:hover .menu-nav-number {
+      background: var(--orange-primary);
+      color: var(--white);
+      border-color: var(--orange-primary);
+    }
+
+    .menu-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-visual {
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: 4/5;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: scale(1.05) translateY(20px);
+      transition: opacity 1.5s ease 0.3s, transform 1.5s ease 0.3s;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 12px 24px -8px rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+    }
+
+    /* Elegant gold border frame */
+    .menu-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(230, 118, 53, 0.5);
+      border-radius: 8px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* Inner glow border */
+    .menu-visual::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(230, 118, 53, 0.2);
+      border-radius: 6px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* Corner frame decorations */
+    .menu-visual-frame-tl,
+    .menu-visual-frame-br {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.7s ease 0.5s;
+    }
+
+    .menu-visual-frame-tl {
+      top: -16px;
+      left: -16px;
+      border-top: 1px solid rgba(230, 118, 53, 0.6);
+      border-left: 1px solid rgba(230, 118, 53, 0.6);
+    }
+
+    .menu-visual-frame-br {
+      bottom: -16px;
+      right: -16px;
+      border-bottom: 1px solid rgba(230, 118, 53, 0.6);
+      border-right: 1px solid rgba(230, 118, 53, 0.6);
+    }
+
+    .fullscreen-menu.active .menu-visual-frame-tl,
+    .fullscreen-menu.active .menu-visual-frame-br {
+      opacity: 1;
+    }
+
+    .fullscreen-menu.active .menu-visual {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .menu-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+      /* Cinematic color grading */
+      filter: sepia(0.15) brightness(0.85) contrast(1.1) saturate(0.8);
+    }
+
+    /* Warm gold overlay */
+    .menu-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(230, 118, 53, 0.1) 0%, transparent 50%, rgba(196, 90, 26, 0.15) 100%);
+      z-index: 2;
+      pointer-events: none;
+      border-radius: 8px;
+    }
+
+    /* Vignette effect */
+    .menu-visual-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.5) 100%);
+      z-index: 3;
+      pointer-events: none;
+      border-radius: 8px;
+    }
+
+    .menu-visual:hover img {
+      transform: scale(1.05);
+    }
+
+    .menu-contact {
+      position: absolute;
+      bottom: 4rem;
+      right: 4rem;
+      z-index: 2;
+    }
+
+    .menu-contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-dark) 100%);
+      color: var(--white);
+      padding: 1.25rem 2.5rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-contact a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .menu-contact a:hover::before {
+      left: 100%;
+    }
+
+    .menu-contact a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(230, 118, 53, 0.5);
+    }
+
+    /* ========== Hero Section ========== */
+    .hero {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(21, 42, 69, 0.85) 0%, rgba(30, 58, 95, 0.75) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--white);
+      padding: 0 2rem;
+    }
+
+    .hero-label {
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      color: var(--orange-light);
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .hero-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .hero-title .line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero-title .line span {
+      display: block;
+      transform: translateY(100%);
+      padding-left: 0.5em;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      line-height: 2;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--orange-primary);
+      color: var(--white);
+      padding: 1.25rem 3rem;
+      font-size: 1rem;
+      text-decoration: none;
+      border-radius: 4px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(230, 118, 53, 0.4);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      opacity: 0;
+    }
+
+    .hero-scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--orange-primary), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.5); opacity: 0.5; }
+    }
+
+    /* ========== Marquee ========== */
+    .marquee {
+      background: var(--orange-primary);
+      padding: 1rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: flex;
+      animation: marqueeScroll 30s linear infinite;
+    }
+
+    .marquee-content {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      padding-right: 3rem;
+    }
+
+    .marquee-item {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.25rem;
+      color: var(--white);
+      letter-spacing: 0.1em;
+    }
+
+    .marquee-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--white);
+      border-radius: 50%;
+      opacity: 0.6;
+    }
+
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ========== Philosophy Section ========== */
+    .philosophy {
+      padding: 12rem 2rem;
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .philosophy-bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(8rem, 20vw, 20rem);
+      color: rgba(230, 118, 53, 0.03);
+      white-space: nowrap;
+      pointer-events: none;
+      font-weight: 300;
+    }
+
+    .philosophy-content {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: var(--orange-primary);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .philosophy-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 3rem;
+    }
+
+    .philosophy-title .highlight {
+      color: var(--orange-primary);
+    }
+
+    .philosophy-text {
+      font-size: 1rem;
+      line-height: 2.4;
+      color: var(--text-body);
+    }
+
+    /* ========== Services Section ========== */
+    .services {
+      padding: 8rem 2rem;
+      background: var(--navy-dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .services-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .services-header .section-label {
+      color: var(--orange-light);
+    }
+
+    .services-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--white);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .services-subtitle {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Core Services */
+    .core-services-label {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .core-services-label span {
+      display: inline-block;
+      background: var(--orange-primary);
+      color: var(--white);
+      padding: 0.5rem 1.5rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      font-weight: 500;
+    }
+
+    .core-services {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .core-service-card {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,255,255,0.15);
+      padding: 3rem;
+      text-decoration: none;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .core-service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--orange-primary);
+    }
+
+    .core-service-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(230, 118, 53, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .core-service-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--orange-primary);
+    }
+
+    .core-service-card:hover::after {
+      opacity: 1;
+    }
+
+    .core-service-logo {
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .core-service-logo img {
+      height: 36px;
+      width: auto;
+    }
+
+    .core-service-card h3 {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.75rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .core-service-tagline {
+      font-size: 0.9rem;
+      color: var(--orange-light);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+    }
+
+    .core-service-card p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.9;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .core-service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--orange-light);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .core-service-link svg {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .core-service-card:hover .core-service-link svg {
+      transform: translateX(5px);
+    }
+
+    /* Sub Services */
+    .sub-services-label {
+      text-align: center;
+      margin-bottom: 2rem;
+      margin-top: 2rem;
+    }
+
+    .sub-services-label span {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.15em;
+    }
+
+    .sub-services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .sub-service-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 2rem;
+      text-decoration: none;
+      color: var(--white);
+      transition: all 0.3s ease;
+    }
+
+    .sub-service-card:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-5px);
+    }
+
+    .sub-service-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--orange-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .sub-service-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--white);
+    }
+
+    .sub-service-card h4 {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .sub-service-card p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+    }
+
+    .sub-service-status {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: var(--orange-light);
+      letter-spacing: 0.1em;
+    }
+
+    /* ========== CEO Message Section ========== */
+    .message {
+      padding: 12rem 2rem;
+      background: var(--off-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .message-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .message-visual {
+      position: relative;
+    }
+
+    .message-image {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .message-image::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      right: 20px;
+      bottom: 20px;
+      border: 2px solid var(--orange-primary);
+      z-index: -1;
+    }
+
+    .message-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 2rem;
+      color: var(--white);
+      text-align: center;
+    }
+
+    .message-name {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .message-name-en {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.85rem;
+      color: var(--orange-light);
+      letter-spacing: 0.1em;
+    }
+
+    .message-role {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 0.5rem;
+    }
+
+    .message-content h2 {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .message-content h2 .highlight {
+      color: var(--orange-primary);
+    }
+
+    .message-text {
+      font-size: 1rem;
+      line-height: 2.4;
+      color: var(--text-body);
+    }
+
+    .message-text p {
+      margin-bottom: 1.5rem;
+    }
+
+    /* ========== Team Section ========== */
+    .team {
+      padding: 10rem 2rem;
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-bg-text {
+      position: absolute;
+      top: 50%;
+      right: -10%;
+      transform: translateY(-50%);
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(8rem, 18vw, 16rem);
+      color: rgba(230, 118, 53, 0.03);
+      white-space: nowrap;
+      pointer-events: none;
+      font-weight: 300;
+    }
+
+    .team-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .team-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .team-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .team-subtitle {
+      font-size: 1rem;
+      color: var(--text-body);
+      line-height: 2;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4rem 5rem;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .team-member {
+      position: relative;
+    }
+
+    .team-member-images {
+      margin-bottom: 1.5rem;
+    }
+
+    .team-member-main {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      position: relative;
+      border-radius: 4px;
+    }
+
+    .team-member-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .team-member:hover .team-member-main img {
+      transform: scale(1.05);
+    }
+
+    .team-member-main::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(21, 42, 69, 0.3), transparent 50%);
+    }
+
+    .team-member-sub {
+      aspect-ratio: 1;
+      overflow: hidden;
+      align-self: end;
+    }
+
+    .team-member-sub img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: filter 0.4s ease, transform 0.4s ease;
+    }
+
+    .team-member:hover .team-member-sub img {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    .team-member-info {
+      padding: 0 0.5rem;
+    }
+
+    .team-member-name {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .team-member-name-ja {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+
+    .team-member-name-en {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1rem;
+      color: var(--orange-primary);
+      letter-spacing: 0.1em;
+    }
+
+    .team-member-role {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .team-member-bio {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 2;
+    }
+
+    /* ========== Knowledge Section ========== */
+    .knowledge {
+      padding: 10rem 2rem;
+      background: var(--off-white);
+    }
+
+    .knowledge-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .knowledge-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .knowledge-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .knowledge-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.8;
+    }
+
+    .knowledge-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--orange-primary);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: gap 0.3s ease;
+    }
+
+    .knowledge-more:hover {
+      gap: 1rem;
+    }
+
+    .knowledge-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .knowledge-card {
+      background: var(--white);
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .knowledge-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    }
+
+    .knowledge-card-image {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+    }
+
+    .knowledge-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .knowledge-card:hover .knowledge-card-image img {
+      transform: scale(1.1);
+    }
+
+    .knowledge-card-category {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--orange-primary);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.75rem;
+    }
+
+    .knowledge-card-content {
+      padding: 1.5rem;
+    }
+
+    .knowledge-card-date {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.85rem;
+      color: var(--text-body);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .knowledge-card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .knowledge-card-excerpt {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      line-height: 1.8;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ========== Company Section ========== */
+    .company {
+      padding: 10rem 2rem;
+      background: var(--navy-dark);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .company-bg-text {
+      position: absolute;
+      bottom: -5%;
+      right: -5%;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(10rem, 25vw, 25rem);
+      color: rgba(255,255,255,0.02);
+      white-space: nowrap;
+      pointer-events: none;
+      font-weight: 300;
+    }
+
+    .company-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .company-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .company-header .section-label {
+      color: var(--orange-light);
+    }
+
+    .company-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 500;
+    }
+
+    .company-table {
+      width: 100%;
+    }
+
+    .company-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 1.5rem 0;
+    }
+
+    .company-row dt {
+      color: var(--orange-light);
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+
+    .company-row dd {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95rem;
+    }
+
+    /* ========== Contact CTA Section ========== */
+    .contact-cta {
+      padding: 10rem 2rem;
+      background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-dark) 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .contact-cta-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .contact-cta h2 {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--white);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-cta p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 3rem;
+      line-height: 2;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--white);
+      color: var(--orange-primary);
+      padding: 1.25rem 3rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    /* ========== Footer ========== */
+    footer {
+      background: var(--navy-dark);
+      padding: 5rem 2rem 2rem;
+      color: var(--white);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+
+    .footer-logo {
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .footer-logo span {
+      color: var(--orange-primary);
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 4rem;
+    }
+
+    .footer-links-group h4 {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--orange-light);
+      margin-bottom: 1rem;
+    }
+
+    .footer-links-group ul {
+      list-style: none;
+    }
+
+    .footer-links-group li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links-group a {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links-group a:hover {
+      color: var(--orange-light);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ========== Scroll Animations ========== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .parallax {
+      transition: transform 0.1s ease-out;
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 1024px) {
+      .core-services {
+        grid-template-columns: 1fr;
+      }
+
+      .sub-services {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+        gap: 5rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      header {
+        padding: 1rem 1.5rem;
+      }
+
+      .menu-left {
+        padding: 6rem 2rem 2rem;
+      }
+
+      .menu-right {
+        display: none;
+      }
+
+      .menu-contact {
+        bottom: 2rem;
+        right: 2rem;
+      }
+
+      .message-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .message-image {
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      .knowledge-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sub-services {
+        grid-template-columns: 1fr;
+      }
+
+      .team-member-images {
+        grid-template-columns: 1fr 0.8fr;
+      }
+
+      .company-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      .footer-top {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      /* Split Screen - Mobile */
+      .split-screen {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .split-panel {
+        flex: none !important;
+        height: 500px;
+      }
+
+      .split-panel:hover {
+        flex: none !important;
+      }
+    }
+
+    /* ========== Film Grain Overlay ========== */
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9990;
+      opacity: 0.04;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px 200px;
+    }
+
+    /* Grain animation for subtle movement */
+    @keyframes grainShift {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(-1%, -1%); }
+      20% { transform: translate(1%, 1%); }
+      30% { transform: translate(-1%, 1%); }
+      40% { transform: translate(1%, -1%); }
+      50% { transform: translate(-1%, 0%); }
+      60% { transform: translate(1%, 0%); }
+      70% { transform: translate(0%, 1%); }
+      80% { transform: translate(0%, -1%); }
+      90% { transform: translate(1%, 1%); }
+    }
+
+    .grain-overlay::before {
+      content: '';
+      position: absolute;
+      inset: -10%;
+      background: inherit;
+      animation: grainShift 8s steps(10) infinite;
+    }
+
+    /* ========== Split Screen - Core Services ========== */
+    .split-screen {
+      display: flex;
+      height: 80vh;
+      min-height: 600px;
+      max-height: 900px;
+      margin-bottom: 4rem;
+      overflow: hidden;
+    }
+
+    .split-panel {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .split-panel:hover {
+      flex: 1.8;
+    }
+
+    .split-panel-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .split-panel:hover .split-panel-bg {
+      transform: scale(1.1);
+    }
+
+    .split-panel-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(21, 42, 69, 0.85) 0%, rgba(30, 58, 95, 0.7) 100%);
+      transition: background 0.4s ease;
+    }
+
+    .split-panel:hover .split-panel-overlay {
+      background: linear-gradient(135deg, rgba(21, 42, 69, 0.75) 0%, rgba(30, 58, 95, 0.6) 100%);
+    }
+
+    .split-panel-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem 4rem;
+      color: var(--white);
+    }
+
+    .split-panel-logo {
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .split-panel-logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .split-panel-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 500;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .split-panel-tagline {
+      font-size: 1rem;
+      color: var(--orange-light);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+    }
+
+    .split-panel:hover .split-panel-tagline {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .split-panel-desc {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.9;
+      max-width: 400px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+    }
+
+    .split-panel:hover .split-panel-desc {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .split-panel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 2rem;
+      color: var(--orange-light);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s, gap 0.3s ease;
+    }
+
+    .split-panel:hover .split-panel-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .split-panel-link:hover {
+      gap: 1rem;
+    }
+
+    .split-panel-link svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .split-divider {
+      width: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      z-index: 3;
+    }
+
+    /* ========== Text Stagger Animation ========== */
+    .stagger-text .char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(30px) rotateX(-20deg);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .stagger-text.visible .char {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+    }
+
+    .stagger-text .char.space {
+      width: 0.3em;
+    }
+
+    /* Preserve line breaks in stagger text */
+    .stagger-text br {
+      display: block;
+    }
+
+    /* ========== 1. Magnetic Effect ========== */
+    .magnetic-wrap {
+      display: inline-block;
+      position: relative;
+      z-index: 10;
+    }
+    .magnetic-area {
+      display: inline-flex;
+      align-items: center;
+      transition: transform 0.15s ease-out;
+      will-change: transform;
+    }
+
+    /* ========== 2. Inner Parallax ========== */
+    .parallax-img-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .parallax-img {
+      will-change: transform;
+      height: 120% !important;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      transform: translateY(-10%);
+      transition: transform 0.1s linear;
+    }
+
+    /* ========== 3. Sticky Footer Reveal ========== */
+    #mainContent {
+      position: relative;
+      z-index: 2;
+      background: var(--white);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.3);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+    }
+
+    /* Mobile: Disable sticky footer */
+    @media (max-width: 900px) {
+      #mainContent {
+        margin-bottom: 0 !important;
+        box-shadow: none;
+      }
+      footer {
+        position: relative;
+        z-index: 2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Film Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor"></div>
+
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading">
+    <div class="loading-logo">
+      <img src="assets/images/logo-jp.svg" alt="富楽ファイン" style="height: 60px; width: auto;">
+    </div>
+    <div class="loading-tagline">理念を、経営のOSへ。</div>
+    <div class="loading-bar">
+      <div class="loading-bar-inner"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="header">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="メニュー">
+      <span class="menu-btn-line"></span>
+      <span class="menu-btn-line"></span>
+      <span class="menu-btn-line"></span>
+    </button>
+  </header>
+
+  <!-- Fullscreen Menu -->
+  <div class="fullscreen-menu" id="fullscreenMenu">
+    <div class="menu-left">
+      <ul class="menu-nav">
+        <li><a href="#philosophy"><span class="menu-nav-number">01</span>理念</a></li>
+        <li><a href="#services"><span class="menu-nav-number">02</span>サービス</a></li>
+        <li><a href="#message"><span class="menu-nav-number">03</span>代表メッセージ</a></li>
+        <li><a href="#team"><span class="menu-nav-number">04</span>チーム</a></li>
+        <li><a href="knowledge.html"><span class="menu-nav-number">05</span>ナレッジ</a></li>
+        <li><a href="#company"><span class="menu-nav-number">06</span>会社概要</a></li>
+        <li><a href="mailto:info@furakufine.com"><span class="menu-nav-number">CONTACT</span>お問い合わせ</a></li>
+      </ul>
+    </div>
+    <div class="menu-right">
+      <div class="menu-visual-frame-tl"></div>
+      <div class="menu-visual-frame-br"></div>
+      <div class="menu-visual">
+        <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=800&q=80" alt="">
+        <div class="menu-visual-overlay"></div>
+        <div class="menu-visual-vignette"></div>
+      </div>
+      <div class="menu-contact">
+        <a href="mailto:info@furakufine.com">
+          無料相談する
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content (for Sticky Footer effect) -->
+  <main id="mainContent">
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-slide active">
+        <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=1600&q=80" alt="">
+      </div>
+      <div class="hero-slide">
+        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=80" alt="">
+      </div>
+      <div class="hero-slide">
+        <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=1600&q=80" alt="">
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-label">RECRUITMENT BRANDING & CONSULTING</p>
+      <h1 class="hero-title">
+        <span class="line"><span>すべての人に、</span></span>
+        <span class="line"><span>豊かさと楽しさを。</span></span>
+      </h1>
+      <p class="hero-subtitle">
+        理念を土台に、人が集まり続ける組織をつくる。<br>
+        採用ブランディング×組織開発の伴走支援。
+      </p>
+      <div class="magnetic-wrap">
+        <a href="#services" class="hero-cta magnetic-area">
+          サービスを見る
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>SCROLL</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span class="marquee-item">Recruitment Branding</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Philosophy Driven</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Organization Development</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Medical Recruitment</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">理念を、経営のOSへ。</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">富楽ファイン</span>
+        <span class="marquee-dot"></span>
+      </div>
+      <div class="marquee-content">
+        <span class="marquee-item">Recruitment Branding</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Philosophy Driven</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Organization Development</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Medical Recruitment</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">理念を、経営のOSへ。</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">富楽ファイン</span>
+        <span class="marquee-dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Philosophy Section -->
+  <section class="philosophy" id="philosophy">
+    <div class="philosophy-bg-text parallax" data-speed="0.05">PHILOSOPHY</div>
+    <div class="philosophy-content">
+      <span class="section-label stagger-text reveal">PHILOSOPHY</span>
+      <h2 class="philosophy-title stagger-text reveal" data-stagger-keep-html="true">
+        「<span class="highlight">富</span>」は、豊かさを。<br>
+        「<span class="highlight">楽</span>」は、楽しさを。<br>
+        「<span class="highlight">ファイン</span>」は、なんとかする力を。
+      </h2>
+      <p class="philosophy-text reveal">
+        採用の「入口」だけでなく、理念浸透による「土台づくり」からワンストップで支援。<br>
+        人が集まり、定着し、活躍し続ける組織をつくります。<br><br>
+        私たちは、採用を「欠員補充」ではなく「組織の未来をつくる戦略活動」と捉え、<br>
+        経営者の想いを言語化し、共感で人が集まる仕組みを構築します。
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="services-container">
+      <div class="services-header reveal">
+        <span class="section-label stagger-text">SERVICE</span>
+        <h2 class="services-title stagger-text">私たちの事業</h2>
+        <p class="services-subtitle">採用・組織づくりを、理念からワンストップで支援します。</p>
+      </div>
+
+      <!-- Core Services - Split Screen -->
+      <div class="core-services-label reveal">
+        <span>中核サービス / CORE SERVICE</span>
+      </div>
+      <div class="split-screen reveal">
+        <!-- Left Panel - Recruitment Branding -->
+        <a href="recruitment.html" class="split-panel">
+          <div class="split-panel-bg" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80');"></div>
+          <div class="split-panel-overlay"></div>
+          <div class="split-panel-content">
+            <div class="split-panel-logo">
+              <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+            </div>
+            <h3 class="split-panel-title">採用ブランディング<br>伴走支援</h3>
+            <p class="split-panel-tagline">「理念を、経営のOSへ。」</p>
+            <p class="split-panel-desc">理念浸透から共感採用まで、制作ではなく運用伴走で人が集まり続ける仕組みをつくります。経営者の想いを言語化し、採用マーケティングまでワンストップで支援。</p>
+            <span class="split-panel-link">
+              詳しく見る
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Divider -->
+        <div class="split-divider"></div>
+
+        <!-- Right Panel - Medical -->
+        <a href="medical.html" class="split-panel">
+          <div class="split-panel-bg" style="background-image: url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=1600&q=80');"></div>
+          <div class="split-panel-overlay"></div>
+          <div class="split-panel-content">
+            <div class="split-panel-logo">
+              <img src="assets/images/logo-medical.svg" alt="富楽メディカル">
+            </div>
+            <h3 class="split-panel-title">医療特化型<br>採用支援</h3>
+            <p class="split-panel-tagline">「医療の採用に、対症療法ではなく体質改善を。」</p>
+            <p class="split-panel-desc">院長の想いを軸にした「選ばれる医療機関」をつくります。1年間の伴走支援で、採用の「体質改善」を実現。</p>
+            <span class="split-panel-link">
+              詳しく見る
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Sub Services -->
+      <div class="sub-services-label reveal">
+        <span>関連サービス / RELATED SERVICE</span>
+      </div>
+      <div class="sub-services">
+        <div class="sub-service-card reveal">
+          <div class="sub-service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="23 7 16 12 23 17 23 7"></polygon>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+            </svg>
+          </div>
+          <h4>採用ブランディング<br>映像制作</h4>
+          <p>経営者の想いと現場の空気を可視化。理念に共感する人材へ届ける採用映像を制作します。</p>
+          <span class="sub-service-status">Coming soon</span>
+        </div>
+
+        <div class="sub-service-card reveal">
+          <div class="sub-service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h4>採用特化<br>LP制作</h4>
+          <p>理念→仕事→人→期待値まで、共感を生む情報設計で採用に特化したLPを制作します。</p>
+          <span class="sub-service-status">Coming soon</span>
+        </div>
+
+        <div class="sub-service-card reveal">
+          <div class="sub-service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h4>採用SNS<br>イベント等総合支援</h4>
+          <p>Instagram・TikTok・X等のSNS運用から、採用イベント企画まで総合的に支援します。</p>
+          <span class="sub-service-status">Coming soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CEO Message Section -->
+  <section class="message" id="message">
+    <div class="message-container">
+      <div class="message-visual reveal-left">
+        <div class="message-image">
+          <div class="message-image-placeholder">
+            <div>
+              <p class="message-name">冨山 大貴</p>
+              <p class="message-name-en">Tomiyama Daiki</p>
+              <p class="message-role">代表取締役</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="message-content reveal-right">
+        <span class="section-label">MESSAGE</span>
+        <h2>
+          組織は「<span class="highlight">人</span>」でできている。<br>
+          だからこそ、人の課題に向き合う。
+        </h2>
+        <div class="message-text">
+          <p>
+            私は過去に、組織の崩壊を経験しました。
+            事業は順調でも、人が離れ、チームが壊れていく。
+            その原因の多くは「人」に関する課題でした。
+          </p>
+          <p>
+            採用がうまくいかない。定着しない。理念が浸透しない。
+            これらは表面的な問題ではなく、組織の土台の問題です。
+          </p>
+          <p>
+            私たちは「なんとかする力」で、経営者の皆さまと一緒に考え、
+            一緒に悩み、一緒に前に進んでいきます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team" id="team">
+    <div class="team-bg-text">TEAM</div>
+    <div class="team-container">
+      <div class="team-header reveal">
+        <span class="section-label stagger-text">TEAM</span>
+        <h2 class="team-title stagger-text">私たちについて</h2>
+        <p class="team-subtitle">採用と組織の課題に、真摯に向き合うメンバーです。</p>
+      </div>
+
+      <div class="team-grid">
+        <!-- Member 1: Daiki -->
+        <div class="team-member reveal">
+          <div class="team-member-images">
+            <div class="team-member-main">
+              <img src="assets/images/ceo-photo.jpg" alt="冨山 大貴">
+            </div>
+          </div>
+          <div class="team-member-info">
+            <div class="team-member-name">
+              <span class="team-member-name-ja">冨山 大貴</span>
+              <span class="team-member-name-en">Daiki Tomiyama</span>
+            </div>
+            <p class="team-member-role">代表取締役 / CEO</p>
+            <p class="team-member-bio">
+              組織崩壊の経験から「人」の課題に向き合うことを決意。経営者の想いを言語化し、理念を軸にした採用ブランディングで、人が集まり続ける組織づくりを支援。「なんとかする力」をモットーに、クライアントと共に考え、共に歩む伴走支援を行う。
+            </p>
+          </div>
+        </div>
+
+        <!-- Member 2: Yuna -->
+        <div class="team-member reveal">
+          <div class="team-member-images">
+            <div class="team-member-main">
+              <img src="assets/images/yuna-photo.jpg" alt="友菜">
+            </div>
+          </div>
+          <div class="team-member-info">
+            <div class="team-member-name">
+              <span class="team-member-name-ja">友菜</span>
+              <span class="team-member-name-en">Yuna</span>
+            </div>
+            <p class="team-member-role">ディレクター / Director</p>
+            <p class="team-member-bio">
+              採用コンテンツの企画・制作からSNS運用まで幅広く担当。クライアントの想いを丁寧にヒアリングし、言葉とビジュアルで「らしさ」を形にすることが得意。求職者と企業の「出会い」をつくるクリエイティブで、採用成功をサポートする。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Knowledge Section -->
+  <section class="knowledge" id="knowledge">
+    <div class="knowledge-container">
+      <div class="knowledge-header">
+        <div class="knowledge-header-left reveal">
+          <span class="section-label">KNOWLEDGE</span>
+          <h2 class="knowledge-title">ナレッジ</h2>
+          <p class="knowledge-subtitle">採用・組織づくりに関するコラムや、<br>弊社の取り組みをお届けします。</p>
+        </div>
+        <a href="knowledge.html" class="knowledge-more reveal">
+          View all
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="knowledge-grid">
+        <a href="articles/sample-article-1.html" class="knowledge-card reveal">
+          <div class="knowledge-card-image parallax-img-wrap">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="" class="parallax-img">
+            <span class="knowledge-card-category">COLUMN</span>
+          </div>
+          <div class="knowledge-card-content">
+            <time class="knowledge-card-date">2025.01.15</time>
+            <h3 class="knowledge-card-title">採用ブランディングとは？中小企業が今すぐ始めるべき理由</h3>
+            <p class="knowledge-card-excerpt">採用難の時代、大手企業との待遇競争に勝つことは難しい。しかし、理念や文化を武器にした「選ばれる採用」なら...</p>
+          </div>
+        </a>
+
+        <a href="articles/sample-article-2.html" class="knowledge-card reveal">
+          <div class="knowledge-card-image parallax-img-wrap">
+            <img src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=800&q=80" alt="" class="parallax-img">
+            <span class="knowledge-card-category">REPORT</span>
+          </div>
+          <div class="knowledge-card-content">
+            <time class="knowledge-card-date">2025.01.10</time>
+            <h3 class="knowledge-card-title">【事業報告】医療法人A様の採用ブランディング支援を開始しました</h3>
+            <p class="knowledge-card-excerpt">このたび、関東エリアで複数のクリニックを展開される医療法人A様の採用ブランディング支援を開始いたしました...</p>
+          </div>
+        </a>
+
+        <a href="articles/sample-article-3.html" class="knowledge-card reveal">
+          <div class="knowledge-card-image parallax-img-wrap">
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80" alt="" class="parallax-img">
+            <span class="knowledge-card-category">COLUMN</span>
+          </div>
+          <div class="knowledge-card-content">
+            <time class="knowledge-card-date">2025.01.05</time>
+            <h3 class="knowledge-card-title">「理念浸透」が採用成功の鍵である理由</h3>
+            <p class="knowledge-card-excerpt">多くの企業が採用に苦戦する中、継続的に良い人材を採用できている企業には共通点がある。それは「理念の浸透」...</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Section -->
+  <section class="company" id="company">
+    <div class="company-bg-text parallax" data-speed="-0.03">COMPANY</div>
+    <div class="company-container">
+      <div class="company-header reveal">
+        <span class="section-label">COMPANY</span>
+        <h2 class="company-title">会社概要</h2>
+      </div>
+      <dl class="company-table">
+        <div class="company-row reveal">
+          <dt>会社名</dt>
+          <dd>株式会社富楽ファイン</dd>
+        </div>
+        <div class="company-row reveal">
+          <dt>代表取締役</dt>
+          <dd>冨山 大貴</dd>
+        </div>
+        <div class="company-row reveal">
+          <dt>設立</dt>
+          <dd>2024年5月15日</dd>
+        </div>
+        <div class="company-row reveal">
+          <dt>所在地</dt>
+          <dd>
+            <strong>東金事業所</strong><br>
+            〒283-0006 千葉県東金市東新宿12-5 富楽ビル301<br><br>
+            <strong>千葉事業所</strong><br>
+            〒264-0026 千葉県千葉市若葉区西都賀3丁目
+          </dd>
+        </div>
+        <div class="company-row reveal">
+          <dt>事業内容</dt>
+          <dd>採用ブランディング／採用マーケティング支援（伴走型）<br>組織開発・インナーブランディング（理念浸透）支援</dd>
+        </div>
+        <div class="company-row reveal">
+          <dt>Email</dt>
+          <dd><a href="mailto:info@furakufine.com">info@furakufine.com</a></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Contact CTA Section -->
+  <section class="contact-cta" id="contact">
+    <div class="contact-cta-content reveal">
+      <h2>まずは、お話を聞かせてください。</h2>
+      <p>
+        採用や組織に関するお悩み、理念の言語化、<br>
+        何から始めればいいかわからない方も、お気軽にご相談ください。
+      </p>
+      <div class="magnetic-wrap">
+        <a href="mailto:info@furakufine.com" class="contact-btn magnetic-area">
+          お問い合わせ
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  </main>
+  <!-- End Main Content -->
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">
+            <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+          </div>
+          <p class="footer-tagline">すべての人に、豊かさと楽しさを。</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-group">
+            <h4>SERVICE</h4>
+            <ul>
+              <li><a href="recruitment.html">採用ブランディング伴走支援</a></li>
+              <li><a href="medical.html">医療特化型採用支援</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-group">
+            <h4>COMPANY</h4>
+            <ul>
+              <li><a href="#team">私たちについて</a></li>
+              <li><a href="#company">会社概要</a></li>
+              <li><a href="knowledge.html">ナレッジ</a></li>
+              <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Furaku Fine Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ========== Loading Screen ==========
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+        startHeroAnimations();
+      }, 3000);
+    });
+
+    // フォールバック：5秒後に強制的にローディングを非表示
+    setTimeout(() => {
+      const loading = document.getElementById('loading');
+      if (loading && !loading.classList.contains('hidden')) {
+        loading.classList.add('hidden');
+        startHeroAnimations();
+      }
+    }, 5000);
+
+    // ========== Fullscreen Menu ==========
+    const menuBtn = document.getElementById('menuBtn');
+    const fullscreenMenu = document.getElementById('fullscreenMenu');
+    const menuLinks = document.querySelectorAll('.menu-nav a, .menu-contact a');
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      fullscreenMenu.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+    });
+
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuBtn.classList.remove('active');
+        fullscreenMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      });
+    });
+
+    // ========== Hero Animations ==========
+    function startHeroAnimations() {
+      const heroLabel = document.querySelector('.hero-label');
+      const heroTitle = document.querySelector('.hero-title');
+      const heroSubtitle = document.querySelector('.hero-subtitle');
+      const heroCta = document.querySelector('.hero-cta');
+      const heroScroll = document.querySelector('.hero-scroll');
+
+      setTimeout(() => {
+        heroLabel.style.transition = 'opacity 1s ease, transform 1s ease';
+        heroLabel.style.opacity = '1';
+        heroLabel.style.transform = 'translateY(0)';
+      }, 200);
+
+      setTimeout(() => {
+        heroTitle.style.transition = 'opacity 1s ease, transform 1s ease';
+        heroTitle.style.opacity = '1';
+        heroTitle.style.transform = 'translateY(0)';
+        
+        document.querySelectorAll('.hero-title .line span').forEach((span, i) => {
+          setTimeout(() => {
+            span.style.transition = 'transform 0.8s ease';
+            span.style.transform = 'translateY(0)';
+          }, i * 200);
+        });
+      }, 400);
+
+      setTimeout(() => {
+        heroSubtitle.style.transition = 'opacity 1s ease, transform 1s ease';
+        heroSubtitle.style.opacity = '1';
+        heroSubtitle.style.transform = 'translateY(0)';
+      }, 800);
+
+      setTimeout(() => {
+        heroCta.style.transition = 'opacity 1s ease, transform 1s ease';
+        heroCta.style.opacity = '1';
+        heroCta.style.transform = 'translateY(0)';
+      }, 1000);
+
+      setTimeout(() => {
+        heroScroll.style.transition = 'opacity 1s ease';
+        heroScroll.style.opacity = '1';
+      }, 1200);
+    }
+
+    // ========== Hero Slideshow ==========
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    let currentHeroSlide = 0;
+
+    function nextHeroSlide() {
+      heroSlides[currentHeroSlide].classList.remove('active');
+      currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
+      heroSlides[currentHeroSlide].classList.add('active');
+    }
+
+    setInterval(nextHeroSlide, 6000);
+
+    // ========== Header Scroll Effect ==========
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // ========== Scroll Reveal Animations ==========
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ========== Parallax Effect ==========
+    const parallaxElements = document.querySelectorAll('.parallax');
+    
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      
+      parallaxElements.forEach(el => {
+        const speed = parseFloat(el.dataset.speed) || 0.1;
+        const rect = el.getBoundingClientRect();
+        const centerY = rect.top + rect.height / 2;
+        const windowCenterY = window.innerHeight / 2;
+        const offset = (centerY - windowCenterY) * speed;
+        
+        el.style.transform = `translate(-50%, calc(-50% + ${offset}px))`;
+      });
+    });
+
+    // ========== Custom Cursor ==========
+    (function() {
+      const cursor = document.getElementById('customCursor');
+      if (!cursor) {
+        console.error('Custom cursor element not found!');
+        return;
+      }
+
+      let cursorX = 0, cursorY = 0;
+      let currentX = 0, currentY = 0;
+      let isFirstMove = true;
+
+      document.addEventListener('mousemove', (e) => {
+        cursorX = e.clientX;
+        cursorY = e.clientY;
+
+        // Show cursor on first mouse move
+        if (isFirstMove) {
+          currentX = cursorX;
+          currentY = cursorY;
+          cursor.style.left = currentX + 'px';
+          cursor.style.top = currentY + 'px';
+          cursor.classList.add('visible');
+          isFirstMove = false;
+        }
+      });
+
+      // Hide cursor when mouse leaves window
+      document.addEventListener('mouseleave', () => {
+        cursor.classList.remove('visible');
+        isFirstMove = true;
+      });
+
+      document.addEventListener('mouseenter', () => {
+        if (!isFirstMove) {
+          cursor.classList.add('visible');
+        }
+      });
+
+      // Smooth cursor animation
+      function animateCursor() {
+        const ease = 0.15;
+        currentX += (cursorX - currentX) * ease;
+        currentY += (cursorY - currentY) * ease;
+        cursor.style.left = currentX + 'px';
+        cursor.style.top = currentY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+
+      // Hover effect on interactive elements
+      const interactiveElements = document.querySelectorAll('a, button, .menu-btn, input, textarea, [role="button"]');
+      interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+
+      // Click effect
+      document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
+      document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+
+      console.log('Custom cursor initialized successfully');
+    })();
+  </script>
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    // Initialize Lenis for smooth scrolling
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    // Animation frame loop
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Smooth scroll for anchor links using Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (target) {
+          lenis.scrollTo(target, {
+            offset: 0,
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+          });
+        }
+      });
+    });
+
+    // Stop Lenis when menu is open
+    const menuObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.target.classList.contains('menu-open')) {
+          lenis.stop();
+        } else {
+          lenis.start();
+        }
+      });
+    });
+    menuObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    // ========== Text Stagger Animation ==========
+    (function() {
+      // Find all stagger-text elements
+      const staggerElements = document.querySelectorAll('.stagger-text');
+
+      staggerElements.forEach(el => {
+        const keepHtml = el.hasAttribute('data-stagger-keep-html');
+
+        if (keepHtml) {
+          // For elements with complex HTML (like highlights and br tags)
+          // Process text nodes only, preserving HTML structure
+          processNodeForStagger(el);
+        } else {
+          // Simple text content - split all characters
+          const text = el.textContent;
+          el.innerHTML = '';
+
+          text.split('').forEach((char, index) => {
+            const span = document.createElement('span');
+            span.className = char === ' ' ? 'char space' : 'char';
+            span.textContent = char === ' ' ? '\u00A0' : char;
+            span.style.transitionDelay = `${index * 0.03}s`;
+            el.appendChild(span);
+          });
+        }
+      });
+
+      // Process nodes recursively for complex HTML
+      function processNodeForStagger(element) {
+        const walker = document.createTreeWalker(
+          element,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.textContent.trim()) {
+            textNodes.push(node);
+          }
+        }
+
+        let charIndex = 0;
+        textNodes.forEach(textNode => {
+          const text = textNode.textContent;
+          const fragment = document.createDocumentFragment();
+
+          text.split('').forEach(char => {
+            if (char === '\n' || char === '\r') return;
+
+            const span = document.createElement('span');
+            span.className = char === ' ' ? 'char space' : 'char';
+            span.textContent = char === ' ' ? '\u00A0' : char;
+            span.style.transitionDelay = `${charIndex * 0.03}s`;
+            fragment.appendChild(span);
+            charIndex++;
+          });
+
+          textNode.parentNode.replaceChild(fragment, textNode);
+        });
+      }
+
+      // Observe stagger elements for visibility
+      const staggerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
+      staggerElements.forEach(el => staggerObserver.observe(el));
+    })();
+
+    // ========== 1. Magnetic Button Effect ==========
+    const magneticButtons = document.querySelectorAll('.magnetic-wrap');
+    magneticButtons.forEach((wrap) => {
+      const area = wrap.querySelector('.magnetic-area');
+      if(!area) return;
+
+      wrap.addEventListener('mousemove', (e) => {
+        const rect = wrap.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        area.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+      });
+
+      wrap.addEventListener('mouseleave', () => {
+        area.style.transform = 'translate(0, 0)';
+      });
+    });
+
+    // ========== 2. Inner Image Parallax (Linked with Lenis) ==========
+    function updateParallax() {
+      const parallaxImages = document.querySelectorAll('.parallax-img');
+      const windowHeight = window.innerHeight;
+
+      parallaxImages.forEach(img => {
+        const wrap = img.closest('.parallax-img-wrap');
+        if (!wrap) return;
+        const rect = wrap.getBoundingClientRect();
+
+        // 画面内に入っている時だけ計算
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+          // -10% から 10% まで移動
+          const move = -10 + (progress * 20);
+          img.style.transform = `translateY(${move}%) scale(1.1)`;
+        }
+      });
+    }
+
+    // Lenisのスクロールイベントにフック、またはRAFで実行
+    requestAnimationFrame(function loop() {
+      updateParallax();
+      requestAnimationFrame(loop);
+    });
+
+    // ========== 3. Dynamic Footer Height for Reveal ==========
+    function setFooterHeight() {
+      const footer = document.querySelector('footer');
+      const main = document.getElementById('mainContent');
+      if (footer && main && window.innerWidth > 900) {
+        const h = footer.offsetHeight;
+        main.style.marginBottom = `${h}px`;
+      } else if (main) {
+        main.style.marginBottom = '0px';
+      }
+    }
+    window.addEventListener('resize', setFooterHeight);
+    window.addEventListener('load', () => {
+      setTimeout(setFooterHeight, 100); // 画像読み込み待ちなどを考慮
+    });
+  </script>
+</body>
+</html>

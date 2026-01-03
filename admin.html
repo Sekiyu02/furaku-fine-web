@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理者ページ | 富楽ファイン</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange-primary: #E67635;
+      --orange-light: #F5A66A;
+      --navy: #1e3a5f;
+      --navy-dark: #152a45;
+      --white: #ffffff;
+      --off-white: #FAF8F5;
+      --text-dark: #1a1a1a;
+      --text-body: #4a4a4a;
+      --gray-light: #f5f5f5;
+      --success: #22c55e;
+      --error: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: var(--off-white);
+      color: var(--text-dark);
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* Login Screen */
+    .login-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--navy-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .login-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .login-box {
+      background: var(--white);
+      padding: 3rem;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-logo {
+      margin-bottom: 0.5rem;
+    }
+
+    .login-logo img {
+      height: 45px;
+      width: auto;
+    }
+
+    .login-logo span {
+      color: var(--orange-primary);
+    }
+
+    .login-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      margin-bottom: 2rem;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid var(--gray-light);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .login-input:focus {
+      outline: none;
+      border-color: var(--orange-primary);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--orange-primary);
+      color: var(--white);
+      border: none;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background: var(--orange-light);
+    }
+
+    .login-error {
+      color: var(--error);
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .login-error.show {
+      display: block;
+    }
+
+    /* Admin Layout */
+    .admin-wrapper {
+      display: none;
+    }
+
+    .admin-wrapper.active {
+      display: block;
+    }
+
+    .admin-header {
+      background: var(--navy-dark);
+      color: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .admin-header-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .admin-header-logo img {
+      height: 32px;
+      width: auto;
+    }
+
+    .admin-header-logo span {
+      color: var(--orange-primary);
+    }
+
+    .admin-header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .admin-user {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .admin-logout {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .admin-logout:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .admin-body {
+      display: flex;
+      min-height: calc(100vh - 60px);
+    }
+
+    /* Sidebar */
+    .admin-sidebar {
+      width: 250px;
+      background: var(--white);
+      border-right: 1px solid rgba(0,0,0,0.08);
+      padding: 2rem 0;
+      flex-shrink: 0;
+    }
+
+    .admin-nav {
+      list-style: none;
+    }
+
+    .admin-nav-item {
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .admin-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      color: var(--text-body);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .admin-nav-link:hover,
+    .admin-nav-link.active {
+      background: var(--off-white);
+      color: var(--orange-primary);
+    }
+
+    .admin-nav-link svg {
+      width: 20px;
+      height: 20px;
+      opacity: 0.7;
+    }
+
+    .admin-nav-link.active svg,
+    .admin-nav-link:hover svg {
+      opacity: 1;
+    }
+
+    /* Main Content */
+    .admin-main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .admin-page {
+      display: none;
+    }
+
+    .admin-page.active {
+      display: block;
+    }
+
+    .admin-page-header {
+      margin-bottom: 2rem;
+    }
+
+    .admin-page-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .admin-page-desc {
+      font-size: 0.9rem;
+      color: var(--text-body);
+    }
+
+    /* Cards */
+    .admin-card {
+      background: var(--white);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .admin-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .admin-card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(0,0,0,0.15);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--orange-primary);
+    }
+
+    .form-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .form-hint {
+      font-size: 0.8rem;
+      color: var(--text-body);
+      margin-top: 0.25rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--orange-primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-light);
+    }
+
+    .btn-secondary {
+      background: var(--navy-dark);
+      color: var(--white);
+    }
+
+    .btn-secondary:hover {
+      background: var(--navy);
+    }
+
+    .btn-outline {
+      background: none;
+      border: 1px solid var(--orange-primary);
+      color: var(--orange-primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--orange-primary);
+      color: var(--white);
+    }
+
+    .btn-danger {
+      background: var(--error);
+      color: var(--white);
+    }
+
+    .btn-sm {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    /* Data Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .data-table th {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-body);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--off-white);
+    }
+
+    .data-table td {
+      font-size: 0.9rem;
+    }
+
+    .data-table tr:hover td {
+      background: var(--off-white);
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: 100px;
+    }
+
+    .status-published {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--success);
+    }
+
+    .status-draft {
+      background: rgba(0,0,0,0.05);
+      color: var(--text-body);
+    }
+
+    /* Dashboard Stats */
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--white);
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-body);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--orange-primary);
+    }
+
+    /* Preview */
+    .preview-box {
+      background: var(--gray-light);
+      border: 2px dashed rgba(0,0,0,0.1);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .preview-box img {
+      max-width: 200px;
+      max-height: 200px;
+      object-fit: cover;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--navy-dark);
+      color: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      background: var(--success);
+    }
+
+    .toast.error {
+      background: var(--error);
+    }
+
+    /* Code Output */
+    .code-output {
+      background: var(--navy-dark);
+      color: #a5f3fc;
+      padding: 1.5rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .dashboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .admin-sidebar {
+        display: none;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <h1 class="login-logo">
+        <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+      </h1>
+      <p class="login-subtitle">管理者ページ</p>
+      <input type="password" class="login-input" id="passwordInput" placeholder="パスワードを入力">
+      <button class="login-btn" id="loginBtn">ログイン</button>
+      <p class="login-error" id="loginError">パスワードが正しくありません</p>
+    </div>
+  </div>
+
+  <!-- Admin Wrapper -->
+  <div class="admin-wrapper" id="adminWrapper">
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="admin-header-logo">
+        <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+        <span style="color: rgba(255,255,255,0.7); font-size: 0.85rem;">管理画面</span>
+      </div>
+      <div class="admin-header-right">
+        <span class="admin-user">管理者</span>
+        <button class="admin-logout" id="logoutBtn">ログアウト</button>
+      </div>
+    </header>
+
+    <div class="admin-body">
+      <!-- Sidebar -->
+      <nav class="admin-sidebar">
+        <ul class="admin-nav">
+          <li class="admin-nav-item">
+            <a href="#dashboard" class="admin-nav-link active" data-page="dashboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+              </svg>
+              ダッシュボード
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="#works" class="admin-nav-link" data-page="works">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+              実績管理
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="#voice" class="admin-nav-link" data-page="voice">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              お客様の声
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="#knowledge" class="admin-nav-link" data-page="knowledge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+              ナレッジ記事
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="#export" class="admin-nav-link" data-page="export">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              コード出力
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="#analytics" class="admin-nav-link" data-page="analytics">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 20V10"/>
+                <path d="M12 20V4"/>
+                <path d="M6 20v-6"/>
+              </svg>
+              アクセス解析
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="admin-main">
+        <!-- Dashboard Page -->
+        <div class="admin-page active" id="page-dashboard">
+          <div class="admin-page-header">
+            <h1 class="admin-page-title">ダッシュボード</h1>
+            <p class="admin-page-desc">サイトコンテンツの概要</p>
+          </div>
+
+          <div class="dashboard-stats">
+            <div class="stat-card">
+              <p class="stat-label">実績数</p>
+              <p class="stat-value" id="statWorks">0</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-label">お客様の声</p>
+              <p class="stat-value" id="statVoice">0</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-label">ナレッジ記事</p>
+              <p class="stat-value" id="statKnowledge">0</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-label">公開中</p>
+              <p class="stat-value" id="statPublished">0</p>
+            </div>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">ご利用方法</h2>
+            </div>
+            <div style="line-height: 2;">
+              <p><strong>1. コンテンツを追加する</strong></p>
+              <p style="margin-bottom: 1rem; color: var(--text-body);">左メニューから「実績管理」「お客様の声」「ナレッジ記事」を選択し、フォームに入力してください。</p>
+              
+              <p><strong>2. HTMLコードを出力する</strong></p>
+              <p style="margin-bottom: 1rem; color: var(--text-body);">「コード出力」ページで、追加したコンテンツのHTMLコードをコピーできます。</p>
+              
+              <p><strong>3. 実際のサイトに反映する</strong></p>
+              <p style="color: var(--text-body);">出力されたコードをindex.htmlやrecruitment.htmlの該当箇所に貼り付けてください。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Works Page -->
+        <div class="admin-page" id="page-works">
+          <div class="admin-page-header">
+            <h1 class="admin-page-title">実績管理</h1>
+            <p class="admin-page-desc">支援実績・導入事例を追加・編集します</p>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">新規実績を追加</h2>
+            </div>
+            <form id="workForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">企業名 *</label>
+                  <input type="text" class="form-input" id="workCompany" required placeholder="例: 株式会社〇〇">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">業種</label>
+                  <input type="text" class="form-input" id="workIndustry" placeholder="例: 製造業">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">従業員数</label>
+                  <input type="text" class="form-input" id="workEmployees" placeholder="例: 50名">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">支援期間</label>
+                  <input type="text" class="form-input" id="workPeriod" placeholder="例: 2024年4月〜現在">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">課題・背景</label>
+                <textarea class="form-textarea" id="workChallenge" placeholder="支援前の課題や状況を記入"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">支援内容</label>
+                <textarea class="form-textarea" id="workSolution" placeholder="提供した支援内容を記入"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">成果・結果</label>
+                <textarea class="form-textarea" id="workResult" placeholder="得られた成果を記入"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">画像URL（任意）</label>
+                <input type="text" class="form-input" id="workImage" placeholder="https://...">
+              </div>
+              <button type="submit" class="btn btn-primary">実績を追加</button>
+            </form>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">登録済み実績</h2>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>企業名</th>
+                  <th>業種</th>
+                  <th>支援期間</th>
+                  <th>ステータス</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="worksTableBody">
+                <tr>
+                  <td colspan="5" style="text-align: center; color: var(--text-body);">まだ実績が登録されていません</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Voice Page -->
+        <div class="admin-page" id="page-voice">
+          <div class="admin-page-header">
+            <h1 class="admin-page-title">お客様の声</h1>
+            <p class="admin-page-desc">導入企業様からの声を追加・編集します</p>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">新規追加</h2>
+            </div>
+            <form id="voiceForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">企業名 *</label>
+                  <input type="text" class="form-input" id="voiceCompany" required placeholder="例: 株式会社〇〇">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">お名前 *</label>
+                  <input type="text" class="form-input" id="voiceName" required placeholder="例: 山田 太郎">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">役職</label>
+                  <input type="text" class="form-input" id="voicePosition" placeholder="例: 代表取締役">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">業種</label>
+                  <input type="text" class="form-input" id="voiceIndustry" placeholder="例: IT・通信">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">お声（コメント） *</label>
+                <textarea class="form-textarea" id="voiceComment" required placeholder="お客様からいただいたコメントを記入"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">顔写真URL（任意）</label>
+                <input type="text" class="form-input" id="voiceImage" placeholder="https://...">
+              </div>
+              <button type="submit" class="btn btn-primary">お客様の声を追加</button>
+            </form>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">登録済みのお客様の声</h2>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>企業名</th>
+                  <th>お名前</th>
+                  <th>役職</th>
+                  <th>ステータス</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="voiceTableBody">
+                <tr>
+                  <td colspan="5" style="text-align: center; color: var(--text-body);">まだお客様の声が登録されていません</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Knowledge Page -->
+        <div class="admin-page" id="page-knowledge">
+          <div class="admin-page-header">
+            <h1 class="admin-page-title">ナレッジ記事</h1>
+            <p class="admin-page-desc">ナレッジ・ノウハウ記事を追加・編集します</p>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">新規記事を追加</h2>
+            </div>
+            <form id="knowledgeForm">
+              <div class="form-group">
+                <label class="form-label">タイトル *</label>
+                <input type="text" class="form-input" id="knowledgeTitle" required placeholder="例: 採用ブランディングで押さえるべき3つのポイント">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">カテゴリ</label>
+                  <select class="form-select" id="knowledgeCategory">
+                    <option value="recruitment">採用ブランディング</option>
+                    <option value="philosophy">理念浸透</option>
+                    <option value="organization">組織開発</option>
+                    <option value="medical">医療採用</option>
+                    <option value="case">事例紹介</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">公開日</label>
+                  <input type="date" class="form-input" id="knowledgeDate">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">概要（一覧表示用）</label>
+                <textarea class="form-textarea" id="knowledgeExcerpt" style="min-height: 80px;" placeholder="記事の概要を簡潔に"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">本文 *</label>
+                <textarea class="form-textarea" id="knowledgeContent" required style="min-height: 300px;" placeholder="記事本文をここに入力&#10;&#10;## 見出し2&#10;本文テキスト&#10;&#10;### 見出し3&#10;本文テキスト"></textarea>
+                <p class="form-hint">Markdown記法が使えます（## 見出し、**太字**、- リストなど）</p>
+              </div>
+              <div class="form-group">
+                <label class="form-label">サムネイル画像URL（任意）</label>
+                <input type="text" class="form-input" id="knowledgeImage" placeholder="https://...">
+              </div>
+              <button type="submit" class="btn btn-primary">記事を追加</button>
+            </form>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">登録済み記事</h2>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>タイトル</th>
+                  <th>カテゴリ</th>
+                  <th>公開日</th>
+                  <th>ステータス</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="knowledgeTableBody">
+                <tr>
+                  <td colspan="5" style="text-align: center; color: var(--text-body);">まだ記事が登録されていません</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Export Page -->
+        <div class="admin-page" id="page-export">
+          <div class="admin-page-header">
+            <h1 class="admin-page-title">コード出力</h1>
+            <p class="admin-page-desc">登録したコンテンツをHTMLコードとして出力します</p>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">お客様の声 HTMLコード</h2>
+              <button class="btn btn-sm btn-outline" onclick="copyCode('voiceCode')">コピー</button>
+            </div>
+            <p style="margin-bottom: 1rem; color: var(--text-body); font-size: 0.9rem;">recruitment.html の「お客様の声」セクション内に貼り付けてください。</p>
+            <div class="code-output" id="voiceCode"><!-- お客様の声がありません --></div>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">ナレッジ記事一覧 HTMLコード</h2>
+              <button class="btn btn-sm btn-outline" onclick="copyCode('knowledgeListCode')">コピー</button>
+            </div>
+            <p style="margin-bottom: 1rem; color: var(--text-body); font-size: 0.9rem;">knowledge.html の記事一覧部分に貼り付けてください。</p>
+            <div class="code-output" id="knowledgeListCode"><!-- 記事がありません --></div>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">実績一覧 HTMLコード</h2>
+              <button class="btn btn-sm btn-outline" onclick="copyCode('worksCode')">コピー</button>
+            </div>
+            <p style="margin-bottom: 1rem; color: var(--text-body); font-size: 0.9rem;">index.html の実績セクションに貼り付けてください。</p>
+            <div class="code-output" id="worksCode"><!-- 実績がありません --></div>
+          </div>
+        </div>
+
+        <!-- Analytics Page -->
+        <div class="admin-page" id="page-analytics">
+          <div class="admin-page-header">
+            <h1 class="admin-page-title">アクセス解析</h1>
+            <p class="admin-page-desc">Google Analytics 4でサイトのアクセス状況を確認できます</p>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">Google Analytics 4 設定</h2>
+            </div>
+            <div style="margin-bottom: 2rem;">
+              <p style="margin-bottom: 1rem; line-height: 1.8;">
+                サイトには <strong>Google Analytics 4</strong> のトラッキングコードが埋め込まれています。<br>
+                以下の測定IDを、実際のGA4測定IDに置き換えてください。
+              </p>
+              <div style="background: var(--off-white); padding: 1rem; border-left: 4px solid var(--orange-primary); margin-bottom: 1.5rem;">
+                <p style="font-family: monospace; font-size: 1rem;"><strong>現在の測定ID:</strong> G-XXXXXXXXXX</p>
+                <p style="font-size: 0.85rem; color: var(--text-body); margin-top: 0.5rem;">※ 各HTMLファイルの &lt;head&gt; 内にあるコードを編集してください</p>
+              </div>
+            </div>
+
+            <div class="admin-card-header" style="margin-top: 2rem;">
+              <h2 class="admin-card-title">GA4 測定IDの取得方法</h2>
+            </div>
+            <ol style="line-height: 2.2; padding-left: 1.5rem; color: var(--text-body);">
+              <li><a href="https://analytics.google.com/" target="_blank" rel="noopener" style="color: var(--orange-primary);">Google Analytics</a> にアクセスしてログイン</li>
+              <li>左下の「管理」（歯車アイコン）をクリック</li>
+              <li>「プロパティを作成」をクリック</li>
+              <li>プロパティ名（例: 富楽ファイン）を入力</li>
+              <li>ウェブストリームを設定（サイトのURLを入力）</li>
+              <li>「G-」から始まる<strong>測定ID</strong>をコピー</li>
+              <li>各HTMLファイルの <code>G-XXXXXXXXXX</code> を置き換え</li>
+            </ol>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">アクセス解析を確認</h2>
+            </div>
+            <p style="margin-bottom: 1.5rem; color: var(--text-body);">
+              GA4の設定が完了したら、以下のリンクからアクセス解析を確認できます。
+            </p>
+            <a href="https://analytics.google.com/" target="_blank" rel="noopener" class="btn btn-primary" style="text-decoration: none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+                <path d="M18 20V10"/>
+                <path d="M12 20V4"/>
+                <path d="M6 20v-6"/>
+              </svg>
+              Google Analytics を開く
+            </a>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 class="admin-card-title">トラッキング対象ページ</h2>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ページ</th>
+                  <th>ファイル名</th>
+                  <th>GA4コード</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>トップページ</td>
+                  <td>index.html</td>
+                  <td><span class="status-badge status-published">設置済み</span></td>
+                </tr>
+                <tr>
+                  <td>採用ブランディング LP</td>
+                  <td>recruitment.html</td>
+                  <td><span class="status-badge status-published">設置済み</span></td>
+                </tr>
+                <tr>
+                  <td>医療特化型採用 LP</td>
+                  <td>medical.html</td>
+                  <td><span class="status-badge status-published">設置済み</span></td>
+                </tr>
+                <tr>
+                  <td>ナレッジ一覧</td>
+                  <td>knowledge.html</td>
+                  <td><span class="status-badge status-published">設置済み</span></td>
+                </tr>
+                <tr>
+                  <td>記事ページ</td>
+                  <td>articles/*.html</td>
+                  <td><span class="status-badge status-published">設置済み</span></td>
+                </tr>
+                <tr>
+                  <td>管理者ページ</td>
+                  <td>admin.html</td>
+                  <td><span class="status-badge status-draft">対象外</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <span id="toastMessage">保存しました</span>
+  </div>
+
+  <script>
+    // ========== Configuration ==========
+    const ADMIN_PASSWORD = 'furakufine0120'; // パスワードを変更してください
+
+    // ========== Data Storage ==========
+    let data = {
+      works: [],
+      voice: [],
+      knowledge: []
+    };
+
+    // Load from localStorage
+    function loadData() {
+      const saved = localStorage.getItem('furakuAdminData');
+      if (saved) {
+        data = JSON.parse(saved);
+      }
+    }
+
+    // Save to localStorage
+    function saveData() {
+      localStorage.setItem('furakuAdminData', JSON.stringify(data));
+      updateStats();
+      updateTables();
+      updateExportCode();
+    }
+
+    // ========== Authentication ==========
+    const loginScreen = document.getElementById('loginScreen');
+    const adminWrapper = document.getElementById('adminWrapper');
+    const passwordInput = document.getElementById('passwordInput');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginError = document.getElementById('loginError');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Check if already logged in
+    if (sessionStorage.getItem('furakuAdminLoggedIn') === 'true') {
+      loginScreen.classList.add('hidden');
+      adminWrapper.classList.add('active');
+    }
+
+    loginBtn.addEventListener('click', () => {
+      if (passwordInput.value === ADMIN_PASSWORD) {
+        sessionStorage.setItem('furakuAdminLoggedIn', 'true');
+        loginScreen.classList.add('hidden');
+        adminWrapper.classList.add('active');
+        loginError.classList.remove('show');
+      } else {
+        loginError.classList.add('show');
+        passwordInput.value = '';
+      }
+    });
+
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') loginBtn.click();
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('furakuAdminLoggedIn');
+      location.reload();
+    });
+
+    // ========== Navigation ==========
+    const navLinks = document.querySelectorAll('.admin-nav-link');
+    const pages = document.querySelectorAll('.admin-page');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pageId = link.dataset.page;
+
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        pages.forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + pageId).classList.add('active');
+      });
+    });
+
+    // ========== Forms ==========
+    // Works Form
+    document.getElementById('workForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const work = {
+        id: Date.now(),
+        company: document.getElementById('workCompany').value,
+        industry: document.getElementById('workIndustry').value,
+        employees: document.getElementById('workEmployees').value,
+        period: document.getElementById('workPeriod').value,
+        challenge: document.getElementById('workChallenge').value,
+        solution: document.getElementById('workSolution').value,
+        result: document.getElementById('workResult').value,
+        image: document.getElementById('workImage').value,
+        status: 'published'
+      };
+      data.works.push(work);
+      saveData();
+      e.target.reset();
+      showToast('実績を追加しました');
+    });
+
+    // Voice Form
+    document.getElementById('voiceForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const voice = {
+        id: Date.now(),
+        company: document.getElementById('voiceCompany').value,
+        name: document.getElementById('voiceName').value,
+        position: document.getElementById('voicePosition').value,
+        industry: document.getElementById('voiceIndustry').value,
+        comment: document.getElementById('voiceComment').value,
+        image: document.getElementById('voiceImage').value,
+        status: 'published'
+      };
+      data.voice.push(voice);
+      saveData();
+      e.target.reset();
+      showToast('お客様の声を追加しました');
+    });
+
+    // Knowledge Form
+    document.getElementById('knowledgeForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const article = {
+        id: Date.now(),
+        title: document.getElementById('knowledgeTitle').value,
+        category: document.getElementById('knowledgeCategory').value,
+        date: document.getElementById('knowledgeDate').value || new Date().toISOString().split('T')[0],
+        excerpt: document.getElementById('knowledgeExcerpt').value,
+        content: document.getElementById('knowledgeContent').value,
+        image: document.getElementById('knowledgeImage').value,
+        status: 'published'
+      };
+      data.knowledge.push(article);
+      saveData();
+      e.target.reset();
+      showToast('記事を追加しました');
+    });
+
+    // ========== Update Functions ==========
+    function updateStats() {
+      document.getElementById('statWorks').textContent = data.works.length;
+      document.getElementById('statVoice').textContent = data.voice.length;
+      document.getElementById('statKnowledge').textContent = data.knowledge.length;
+      const published = data.works.filter(w => w.status === 'published').length +
+                       data.voice.filter(v => v.status === 'published').length +
+                       data.knowledge.filter(k => k.status === 'published').length;
+      document.getElementById('statPublished').textContent = published;
+    }
+
+    function updateTables() {
+      // Works Table
+      const worksBody = document.getElementById('worksTableBody');
+      if (data.works.length === 0) {
+        worksBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-body);">まだ実績が登録されていません</td></tr>';
+      } else {
+        worksBody.innerHTML = data.works.map(w => `
+          <tr>
+            <td>${w.company}</td>
+            <td>${w.industry || '-'}</td>
+            <td>${w.period || '-'}</td>
+            <td><span class="status-badge status-${w.status}">${w.status === 'published' ? '公開中' : '下書き'}</span></td>
+            <td class="table-actions">
+              <button class="btn btn-sm btn-danger" onclick="deleteWork(${w.id})">削除</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Voice Table
+      const voiceBody = document.getElementById('voiceTableBody');
+      if (data.voice.length === 0) {
+        voiceBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-body);">まだお客様の声が登録されていません</td></tr>';
+      } else {
+        voiceBody.innerHTML = data.voice.map(v => `
+          <tr>
+            <td>${v.company}</td>
+            <td>${v.name}</td>
+            <td>${v.position || '-'}</td>
+            <td><span class="status-badge status-${v.status}">${v.status === 'published' ? '公開中' : '下書き'}</span></td>
+            <td class="table-actions">
+              <button class="btn btn-sm btn-danger" onclick="deleteVoice(${v.id})">削除</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Knowledge Table
+      const knowledgeBody = document.getElementById('knowledgeTableBody');
+      if (data.knowledge.length === 0) {
+        knowledgeBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-body);">まだ記事が登録されていません</td></tr>';
+      } else {
+        const categoryNames = {
+          recruitment: '採用ブランディング',
+          philosophy: '理念浸透',
+          organization: '組織開発',
+          medical: '医療採用',
+          case: '事例紹介'
+        };
+        knowledgeBody.innerHTML = data.knowledge.map(k => `
+          <tr>
+            <td>${k.title}</td>
+            <td>${categoryNames[k.category] || k.category}</td>
+            <td>${k.date}</td>
+            <td><span class="status-badge status-${k.status}">${k.status === 'published' ? '公開中' : '下書き'}</span></td>
+            <td class="table-actions">
+              <button class="btn btn-sm btn-danger" onclick="deleteKnowledge(${k.id})">削除</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function updateExportCode() {
+      // Voice Code
+      const voiceCode = document.getElementById('voiceCode');
+      if (data.voice.length === 0) {
+        voiceCode.textContent = '<!-- お客様の声がありません -->';
+      } else {
+        voiceCode.textContent = data.voice.filter(v => v.status === 'published').map(v => `
+<div class="voice-card">
+  <div class="voice-card-header">
+    ${v.image ? `<img src="${v.image}" alt="${v.name}" class="voice-avatar">` : '<div class="voice-avatar-placeholder"></div>'}
+    <div class="voice-meta">
+      <p class="voice-company">${v.company}</p>
+      <p class="voice-name">${v.name} 様${v.position ? ` / ${v.position}` : ''}</p>
+    </div>
+  </div>
+  <p class="voice-comment">${v.comment}</p>
+</div>`).join('\n');
+      }
+
+      // Knowledge List Code
+      const knowledgeListCode = document.getElementById('knowledgeListCode');
+      if (data.knowledge.length === 0) {
+        knowledgeListCode.textContent = '<!-- 記事がありません -->';
+      } else {
+        knowledgeListCode.textContent = data.knowledge.filter(k => k.status === 'published').map(k => `
+<article class="article-card">
+  <a href="articles/${k.id}.html">
+    ${k.image ? `<div class="article-thumb"><img src="${k.image}" alt="${k.title}"></div>` : ''}
+    <div class="article-content">
+      <span class="article-category">${k.category}</span>
+      <h3 class="article-title">${k.title}</h3>
+      <p class="article-excerpt">${k.excerpt || ''}</p>
+      <time class="article-date">${k.date}</time>
+    </div>
+  </a>
+</article>`).join('\n');
+      }
+
+      // Works Code
+      const worksCode = document.getElementById('worksCode');
+      if (data.works.length === 0) {
+        worksCode.textContent = '<!-- 実績がありません -->';
+      } else {
+        worksCode.textContent = data.works.filter(w => w.status === 'published').map(w => `
+<div class="work-card">
+  ${w.image ? `<div class="work-image"><img src="${w.image}" alt="${w.company}"></div>` : ''}
+  <div class="work-content">
+    <h3 class="work-company">${w.company}</h3>
+    <p class="work-industry">${w.industry || ''} ${w.employees ? `/ ${w.employees}` : ''}</p>
+    ${w.challenge ? `<p class="work-challenge"><strong>課題:</strong> ${w.challenge}</p>` : ''}
+    ${w.result ? `<p class="work-result"><strong>成果:</strong> ${w.result}</p>` : ''}
+  </div>
+</div>`).join('\n');
+      }
+    }
+
+    // Delete Functions
+    function deleteWork(id) {
+      if (confirm('この実績を削除しますか？')) {
+        data.works = data.works.filter(w => w.id !== id);
+        saveData();
+        showToast('削除しました', 'error');
+      }
+    }
+
+    function deleteVoice(id) {
+      if (confirm('このお客様の声を削除しますか？')) {
+        data.voice = data.voice.filter(v => v.id !== id);
+        saveData();
+        showToast('削除しました', 'error');
+      }
+    }
+
+    function deleteKnowledge(id) {
+      if (confirm('この記事を削除しますか？')) {
+        data.knowledge = data.knowledge.filter(k => k.id !== id);
+        saveData();
+        showToast('削除しました', 'error');
+      }
+    }
+
+    // Copy Code
+    function copyCode(elementId) {
+      const code = document.getElementById(elementId).textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        showToast('コピーしました', 'success');
+      });
+    }
+
+    // Toast
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.className = 'toast ' + type + ' show';
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Initialize
+    loadData();
+    updateStats();
+    updateTables();
+    updateExportCode();
+  </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Images Folder
+
+画像ファイルをここに配置してください。
+
+## 推奨フォーマット
+- ロゴ: SVG または PNG
+- 写真: WebP または JPG
+- アイコン: SVG
+
+## 命名規則
+- `hero-bg.jpg` - ヒーロー背景
+- `team-[name].jpg` - チームメンバー写真
+- `logo.svg` - ロゴ
+- `ogp.jpg` - OGP画像（1200x630px）

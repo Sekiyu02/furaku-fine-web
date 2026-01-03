@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>医療特化型 採用支援 | 株式会社富楽ファイン</title>
+  <meta name="description" content="医療の採用に、対症療法ではなく体質改善を。院長の想いを軸にした「選ばれる医療機関」をつくります。">
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  <!-- End Google Analytics 4 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold-primary: #C9A66B;
+      --gold-light: #E2C992;
+      --gold-dark: #A6894D;
+      --navy: #1e3a5f;
+      --navy-dark: #152a45;
+      --navy-light: #2a4d75;
+      --white: #ffffff;
+      --off-white: #FAFAF8;
+      --text-dark: #1a1a1a;
+      --text-body: #4a4a4a;
+      --cream: #F5F3EE;
+    }
+
+    /* ========== Custom Cursor ========== */
+    .custom-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--gold-primary);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
+      opacity: 0;
+    }
+
+    .custom-cursor.visible {
+      opacity: 1;
+    }
+
+    .custom-cursor.hover {
+      width: 50px;
+      height: 50px;
+      background: rgba(201, 166, 107, 0.2);
+      border-color: var(--gold-light);
+    }
+
+    .custom-cursor.clicking {
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    /* Hide on touch devices */
+    @media (hover: none) and (pointer: coarse) {
+      .custom-cursor {
+        display: none !important;
+      }
+    }
+
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    /* ========== Loading Screen ========== */
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--navy-dark);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-icon {
+      width: auto;
+      height: 60px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: loadingFadeUp 1s ease 0.2s forwards;
+      display: flex;
+      justify-content: center;
+    }
+
+    .loading-icon svg {
+      width: 100%;
+      height: 100%;
+      color: var(--gold-primary);
+    }
+
+    .loading-logo {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      color: var(--white);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: loadingFadeUp 1s ease 0.4s forwards;
+      text-align: center;
+    }
+
+    .loading-logo span {
+      color: var(--gold-primary);
+    }
+
+    .loading-tagline {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 0.75rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: loadingFadeUp 1s ease 0.6s forwards;
+      letter-spacing: 0.15em;
+    }
+
+    .loading-bar {
+      width: 120px;
+      height: 2px;
+      background: rgba(255,255,255,0.15);
+      margin-top: 2rem;
+      overflow: hidden;
+      opacity: 0;
+      animation: loadingFadeUp 1s ease 0.8s forwards;
+    }
+
+    .loading-bar-inner {
+      height: 100%;
+      background: var(--gold-primary);
+      width: 0;
+      animation: loadingProgress 1.5s ease 1s forwards;
+    }
+
+    @keyframes loadingFadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes loadingProgress {
+      to { width: 100%; }
+    }
+
+    /* ========== Header ========== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s ease, padding 0.4s ease;
+    }
+
+    header.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 3rem;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      z-index: 1001;
+    }
+
+    .logo img {
+      height: 32px;
+      width: auto;
+      transition: filter 0.4s ease;
+    }
+
+    header.scrolled .logo img {
+      /* スクロール時も同じロゴを使用 */
+    }
+
+    .logo span {
+      color: var(--gold-primary);
+    }
+
+    .menu-btn {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 1001;
+      background: none;
+      border: none;
+    }
+
+    .menu-btn-line {
+      width: 28px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled .menu-btn-line {
+      background: var(--text-dark);
+    }
+
+    .menu-btn.active .menu-btn-line {
+      background: var(--white);
+    }
+
+    .menu-btn.active .menu-btn-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+
+    .menu-btn.active .menu-btn-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-btn.active .menu-btn-line:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    /* ========== Fullscreen Menu ========== */
+    .fullscreen-menu {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, #0d1f33 50%, var(--navy-dark) 100%);
+      z-index: 999;
+      display: flex;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .fullscreen-menu::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A66B' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .fullscreen-menu::after {
+      content: 'MENU';
+      position: absolute;
+      bottom: 10%;
+      left: -5%;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(8rem, 20vw, 18rem);
+      color: rgba(201, 166, 107, 0.03);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      pointer-events: none;
+    }
+
+    .fullscreen-menu.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .menu-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 4rem 4rem 6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-nav {
+      list-style: none;
+    }
+
+    .menu-nav li {
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+    }
+
+    .menu-nav a {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      color: var(--white);
+      text-decoration: none;
+      padding: 1rem 0;
+      transform: translateY(100%);
+      transition: transform 0.5s ease, color 0.3s ease, padding-left 0.3s ease;
+      position: relative;
+    }
+
+    .menu-nav a::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold-primary), transparent);
+      transition: width 0.4s ease;
+    }
+
+    .menu-nav a:hover::before {
+      width: 100%;
+    }
+
+    .menu-nav a:hover {
+      color: var(--gold-primary);
+      padding-left: 0.5rem;
+    }
+
+    .fullscreen-menu.active .menu-nav a {
+      transform: translateY(0);
+    }
+
+    .menu-nav li:nth-child(1) a { transition-delay: 0.1s; }
+    .menu-nav li:nth-child(2) a { transition-delay: 0.15s; }
+    .menu-nav li:nth-child(3) a { transition-delay: 0.2s; }
+    .menu-nav li:nth-child(4) a { transition-delay: 0.25s; }
+    .menu-nav li:nth-child(5) a { transition-delay: 0.3s; }
+
+    .menu-nav-number {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.75rem;
+      color: var(--gold-primary);
+      letter-spacing: 0.2em;
+      min-width: 70px;
+      padding: 0.4rem 0.75rem;
+      border: 1px solid rgba(201, 166, 107, 0.3);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .menu-nav a:hover .menu-nav-number {
+      background: var(--gold-primary);
+      color: var(--navy-dark);
+      border-color: var(--gold-primary);
+    }
+
+    .menu-right {
+      flex: 1;
+      display: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: 900px) {
+      .menu-right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem;
+      }
+    }
+
+    .menu-visual {
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: 4/5;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: scale(1.05) translateY(20px);
+      transition: opacity 1.5s ease 0.3s, transform 1.5s ease 0.3s;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 12px 24px -8px rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+    }
+
+    /* Elegant gold border frame */
+    .menu-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(201, 166, 107, 0.5);
+      border-radius: 8px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* Inner glow border */
+    .menu-visual::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(201, 166, 107, 0.2);
+      border-radius: 6px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* Corner frame decorations */
+    .menu-visual-frame-tl,
+    .menu-visual-frame-br {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.7s ease 0.5s;
+    }
+
+    .menu-visual-frame-tl {
+      top: -16px;
+      left: -16px;
+      border-top: 1px solid rgba(201, 166, 107, 0.6);
+      border-left: 1px solid rgba(201, 166, 107, 0.6);
+    }
+
+    .menu-visual-frame-br {
+      bottom: -16px;
+      right: -16px;
+      border-bottom: 1px solid rgba(201, 166, 107, 0.6);
+      border-right: 1px solid rgba(201, 166, 107, 0.6);
+    }
+
+    .fullscreen-menu.active .menu-visual-frame-tl,
+    .fullscreen-menu.active .menu-visual-frame-br {
+      opacity: 1;
+    }
+
+    .fullscreen-menu.active .menu-visual {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .menu-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+      /* Cinematic color grading */
+      filter: sepia(0.15) brightness(0.85) contrast(1.1) saturate(0.8);
+    }
+
+    /* Warm gold overlay */
+    .menu-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201, 166, 107, 0.1) 0%, transparent 50%, rgba(166, 137, 77, 0.15) 100%);
+      z-index: 2;
+      pointer-events: none;
+      border-radius: 8px;
+    }
+
+    /* Vignette effect */
+    .menu-visual-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.5) 100%);
+      z-index: 3;
+      pointer-events: none;
+      border-radius: 8px;
+    }
+
+    .menu-visual:hover img {
+      transform: scale(1.05);
+    }
+
+    .menu-contact {
+      position: absolute;
+      bottom: 4rem;
+      right: 4rem;
+      z-index: 2;
+    }
+
+    .menu-contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+      color: var(--navy-dark);
+      padding: 1.25rem 2.5rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-contact a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .menu-contact a:hover::before {
+      left: 100%;
+    }
+
+    .menu-contact a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(201, 166, 107, 0.5);
+    }
+
+    /* ========== Hero Section ========== */
+    .hero {
+      height: 100vh;
+      min-height: 700px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(21, 42, 69, 0.85) 0%, rgba(30, 58, 95, 0.75) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--white);
+      padding: 0 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-icon {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-icon svg {
+      width: 100%;
+      height: 100%;
+      color: var(--gold-primary);
+    }
+
+    .hero-label {
+      display: inline-block;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-light);
+      padding: 0.5rem 1.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .hero-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .hero-title .highlight {
+      color: var(--gold-primary);
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2.5rem;
+      line-height: 2;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--gold-primary);
+      color: var(--navy-dark);
+      padding: 1.25rem 2.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(201, 166, 107, 0.4);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      opacity: 0;
+    }
+
+    .hero-scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--gold-primary), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.5); opacity: 0.5; }
+    }
+
+    /* ========== Statement Section ========== */
+    .statement {
+      padding: 10rem 2rem;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .statement::before {
+      content: 'MEDICAL';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(8rem, 18vw, 18rem);
+      color: rgba(201, 166, 107, 0.05);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .statement-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .statement-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      font-weight: 500;
+      line-height: 2;
+      color: var(--navy-dark);
+    }
+
+    .statement-title .highlight {
+      color: var(--gold-dark);
+    }
+
+    .statement-text {
+      margin-top: 3rem;
+      font-size: 1rem;
+      line-height: 2.2;
+      color: var(--text-body);
+    }
+
+    /* ========== Section Common ========== */
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: var(--gold-primary);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ========== Problem Section ========== */
+    .problem {
+      padding: 8rem 2rem;
+      background: var(--white);
+    }
+
+    .problem-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .problem-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .problem-header h2 {
+      color: var(--navy-dark);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .problem-card {
+      background: var(--cream);
+      padding: 2.5rem 2rem;
+      border-left: 4px solid var(--gold-primary);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    }
+
+    .problem-card h3 {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: var(--navy-dark);
+      line-height: 1.6;
+    }
+
+    .problem-card p {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.9;
+    }
+
+    /* ========== Solution Section ========== */
+    .solution {
+      padding: 8rem 2rem;
+      background: var(--navy-dark);
+      color: var(--white);
+    }
+
+    .solution-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .solution-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .solution-header .section-label {
+      color: var(--gold-light);
+    }
+
+    .solution-header h2 {
+      color: var(--white);
+    }
+
+    .solution-header p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 2;
+    }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .solution-step {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .solution-step::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gold-primary);
+    }
+
+    .solution-step:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-5px);
+    }
+
+    .step-number {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 3.5rem;
+      color: var(--gold-primary);
+      opacity: 0.6;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .solution-step h3 {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .solution-step p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.9;
+    }
+
+    /* ========== Features Section ========== */
+    .features {
+      padding: 8rem 2rem;
+      background: var(--cream);
+    }
+
+    .features-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .features-header h2 {
+      color: var(--navy-dark);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: var(--white);
+      padding: 2.5rem;
+      border-bottom: 3px solid var(--gold-primary);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    }
+
+    .feature-number {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2.5rem;
+      color: var(--gold-primary);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--navy-dark);
+      margin-bottom: 1rem;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.9;
+    }
+
+    /* ========== Voice Section (Placeholder) ========== */
+    .voice {
+      padding: 8rem 2rem;
+      background: var(--white);
+    }
+
+    .voice-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .voice-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .voice-header h2 {
+      color: var(--navy-dark);
+    }
+
+    .voice-placeholder {
+      background: var(--cream);
+      border: 2px dashed rgba(201, 166, 107, 0.3);
+      padding: 4rem 2rem;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    .voice-placeholder-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      border: 2px solid var(--gold-light);
+    }
+
+    .voice-placeholder-icon svg {
+      width: 36px;
+      height: 36px;
+      color: var(--gold-primary);
+    }
+
+    .voice-placeholder h3 {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.25rem;
+      color: var(--navy-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .voice-placeholder p {
+      font-size: 0.9rem;
+      color: var(--text-body);
+    }
+
+    /* ========== Flow Section ========== */
+    .flow {
+      padding: 8rem 2rem;
+      background: var(--navy-dark);
+      color: var(--white);
+    }
+
+    .flow-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .flow-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .flow-header .section-label {
+      color: var(--gold-light);
+    }
+
+    .flow-header h2 {
+      color: var(--white);
+    }
+
+    .flow-timeline {
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    /* NOTE: .flow-timeline::before is defined in the High-End Effects section below */
+
+    .flow-item {
+      position: relative;
+      padding-bottom: 3rem;
+      padding-left: 1rem;
+    }
+
+    .flow-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .flow-item::before {
+      content: '';
+      position: absolute;
+      left: -3rem;
+      top: 0.25rem;
+      width: 12px;
+      height: 12px;
+      background: var(--gold-primary);
+      border-radius: 50%;
+      transform: translateX(-5px);
+    }
+
+    .flow-step {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.85rem;
+      color: var(--gold-light);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+    }
+
+    .flow-item h3 {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .flow-item p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.9;
+    }
+
+    /* ========== FAQ Section ========== */
+    .faq {
+      padding: 8rem 2rem;
+      background: var(--cream);
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .faq-header h2 {
+      color: var(--navy-dark);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: left;
+      color: var(--navy-dark);
+      transition: background 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: rgba(201, 166, 107, 0.05);
+    }
+
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .faq-icon::before,
+    .faq-icon::after {
+      content: '';
+      position: absolute;
+      background: var(--gold-primary);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-icon::before {
+      width: 100%;
+      height: 2px;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+
+    .faq-icon::after {
+      width: 2px;
+      height: 100%;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+    }
+
+    .faq-item.active .faq-icon::after {
+      transform: translateX(-50%) rotate(90deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-answer-inner {
+      padding: 0 2rem 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.9;
+    }
+
+    /* ========== CTA Section ========== */
+    .cta {
+      padding: 8rem 2rem;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A66B' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--white);
+    }
+
+    .cta h2 {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta p {
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      line-height: 2;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--gold-primary);
+      color: var(--navy-dark);
+      padding: 1.25rem 3rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(201, 166, 107, 0.4);
+    }
+
+    /* ========== Footer ========== */
+    footer {
+      background: var(--navy-dark);
+      padding: 4rem 2rem 2rem;
+      color: var(--white);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-logos {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo {
+      margin-bottom: 0;
+    }
+
+    .footer-logo img {
+      height: 36px;
+      width: auto;
+    }
+
+    .footer-logo-medical img {
+      height: 36px;
+    }
+
+    .footer-logo span {
+      color: var(--gold-primary);
+    }
+
+    .footer-tagline {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 3rem;
+    }
+
+    .footer-links-group h4 {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links-group ul {
+      list-style: none;
+    }
+
+    .footer-links-group li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links-group a {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links-group a:hover {
+      color: var(--gold-light);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.5rem;
+      text-align: center;
+    }
+
+    .footer-copy {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ========== Scroll Animations ========== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 900px) {
+      header {
+        padding: 1rem 1.5rem;
+      }
+
+      .hero-content {
+        padding: 0 1.5rem;
+      }
+
+      .solution-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
+
+    /* ========== 1. Film Grain Overlay ========== */
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9990;
+      opacity: 0.04;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* ========== 2. Magnetic Effect ========== */
+    .magnetic-wrap {
+      display: inline-block;
+      position: relative;
+      z-index: 10;
+    }
+    .magnetic-area {
+      display: inline-flex;
+      transition: transform 0.1s linear;
+      will-change: transform;
+    }
+
+    /* ========== 3. Sticky Footer Reveal ========== */
+    main {
+      position: relative;
+      z-index: 2;
+      background: var(--white);
+      box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+      margin-bottom: 0;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @media (max-width: 900px) {
+      main {
+        margin-bottom: 0 !important;
+        box-shadow: none;
+      }
+      footer {
+        position: relative;
+        z-index: 2;
+      }
+    }
+
+    /* ========== 4. Flow Timeline Animation ========== */
+    .flow-timeline {
+      position: relative;
+      padding-left: 3rem;
+    }
+    .flow-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2px;
+      height: var(--line-height, 0%);
+      background: linear-gradient(to bottom, var(--gold-primary), var(--gold-light));
+      transition: height 0.05s linear;
+    }
+
+    /* ========== 5. Parallax Image Wrapper ========== */
+    .parallax-img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .parallax-img {
+      will-change: transform;
+      transition: transform 0.1s linear;
+    }
+  </style>
+</head>
+<body>
+  <!-- Film Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor"></div>
+
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading">
+    <div class="loading-icon">
+      <img src="assets/images/logo-medical.svg" alt="富楽メディカル" style="height: 60px; width: auto;">
+    </div>
+    <div class="loading-logo">医療特化型<span>採用支援</span></div>
+    <div class="loading-tagline">対症療法ではなく、体質改善を。</div>
+    <div class="loading-bar">
+      <div class="loading-bar-inner"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="logo">
+      <img src="assets/images/logo-medical.svg" alt="富楽メディカル">
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="メニュー">
+      <span class="menu-btn-line"></span>
+      <span class="menu-btn-line"></span>
+      <span class="menu-btn-line"></span>
+    </button>
+  </header>
+
+  <!-- Fullscreen Menu -->
+  <div class="fullscreen-menu" id="fullscreenMenu">
+    <div class="menu-left">
+      <ul class="menu-nav">
+        <li><a href="index.html"><span class="menu-nav-number">HOME</span>ホーム</a></li>
+        <li><a href="#problem"><span class="menu-nav-number">01</span>医療採用の課題</a></li>
+        <li><a href="#solution"><span class="menu-nav-number">02</span>アプローチ</a></li>
+        <li><a href="#features"><span class="menu-nav-number">03</span>私たちの特徴</a></li>
+        <li><a href="mailto:info@furakufine.com"><span class="menu-nav-number">CONTACT</span>お問い合わせ</a></li>
+      </ul>
+    </div>
+    <div class="menu-right">
+      <div class="menu-visual-frame-tl"></div>
+      <div class="menu-visual-frame-br"></div>
+      <div class="menu-visual">
+        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80" alt="">
+        <div class="menu-visual-overlay"></div>
+        <div class="menu-visual-vignette"></div>
+      </div>
+      <div class="menu-contact">
+        <a href="mailto:info@furakufine.com">
+          無料相談する
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Wrapper -->
+  <main id="mainContent">
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-slide active">
+        <img src="assets/images/AdobeStock_120921224.jpeg" alt="医療スタッフ">
+      </div>
+      <div class="hero-slide">
+        <img src="assets/images/AdobeStock_1237916144.jpeg" alt="医療スタッフ">
+      </div>
+      <div class="hero-slide">
+        <img src="assets/images/AdobeStock_1364475925.jpeg" alt="医療スタッフ">
+      </div>
+      <div class="hero-slide">
+        <img src="assets/images/AdobeStock_268987143.jpeg" alt="医療スタッフ">
+      </div>
+      <div class="hero-slide">
+        <img src="assets/images/AdobeStock_329548007.jpeg" alt="医療スタッフ">
+      </div>
+      <div class="hero-slide">
+        <img src="assets/images/AdobeStock_452458194.jpeg" alt="医療スタッフ">
+      </div>
+      <div class="hero-slide">
+        <img src="assets/images/AdobeStock_471608189.jpeg" alt="医療スタッフ">
+      </div>
+      <div class="hero-slide">
+        <img src="assets/images/AdobeStock_613684778.jpeg" alt="医療スタッフ">
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      <span class="hero-label">MEDICAL RECRUITMENT</span>
+      <h1 class="hero-title">
+        医療の採用に、<br>
+        <span class="highlight">体質改善</span>を。
+      </h1>
+      <p class="hero-subtitle">
+        院長の想いを軸にした「選ばれる医療機関」をつくります。<br>
+        1年間の伴走支援で、採用の根本から変える。
+      </p>
+      <div class="magnetic-wrap">
+        <a href="#contact" class="hero-cta magnetic-area">
+          無料相談を予約する
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>SCROLL</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Statement Section -->
+  <section class="statement">
+    <div class="statement-content reveal">
+      <h2 class="statement-title">
+        求人広告を出しても、<br>
+        紹介会社を使っても、人が来ない。<br><br>
+        その<span class="highlight">「繰り返し」</span>を、<br>
+        終わらせませんか。
+      </h2>
+      <p class="statement-text">
+        多くの医療機関が抱える採用課題。<br>
+        それは「条件の競争」に巻き込まれているからかもしれません。<br><br>
+        私たちは、院長の想いを言語化し、<br>
+        「この医療機関で働きたい」と思われる状態をつくります。
+      </p>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="problem" id="problem">
+    <div class="problem-container">
+      <div class="problem-header reveal">
+        <span class="section-label">PROBLEM</span>
+        <h2 class="section-title">医療採用のよくある課題</h2>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card reveal">
+          <h3>紹介会社に依存している</h3>
+          <p>紹介料が年々高騰。採用できても半年で退職され、また紹介料を払う悪循環。</p>
+        </div>
+        <div class="problem-card reveal">
+          <h3>求人を出しても応募がない</h3>
+          <p>大手求人媒体に掲載しても反応がなく、採用コストだけがかさんでいく。</p>
+        </div>
+        <div class="problem-card reveal">
+          <h3>採用してもすぐ辞める</h3>
+          <p>条件だけで入職した人は、より良い条件が見つかれば転職してしまう。</p>
+        </div>
+        <div class="problem-card reveal">
+          <h3>院長の想いが伝わっていない</h3>
+          <p>理念や診療方針を言語化できておらず、採用時に伝えられていない。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="solution" id="solution">
+    <div class="solution-container">
+      <div class="solution-header reveal">
+        <span class="section-label">SOLUTION</span>
+        <h2 class="section-title">私たちのアプローチ</h2>
+        <p>対症療法ではなく、採用の「体質」そのものを改善します。</p>
+      </div>
+      <div class="solution-grid">
+        <div class="solution-step reveal">
+          <div class="step-number">01</div>
+          <h3>理念の言語化</h3>
+          <p>院長インタビューを通じて、開業の原点・診療への想い・大切にしている価値観を言語化します。</p>
+        </div>
+        <div class="solution-step reveal">
+          <div class="step-number">02</div>
+          <h3>採用コンテンツ設計</h3>
+          <p>採用LP・求人原稿・SNSコンテンツなど、理念を軸にした「選ばれる」コンテンツを制作します。</p>
+        </div>
+        <div class="solution-step reveal">
+          <div class="step-number">03</div>
+          <h3>運用・改善サポート</h3>
+          <p>月次MTGで効果検証・改善を繰り返し、1年かけて採用の「体質改善」を実現します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="features-container">
+      <div class="features-header reveal">
+        <span class="section-label">FEATURES</span>
+        <h2 class="section-title">選ばれる理由</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-number">1</div>
+          <h3>医療業界に特化</h3>
+          <p>クリニック・病院・介護施設など、医療業界特有の採用課題を深く理解しています。</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-number">2</div>
+          <h3>1年間の伴走支援</h3>
+          <p>作って終わりではなく、1年間かけて採用の「体質」そのものを改善します。</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-number">3</div>
+          <h3>紹介会社依存からの脱却</h3>
+          <p>自院の魅力で人が集まる状態をつくり、紹介会社への依存を減らします。</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-number">4</div>
+          <h3>定着率の向上</h3>
+          <p>理念に共感して入職した人は、困難があっても一緒に乗り越えてくれます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Voice Section (Placeholder) -->
+  <section class="voice" id="voice">
+    <div class="voice-container">
+      <div class="voice-header reveal">
+        <span class="section-label">VOICE</span>
+        <h2 class="section-title">導入医療機関の声</h2>
+      </div>
+      <div class="voice-placeholder reveal">
+        <div class="voice-placeholder-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <h3>Coming Soon</h3>
+        <p>導入医療機関様の声を順次掲載予定です</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flow Section -->
+  <section class="flow" id="flow">
+    <div class="flow-container">
+      <div class="flow-header reveal">
+        <span class="section-label">FLOW</span>
+        <h2 class="section-title">ご支援の流れ</h2>
+      </div>
+      <div class="flow-timeline">
+        <div class="flow-item reveal">
+          <p class="flow-step">MONTH 01-02</p>
+          <h3>現状分析・理念の言語化</h3>
+          <p>院長インタビュー、現状の採用課題分析、理念・診療方針の言語化を行います。</p>
+        </div>
+        <div class="flow-item reveal">
+          <p class="flow-step">MONTH 03-04</p>
+          <h3>採用コンテンツ制作</h3>
+          <p>採用LP・求人原稿・SNSコンテンツなど、理念を軸にしたコンテンツを制作します。</p>
+        </div>
+        <div class="flow-item reveal">
+          <p class="flow-step">MONTH 05-08</p>
+          <h3>運用・効果測定</h3>
+          <p>月次MTGで効果検証を行い、コンテンツの改善・最適化を繰り返します。</p>
+        </div>
+        <div class="flow-item reveal">
+          <p class="flow-step">MONTH 09-12</p>
+          <h3>体質改善・自走化</h3>
+          <p>採用の「体質改善」を完了し、自院で継続運用できる状態をつくります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq" id="faq">
+    <div class="faq-container">
+      <div class="faq-header reveal">
+        <span class="section-label">FAQ</span>
+        <h2 class="section-title">よくあるご質問</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            <span>どのような医療機関が対象ですか？</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              クリニック（内科、歯科、眼科、皮膚科など）、病院、介護施設など、医療・介護領域の採用課題をお持ちの施設が対象です。規模は問いません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            <span>費用はどのくらいかかりますか？</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              1年間の伴走支援で月額20万円〜が目安です。紹介会社1名分の紹介料で、1年間の採用体質改善が可能です。詳細は無料相談でお話しします。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            <span>すぐに効果は出ますか？</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              採用の「体質改善」は時間がかかります。しかし、一度改善すれば持続的に効果が出ます。短期的な成果を求める場合は、紹介会社の活用をおすすめします。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            <span>遠方でも対応できますか？</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、オンラインでのMTGを中心に対応しています。院長インタビューなど一部は訪問で実施することもありますが、基本的に全国対応可能です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta" id="contact">
+    <div class="cta-content reveal">
+      <h2>まずは、お話を聞かせてください。</h2>
+      <p>
+        採用のお悩み、紹介会社への依存、理念の言語化など、<br>
+        どんなことでもお気軽にご相談ください。
+      </p>
+      <div class="magnetic-wrap">
+        <a href="mailto:info@furakufine.com" class="cta-btn magnetic-area">
+          無料相談を予約する
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  </main>
+  <!-- End Main Content Wrapper -->
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logos">
+            <div class="footer-logo">
+              <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+            </div>
+            <div class="footer-logo footer-logo-medical">
+              <img src="assets/images/logo-medical.svg" alt="富楽メディカル">
+            </div>
+          </div>
+          <p class="footer-tagline">すべての人に、豊かさと楽しさを。</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-group">
+            <h4>SERVICE</h4>
+            <ul>
+              <li><a href="recruitment.html">採用ブランディング伴走支援</a></li>
+              <li><a href="medical.html">医療特化型採用支援</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-group">
+            <h4>COMPANY</h4>
+            <ul>
+              <li><a href="index.html#company">会社概要</a></li>
+              <li><a href="index.html#contact">お問い合わせ</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Furaku Fine Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Loading Screen
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+        startHeroAnimations();
+      }, 2500);
+    });
+
+    // フォールバック：4秒後に強制的にローディングを非表示
+    setTimeout(() => {
+      const loading = document.getElementById('loading');
+      if (loading && !loading.classList.contains('hidden')) {
+        loading.classList.add('hidden');
+        if (typeof startHeroAnimations === 'function') startHeroAnimations();
+      }
+    }, 4000);
+
+    // Fullscreen Menu
+    const menuBtn = document.getElementById('menuBtn');
+    const fullscreenMenu = document.getElementById('fullscreenMenu');
+    const menuLinks = document.querySelectorAll('.menu-nav a, .menu-contact a');
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      fullscreenMenu.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+    });
+
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuBtn.classList.remove('active');
+        fullscreenMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      });
+    });
+
+    // Hero Animations
+    function startHeroAnimations() {
+      const elements = ['.hero-icon', '.hero-label', '.hero-title', '.hero-subtitle', '.hero-cta', '.hero-scroll'];
+      elements.forEach((sel, i) => {
+        setTimeout(() => {
+          const el = document.querySelector(sel);
+          if (el) {
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          }
+        }, i * 150);
+      });
+    }
+
+    // Hero Slideshow
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    let currentSlide = 0;
+    setInterval(() => {
+      heroSlides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % heroSlides.length;
+      heroSlides[currentSlide].classList.add('active');
+    }, 5000);
+
+    // Header Scroll Effect
+    window.addEventListener('scroll', () => {
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 100);
+    });
+
+    // Scroll Reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const answer = item.querySelector('.faq-answer');
+        const isOpen = item.classList.contains('active');
+        
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.faq-answer').style.maxHeight = null;
+        });
+        
+        if (!isOpen) {
+          item.classList.add('active');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // ========== Custom Cursor ==========
+    (function() {
+      const cursor = document.getElementById('customCursor');
+      if (!cursor) {
+        console.error('Custom cursor element not found!');
+        return;
+      }
+
+      let cursorX = 0, cursorY = 0;
+      let currentX = 0, currentY = 0;
+      let isFirstMove = true;
+
+      document.addEventListener('mousemove', (e) => {
+        cursorX = e.clientX;
+        cursorY = e.clientY;
+
+        // Show cursor on first mouse move
+        if (isFirstMove) {
+          currentX = cursorX;
+          currentY = cursorY;
+          cursor.style.left = currentX + 'px';
+          cursor.style.top = currentY + 'px';
+          cursor.classList.add('visible');
+          isFirstMove = false;
+        }
+      });
+
+      // Hide cursor when mouse leaves window
+      document.addEventListener('mouseleave', () => {
+        cursor.classList.remove('visible');
+        isFirstMove = true;
+      });
+
+      document.addEventListener('mouseenter', () => {
+        if (!isFirstMove) {
+          cursor.classList.add('visible');
+        }
+      });
+
+      // Smooth cursor animation
+      function animateCursor() {
+        const ease = 0.15;
+        currentX += (cursorX - currentX) * ease;
+        currentY += (cursorY - currentY) * ease;
+        cursor.style.left = currentX + 'px';
+        cursor.style.top = currentY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+
+      // Hover effect on interactive elements
+      const interactiveElements = document.querySelectorAll('a, button, .menu-btn, input, textarea, [role="button"]');
+      interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+
+      // Click effect
+      document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
+      document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+
+      console.log('Custom cursor initialized successfully');
+    })();
+  </script>
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    // Initialize Lenis for smooth scrolling
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    // Animation frame loop
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Smooth scroll for anchor links using Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (target) {
+          lenis.scrollTo(target, {
+            offset: 0,
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+          });
+        }
+      });
+    });
+
+    // Stop Lenis when menu is open
+    const menuObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.target.classList.contains('menu-open')) {
+          lenis.stop();
+        } else {
+          lenis.start();
+        }
+      });
+    });
+    menuObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  </script>
+
+  <!-- High-End Effects -->
+  <script>
+    // ========== 1. Magnetic Button Effect ==========
+    const magneticButtons = document.querySelectorAll('.magnetic-wrap');
+    magneticButtons.forEach((wrap) => {
+      const area = wrap.querySelector('.magnetic-area');
+      if(!area) return;
+      wrap.addEventListener('mousemove', (e) => {
+        const rect = wrap.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        area.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+      });
+      wrap.addEventListener('mouseleave', () => {
+        area.style.transform = 'translate(0, 0)';
+      });
+    });
+
+    // ========== 2. Dynamic Footer Height ==========
+    function setFooterHeight() {
+      const footer = document.querySelector('footer');
+      const main = document.getElementById('mainContent');
+      if (footer && main && window.innerWidth > 900) {
+        const h = footer.offsetHeight;
+        main.style.marginBottom = `${h}px`;
+      } else if (main) {
+        main.style.marginBottom = '0px';
+      }
+    }
+    window.addEventListener('resize', setFooterHeight);
+    window.addEventListener('load', () => setTimeout(setFooterHeight, 100));
+
+    // ========== 3. Flow Timeline Animation (Scroll Linked) ==========
+    const timeline = document.querySelector('.flow-timeline');
+    function updateTimeline() {
+      if (!timeline) return;
+      const rect = timeline.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const start = windowHeight * 0.8; // 画面の80%の位置に来たら開始
+
+      // 画面内での進行度を計算
+      let progress = (start - rect.top) / (rect.height);
+
+      // 0% 〜 100% に制限
+      progress = Math.max(0, Math.min(1, progress));
+
+      // CSS変数を更新
+      timeline.style.setProperty('--line-height', `${progress * 100}%`);
+    }
+
+    // Lenisのスクロールループに追加
+    requestAnimationFrame(function loop() {
+      updateTimeline();
+      requestAnimationFrame(loop);
+    });
+  </script>
+</body>
+</html>

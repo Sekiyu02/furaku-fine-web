@@ -1,0 +1,132 @@
+# Furaku Fine Corporate Website
+
+## プロジェクト概要
+株式会社富楽ファイン（Furaku Fine Co., Ltd.）のコーポレートサイト。
+採用ブランディングパートナーとして、理念浸透から共感採用までを支援する会社のWebサイト。
+
+## 技術スタック
+- 静的HTML/CSS/JavaScript（フレームワークなし）
+- Google Fonts（Cormorant Garamond, Noto Sans JP, Noto Serif JP）
+- Google Analytics 4（アクセス解析）
+- Vercel（ホスティング）
+- GitHub（バージョン管理）
+
+## ブランドカラー
+- オレンジ（プライマリ）: #E67635
+- オレンジ（ライト）: #F5A66A
+- オレンジ（ダーク）: #C45A1A
+- ネイビー: #1e3a5f
+- ネイビー（ダーク）: #152a45
+- オフホワイト: #FAF8F5
+
+## 医療LP専用カラー
+- ゴールド（プライマリ）: #C9A66B
+- シャンパンゴールド: #E2C992
+- ネイビー（ダーク）: #0a1628
+
+## フォント設定
+- 見出し: "Noto Serif JP", serif
+- 本文: "Noto Sans JP", sans-serif
+- 数字・英字アクセント: "Cormorant Garamond", serif
+
+## ファイル構成
+```
+/
+├── index.html          # トップページ
+├── recruitment.html    # 採用ブランディング伴走支援 LP
+├── medical.html        # 医療特化型採用支援 LP
+├── knowledge.html      # ナレッジ一覧
+├── admin.html          # 管理者ページ（パスワード保護）
+├── articles/           # 記事ページ
+│   └── *.html
+├── assets/
+│   ├── images/         # 画像ファイル
+│   │   ├── logo-jp.svg     # ロゴ + 漢字（ヘッダー・フッター用）
+│   │   ├── logo-en.svg     # ロゴ + ローマ字
+│   │   └── logo-mark.svg   # ロゴマークのみ
+│   └── css/            # 共通CSS（将来用）
+├── .cursorrules        # このファイル
+├── .gitignore
+├── vercel.json
+└── README.md
+```
+
+## ロゴファイル
+- **logo-jp.svg**: ロゴ + 「富楽ファイン」漢字テキスト（メイン使用）
+- **logo-en.svg**: ロゴ + "FurakuFine" 英字テキスト
+- **logo-mark.svg**: ロゴマークのみ（ファビコン等）
+
+ロゴはオレンジ〜ゴールドのグラデーションで構成されています。
+ヘッダー・フッターには logo-jp.svg を使用してください。
+
+## ページ別の役割
+
+### index.html（トップページ）
+- 会社紹介
+- Philosophy（理念）
+- Service（サービス紹介）
+- Message（代表メッセージ）
+- Team（チーム）
+- Knowledge（ナレッジへのリンク）
+- Company（会社概要）
+- Contact（お問い合わせ）
+
+### recruitment.html（採用ブランディングLP）
+- Phase 00〜05の6段階フレームワーク
+- 12ヶ月ロードマップ（縦タイムライン）
+- 階段ビジュアル
+- お客様の声
+- FAQ
+
+### medical.html（医療特化LP）
+- 医療業界向けデザイン（ネイビー×ゴールド）
+- Medical EVP Story Map
+- 対象：クリニック、歯科、在宅医療
+
+### knowledge.html（ナレッジ一覧）
+- 記事カード一覧
+- カテゴリフィルター
+
+### admin.html（管理者ページ）
+- パスワード: furakufine0120
+- 実績・お客様の声・記事の管理
+- HTMLコード出力機能
+- GA4設定確認
+
+## コーディング規約
+
+### HTML
+- セマンティックなHTML5タグを使用
+- BEM風のクラス命名（例: `.hero-content`, `.section-title`）
+- 各セクションにコメントで区切りを入れる
+
+### CSS
+- CSS変数（カスタムプロパティ）を使用
+- モバイルファースト（レスポンシブ対応）
+- ブレークポイント: 900px, 768px, 480px
+
+### JavaScript
+- バニラJS（ライブラリ不使用）
+- IntersectionObserverでスクロールアニメーション
+- localStorageで管理画面データ保存
+
+## Google Analytics 4
+- 測定ID: G-XXXXXXXXXX（要置換）
+- admin.html以外の全ページに設置済み
+- 新規ページ追加時は必ずGA4コードを含める
+
+## 注意事項
+- 画像は未設定（placeholder使用）
+- メールアドレスはCloudflareのemail protectionでエンコード済み
+- admin.htmlはnoindex, nofollow設定
+
+## よく使うコマンド
+```bash
+# Gitプッシュ（Vercel自動デプロイ）
+git add .
+git commit -m "Update: 変更内容"
+git push origin main
+
+# 測定IDの一括置換
+# G-XXXXXXXXXX → 実際の測定ID
+```

@@ -1,0 +1,10 @@
+# CSS Folder
+
+共通CSSファイルをここに配置してください。
+
+## 今後の拡張予定
+- `variables.css` - CSS変数
+- `common.css` - 共通スタイル
+- `components.css` - コンポーネント
+
+現在はHTMLファイル内に`<style>`タグで記述しています。
