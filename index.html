@@ -2126,6 +2126,8 @@
         position: relative !important;
         display: block !important;
         margin-bottom: 1rem;
+        border-radius: 8px !important;
+        overflow: hidden !important;
       }
 
       .split-panel:last-of-type {
@@ -2140,7 +2142,7 @@
       .split-panel-content {
         opacity: 1 !important;
         transform: translateY(0) !important;
-        padding: 1.5rem !important;
+        padding: 2.5rem 1.25rem !important;
         position: absolute !important;
         bottom: 0 !important;
         left: 0 !important;
@@ -2148,7 +2150,7 @@
       }
 
       .split-panel-title {
-        font-size: 1.25rem !important;
+        font-size: 1.2rem !important;
       }
 
       .split-panel-desc {
@@ -2165,7 +2167,7 @@
       }
 
       .split-panel-overlay {
-        background: rgba(21, 42, 69, 0.5) !important;
+        background: rgba(0, 0, 0, 0.6) !important;
       }
 
       /* 背景画像を常に表示（ホバー状態をデフォルトに） */
@@ -2211,17 +2213,17 @@
         letter-spacing: 0.15em;
       }
 
-      /* 1. Philosophy Title - 文字切れ・ズレ修正 */
+      /* 1. Philosophy Title - 余裕のある表示 */
       .philosophy-title {
-        font-size: 1.15rem !important;
+        font-size: 1.35rem !important;
         line-height: 1.9 !important;
         margin-bottom: 1.25rem;
         width: 100% !important;
         text-align: center !important;
         word-break: keep-all;
         overflow-wrap: normal;
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
       }
 
       .philosophy-title span[style*="white-space"] {
