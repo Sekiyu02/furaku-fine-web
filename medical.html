@@ -1533,17 +1533,71 @@
 
       .problem-card {
         padding: 1.5rem 1.25rem;
+        /* ホバー状態をデフォルトに（控えめ） */
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      }
+
+      .problem-card h3 {
+        font-size: 1.05rem !important;
+        line-height: 1.5 !important;
+      }
+
+      .problem-card p {
+        font-size: 0.85rem !important;
+        line-height: 1.7 !important;
       }
 
       /* ========== Solution Steps Mobile ========== */
       .solution-step {
         padding: 2rem 1.5rem;
+        /* ホバー状態をデフォルトに */
+        background: rgba(255,255,255,0.06) !important;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      }
+
+      .solution-step h3 {
+        font-size: 1.05rem !important;
+        line-height: 1.5 !important;
+      }
+
+      .solution-step p {
+        font-size: 0.85rem !important;
+        line-height: 1.7 !important;
       }
 
       .step-number {
         font-size: 3rem !important;
         top: 0.5rem !important;
         right: 1rem !important;
+      }
+
+      /* ========== Feature Cards Mobile ========== */
+      .features-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem;
+      }
+
+      .feature-card {
+        padding: 1.75rem 1.5rem;
+        /* ホバー状態をデフォルトに（控えめ） */
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      }
+
+      .feature-card h3 {
+        font-size: 1.05rem !important;
+        line-height: 1.5 !important;
+      }
+
+      .feature-card p {
+        font-size: 0.85rem !important;
+        line-height: 1.7 !important;
+      }
+
+      .feature-number {
+        font-size: 2rem !important;
       }
 
       /* ========== Flow Timeline Mobile ========== */
