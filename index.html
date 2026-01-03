@@ -2146,10 +2146,21 @@
       overflow: hidden;
       cursor: pointer;
       transition: flex 0.5s ease-out;
+      text-decoration: none;
     }
 
     .split-panel:hover {
-      flex: 2.3;
+      flex: 1.8;
+    }
+
+    .split-panel * {
+      text-decoration: none !important;
+    }
+
+    /* Ensure non-hovered panel content stays visible */
+    .split-screen:hover .split-panel:not(:hover) .split-panel-content {
+      transform: scale(0.95);
+      transition: transform 0.5s ease-out;
     }
 
     .split-panel-bg {
@@ -2206,8 +2217,9 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 3rem 4rem;
+      padding: 2.5rem 2.5rem;
       color: var(--white);
+      min-height: 0;
     }
 
     .split-panel-logo {
