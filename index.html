@@ -2211,11 +2211,17 @@
         letter-spacing: 0.15em;
       }
 
-      /* 1. Philosophy Title - 文字切れ修正 */
+      /* 1. Philosophy Title - 文字切れ・ズレ修正 */
       .philosophy-title {
         font-size: 1.4rem !important;
+        line-height: 1.8 !important;
         margin-bottom: 1.25rem;
-        line-height: 1.7 !important;
+        width: 100% !important;
+        text-align: center !important;
+        word-break: keep-all;
+        overflow-wrap: normal;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
       }
 
       .services-title,
