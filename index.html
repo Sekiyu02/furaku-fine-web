@@ -1213,6 +1213,343 @@
       line-height: 2;
     }
 
+    /* ========== Works Section ========== */
+    .works {
+      padding: 10rem 2rem;
+      background: var(--off-white);
+    }
+
+    .works-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .works-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .works-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .works-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.8;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .works-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+
+    .works-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+
+    .works-card-image {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .works-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .works-card:hover .works-card-image img {
+      transform: scale(1.05);
+    }
+
+    .works-card-type {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.7rem;
+      color: var(--white);
+      border-radius: 20px;
+    }
+
+    .works-card-type.video { background: #9333ea; }
+    .works-card-type.branding { background: #2563eb; }
+    .works-card-type.consulting { background: #16a34a; }
+    .works-card-type.other { background: #6b7280; }
+
+    .works-card-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .works-card:hover .works-card-play {
+      opacity: 1;
+    }
+
+    .works-card-play-btn {
+      width: 64px;
+      height: 64px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .works-card-play-btn svg {
+      width: 24px;
+      height: 24px;
+      color: var(--orange-primary);
+      margin-left: 4px;
+    }
+
+    .works-card-content {
+      padding: 1.5rem;
+    }
+
+    .works-card-company {
+      font-size: 0.75rem;
+      color: var(--text-body);
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+
+    .works-card-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--navy-dark);
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: color 0.3s ease;
+    }
+
+    .works-card:hover .works-card-title {
+      color: var(--orange-primary);
+    }
+
+    .works-card-desc {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      line-height: 1.7;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .works-card-meta {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      color: #9333ea;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .works-card-meta svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .works-empty {
+      text-align: center;
+      padding: 4rem 2rem;
+      border: 2px dashed rgba(0,0,0,0.1);
+      border-radius: 12px;
+    }
+
+    .works-empty-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1.5rem;
+      color: var(--orange-primary);
+      opacity: 0.4;
+    }
+
+    .works-empty-title {
+      font-weight: 500;
+      color: var(--navy-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .works-empty-text {
+      font-size: 0.9rem;
+      color: var(--text-body);
+    }
+
+    /* Works Modal */
+    .works-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .works-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .works-modal-content {
+      background: var(--white);
+      border-radius: 16px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .works-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+      background: var(--white);
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 10;
+      transition: background 0.3s ease;
+    }
+
+    .works-modal-close:hover {
+      background: #f5f5f5;
+    }
+
+    .works-modal-close svg {
+      width: 24px;
+      height: 24px;
+      color: #666;
+    }
+
+    .works-modal-video {
+      aspect-ratio: 16/9;
+      width: 100%;
+    }
+
+    .works-modal-video iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .works-modal-body {
+      padding: 2rem;
+    }
+
+    .works-modal-type {
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.7rem;
+      color: var(--white);
+      border-radius: 20px;
+      margin-bottom: 0.75rem;
+    }
+
+    .works-modal-company {
+      font-size: 0.9rem;
+      color: var(--orange-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .works-modal-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.5rem;
+      color: var(--navy-dark);
+      letter-spacing: 0.05em;
+    }
+
+    .works-modal-duration {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      opacity: 0.7;
+      margin-top: 0.5rem;
+    }
+
+    .works-modal-section {
+      margin-bottom: 2rem;
+    }
+
+    .works-modal-section-title {
+      font-weight: 500;
+      color: var(--navy-dark);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .works-modal-section-title::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--orange-primary);
+      border-radius: 2px;
+    }
+
+    .works-modal-section-content {
+      color: var(--text-body);
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .works-modal-section.highlight {
+      background: var(--off-white);
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .works-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .works-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ========== Knowledge Section ========== */
     .knowledge {
       padding: 10rem 2rem;
@@ -1971,8 +2308,9 @@
         <li><a href="#services"><span class="menu-nav-number">02</span>サービス</a></li>
         <li><a href="#message"><span class="menu-nav-number">03</span>代表メッセージ</a></li>
         <li><a href="#team"><span class="menu-nav-number">04</span>チーム</a></li>
-        <li><a href="knowledge.html"><span class="menu-nav-number">05</span>ナレッジ</a></li>
-        <li><a href="#company"><span class="menu-nav-number">06</span>会社概要</a></li>
+        <li><a href="#works"><span class="menu-nav-number">05</span>実績</a></li>
+        <li><a href="knowledge.html"><span class="menu-nav-number">06</span>ナレッジ</a></li>
+        <li><a href="#company"><span class="menu-nav-number">07</span>会社概要</a></li>
         <li><a href="mailto:info@furakufine.com"><span class="menu-nav-number">CONTACT</span>お問い合わせ</a></li>
       </ul>
     </div>
@@ -2296,6 +2634,64 @@
     </div>
   </section>
 
+  <!-- Works Section -->
+  <section class="works" id="works">
+    <div class="works-container">
+      <div class="works-header reveal">
+        <span class="section-label stagger-text">WORKS</span>
+        <h2 class="works-title stagger-text">実績紹介</h2>
+        <p class="works-subtitle">私たちがお手伝いした採用ブランディング・映像制作の事例をご紹介します。</p>
+      </div>
+
+      <div class="works-grid" id="worksGrid">
+        <!-- Works will be loaded dynamically -->
+      </div>
+
+      <div class="works-empty" id="worksEmpty">
+        <div class="works-empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M23 7l-7 5 7 5V7zM1 5h15a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H1V5z"/>
+          </svg>
+        </div>
+        <h3 class="works-empty-title">Coming Soon</h3>
+        <p class="works-empty-text">実績を順次掲載予定です</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Works Modal -->
+  <div class="works-modal" id="worksModal">
+    <div class="works-modal-content">
+      <button class="works-modal-close" id="worksModalClose">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      <div class="works-modal-video" id="worksModalVideo"></div>
+      <div class="works-modal-body">
+        <span class="works-modal-type" id="worksModalType"></span>
+        <p class="works-modal-company" id="worksModalCompany"></p>
+        <h2 class="works-modal-title" id="worksModalTitle"></h2>
+        <p class="works-modal-duration" id="worksModalDuration"></p>
+
+        <div class="works-modal-section" id="worksModalDescSection">
+          <h3 class="works-modal-section-title">概要</h3>
+          <p class="works-modal-section-content" id="worksModalDesc"></p>
+        </div>
+
+        <div class="works-modal-section highlight" id="worksModalResponsibilitiesSection" style="display:none;">
+          <h3 class="works-modal-section-title">当社の担当領域</h3>
+          <p class="works-modal-section-content" id="worksModalResponsibilities"></p>
+        </div>
+
+        <div class="works-modal-section" id="worksModalCreditsSection" style="display:none;">
+          <h3 class="works-modal-section-title">制作クレジット</h3>
+          <p class="works-modal-section-content" id="worksModalCredits"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Knowledge Section -->
   <section class="knowledge" id="knowledge">
     <div class="knowledge-container">
@@ -2439,6 +2835,7 @@
             <h4>COMPANY</h4>
             <ul>
               <li><a href="#team">私たちについて</a></li>
+              <li><a href="#works">実績紹介</a></li>
               <li><a href="#company">会社概要</a></li>
               <li><a href="knowledge.html">ナレッジ</a></li>
               <li><a href="#contact">お問い合わせ</a></li>
@@ -2837,6 +3234,185 @@
     window.addEventListener('load', () => {
       setTimeout(setFooterHeight, 100); // 画像読み込み待ちなどを考慮
     });
+
+    // ========== 4. WORKS Section - Load from localStorage ==========
+    (function() {
+      const worksGrid = document.getElementById('worksGrid');
+      const worksEmpty = document.getElementById('worksEmpty');
+      const worksModal = document.getElementById('worksModal');
+      const worksModalClose = document.getElementById('worksModalClose');
+
+      // Sample works data (will be merged with localStorage data)
+      const sampleWorks = [
+        {
+          id: 'sample-1',
+          company: '医療法人A様',
+          title: '採用ブランディングムービー制作',
+          projectType: 'video',
+          description: '理念を軸にした採用ブランディング映像を制作。院長の想いと現場の空気を可視化し、共感で人が集まる仕組みをつくりました。',
+          thumbnailUrl: 'assets/images/works/work1.jpg',
+          videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+          videoDuration: '3:24',
+          videoCategory: 'YouTube',
+          responsibilities: '企画・構成・撮影・編集・ナレーション',
+          credits: 'プロデューサー：冨山大貴\nディレクター：友菜'
+        }
+      ];
+
+      // Load from localStorage
+      function loadWorks() {
+        try {
+          const saved = localStorage.getItem('furakuAdminData');
+          if (saved) {
+            const data = JSON.parse(saved);
+            if (data.works && data.works.length > 0) {
+              return data.works.filter(w => w.status === 'published').map(w => ({
+                id: w.id,
+                company: w.company,
+                title: w.company + ' 様 支援実績',
+                projectType: 'consulting',
+                description: w.challenge + '\n\n' + w.solution + '\n\n' + w.result,
+                thumbnailUrl: w.image || 'assets/images/works/default.jpg',
+                responsibilities: w.solution,
+                period: w.period
+              }));
+            }
+          }
+        } catch (e) {
+          console.log('No works data in localStorage');
+        }
+        return [];
+      }
+
+      // Get YouTube video ID
+      function getYouTubeId(url) {
+        if (!url) return null;
+        const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
+        return match ? match[1] : null;
+      }
+
+      // Get project type label
+      function getTypeLabel(type) {
+        switch(type) {
+          case 'video': return '映像制作';
+          case 'branding': return '採用ブランディング';
+          case 'consulting': return 'コンサルティング';
+          default: return 'その他';
+        }
+      }
+
+      // Render works
+      function renderWorks() {
+        const localWorks = loadWorks();
+        // For now, show sample if no local works
+        const works = localWorks.length > 0 ? localWorks : [];
+
+        if (works.length === 0) {
+          worksGrid.style.display = 'none';
+          worksEmpty.style.display = 'block';
+          return;
+        }
+
+        worksGrid.style.display = 'grid';
+        worksEmpty.style.display = 'none';
+        worksGrid.innerHTML = '';
+
+        works.forEach(work => {
+          const card = document.createElement('div');
+          card.className = 'works-card reveal';
+          card.innerHTML = `
+            <div class="works-card-image">
+              <img src="${work.thumbnailUrl || 'assets/images/works/default.jpg'}" alt="${work.title}" onerror="this.src='https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=800&q=80'">
+              <span class="works-card-type ${work.projectType}">${getTypeLabel(work.projectType)}</span>
+              ${work.videoUrl ? `
+              <div class="works-card-play">
+                <div class="works-card-play-btn">
+                  <svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>` : ''}
+            </div>
+            <div class="works-card-content">
+              <p class="works-card-company">${work.company}</p>
+              <h3 class="works-card-title">${work.title}</h3>
+              <p class="works-card-desc">${work.description}</p>
+              ${work.videoDuration ? `
+              <p class="works-card-meta">
+                <svg fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 4-8 4z"/>
+                </svg>
+                ${work.videoDuration} / ${work.videoCategory || 'YouTube'}
+              </p>` : ''}
+            </div>
+          `;
+
+          card.addEventListener('click', () => openModal(work));
+          worksGrid.appendChild(card);
+        });
+      }
+
+      // Open modal
+      function openModal(work) {
+        document.getElementById('worksModalType').textContent = getTypeLabel(work.projectType);
+        document.getElementById('worksModalType').className = 'works-modal-type ' + work.projectType;
+        document.getElementById('worksModalCompany').textContent = work.company;
+        document.getElementById('worksModalTitle').textContent = work.title;
+
+        if (work.videoDuration) {
+          document.getElementById('worksModalDuration').textContent = `再生時間：${work.videoDuration}　／　${work.videoCategory || 'YouTube'}`;
+          document.getElementById('worksModalDuration').style.display = 'block';
+        } else {
+          document.getElementById('worksModalDuration').style.display = 'none';
+        }
+
+        document.getElementById('worksModalDesc').textContent = work.description;
+
+        if (work.responsibilities) {
+          document.getElementById('worksModalResponsibilities').textContent = work.responsibilities;
+          document.getElementById('worksModalResponsibilitiesSection').style.display = 'block';
+        } else {
+          document.getElementById('worksModalResponsibilitiesSection').style.display = 'none';
+        }
+
+        if (work.credits) {
+          document.getElementById('worksModalCredits').textContent = work.credits;
+          document.getElementById('worksModalCreditsSection').style.display = 'block';
+        } else {
+          document.getElementById('worksModalCreditsSection').style.display = 'none';
+        }
+
+        // Video embed
+        const videoContainer = document.getElementById('worksModalVideo');
+        const youtubeId = getYouTubeId(work.videoUrl);
+        if (youtubeId) {
+          videoContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${youtubeId}" title="${work.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+          videoContainer.style.display = 'block';
+        } else {
+          videoContainer.innerHTML = '';
+          videoContainer.style.display = 'none';
+        }
+
+        worksModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      // Close modal
+      function closeModal() {
+        worksModal.classList.remove('active');
+        document.body.style.overflow = '';
+        document.getElementById('worksModalVideo').innerHTML = '';
+      }
+
+      worksModalClose.addEventListener('click', closeModal);
+      worksModal.addEventListener('click', (e) => {
+        if (e.target === worksModal) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && worksModal.classList.contains('active')) closeModal();
+      });
+
+      // Initialize
+      renderWorks();
+    })();
   </script>
 </body>
 </html>
