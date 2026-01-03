@@ -2102,29 +2102,9 @@
     })();
   </script>
 
-  <!-- Lenis Smooth Scroll -->
-  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <!-- Native Smooth Scroll -->
   <script>
-    // Initialize Lenis for smooth scrolling
-    const lenis = new Lenis({
-      duration: 0.8,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.5,
-      touchMultiplier: 2,
-      infinite: false,
-    });
-
-    // Animation frame loop
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    // Smooth scroll for anchor links using Lenis
+    // Smooth scroll for anchor links (native)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -2132,26 +2112,13 @@
         if (targetId === '#') return;
         const target = document.querySelector(targetId);
         if (target) {
-          lenis.scrollTo(target, {
-            offset: 0,
-            duration: 1.5,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
           });
         }
       });
     });
-
-    // Stop Lenis when menu is open
-    const menuObserver = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.target.classList.contains('menu-open')) {
-          lenis.stop();
-        } else {
-          lenis.start();
-        }
-      });
-    });
-    menuObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   </script>
 
   <!-- High-End Effects -->
