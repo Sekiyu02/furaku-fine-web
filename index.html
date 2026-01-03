@@ -33,16 +33,16 @@
     /* ========== Custom Cursor ========== */
     .custom-cursor {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: -10px;
+      left: -10px;
       width: 20px;
       height: 20px;
       border: 2px solid var(--orange-primary);
       border-radius: 50%;
       pointer-events: none;
       z-index: 99999;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
+      will-change: transform;
+      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease;
       opacity: 0;
     }
 
@@ -53,12 +53,13 @@
     .custom-cursor.hover {
       width: 50px;
       height: 50px;
+      margin: -15px 0 0 -15px;
       background: rgba(230, 118, 53, 0.2);
       border-color: var(--orange-light);
     }
 
     .custom-cursor.clicking {
-      transform: translate(-50%, -50%) scale(0.8);
+      transform: scale(0.8);
     }
 
     /* Hide on touch devices */
@@ -1975,6 +1976,7 @@
     }
 
     .parallax {
+      will-change: transform;
       transition: transform 0.1s ease-out;
     }
 
@@ -3026,93 +3028,124 @@
 
     // ========== Header Scroll Effect ==========
     const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
+    let lastScrollY = 0;
+    let headerTicking = false;
+
+    function updateHeader() {
+      if (lastScrollY > 100) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
       }
-    });
+      headerTicking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      lastScrollY = window.scrollY;
+      if (!headerTicking) {
+        requestAnimationFrame(updateHeader);
+        headerTicking = true;
+      }
+    }, { passive: true });
 
     // ========== Scroll Reveal Animations ==========
     const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-    
+
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target); // Stop observing once revealed
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // ========== Parallax Effect ==========
+    // ========== Parallax Effect (Optimized) ==========
     const parallaxElements = document.querySelectorAll('.parallax');
-    
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      
+    let parallaxTicking = false;
+
+    function updateParallaxElements() {
+      const windowCenterY = window.innerHeight / 2;
       parallaxElements.forEach(el => {
         const speed = parseFloat(el.dataset.speed) || 0.1;
         const rect = el.getBoundingClientRect();
-        const centerY = rect.top + rect.height / 2;
-        const windowCenterY = window.innerHeight / 2;
-        const offset = (centerY - windowCenterY) * speed;
-        
-        el.style.transform = `translate(-50%, calc(-50% + ${offset}px))`;
+        // Only calculate if element is near viewport
+        if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
+          const centerY = rect.top + rect.height / 2;
+          const offset = (centerY - windowCenterY) * speed;
+          el.style.transform = `translate(-50%, calc(-50% + ${offset}px))`;
+        }
       });
-    });
+      parallaxTicking = false;
+    }
 
-    // ========== Custom Cursor ==========
+    window.addEventListener('scroll', () => {
+      if (!parallaxTicking) {
+        requestAnimationFrame(updateParallaxElements);
+        parallaxTicking = true;
+      }
+    }, { passive: true });
+
+    // ========== Custom Cursor (Optimized) ==========
     (function() {
       const cursor = document.getElementById('customCursor');
-      if (!cursor) {
-        console.error('Custom cursor element not found!');
-        return;
-      }
+      if (!cursor) return;
 
       let cursorX = 0, cursorY = 0;
       let currentX = 0, currentY = 0;
       let isFirstMove = true;
+      let cursorAnimating = false;
+
+      function animateCursor() {
+        const ease = 0.15;
+        const dx = cursorX - currentX;
+        const dy = cursorY - currentY;
+
+        // Stop animation when cursor is close enough to target
+        if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+          currentX = cursorX;
+          currentY = cursorY;
+          cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+          cursorAnimating = false;
+          return;
+        }
+
+        currentX += dx * ease;
+        currentY += dy * ease;
+        cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        requestAnimationFrame(animateCursor);
+      }
 
       document.addEventListener('mousemove', (e) => {
         cursorX = e.clientX;
         cursorY = e.clientY;
 
-        // Show cursor on first mouse move
         if (isFirstMove) {
           currentX = cursorX;
           currentY = cursorY;
-          cursor.style.left = currentX + 'px';
-          cursor.style.top = currentY + 'px';
+          cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
           cursor.classList.add('visible');
           isFirstMove = false;
         }
-      });
 
-      // Hide cursor when mouse leaves window
+        // Start animation if not already running
+        if (!cursorAnimating) {
+          cursorAnimating = true;
+          requestAnimationFrame(animateCursor);
+        }
+      }, { passive: true });
+
       document.addEventListener('mouseleave', () => {
         cursor.classList.remove('visible');
         isFirstMove = true;
+        cursorAnimating = false;
       });
 
       document.addEventListener('mouseenter', () => {
-        if (!isFirstMove) {
-          cursor.classList.add('visible');
-        }
+        if (!isFirstMove) cursor.classList.add('visible');
       });
-
-      // Smooth cursor animation
-      function animateCursor() {
-        const ease = 0.15;
-        currentX += (cursorX - currentX) * ease;
-        currentY += (cursorY - currentY) * ease;
-        cursor.style.left = currentX + 'px';
-        cursor.style.top = currentY + 'px';
-        requestAnimationFrame(animateCursor);
-      }
-      animateCursor();
 
       // Hover effect on interactive elements
       const interactiveElements = document.querySelectorAll('a, button, .menu-btn, input, textarea, [role="button"]');
@@ -3274,11 +3307,12 @@
       });
     });
 
-    // ========== 2. Inner Image Parallax (Linked with Lenis) ==========
-    function updateParallax() {
-      const parallaxImages = document.querySelectorAll('.parallax-img');
-      const windowHeight = window.innerHeight;
+    // ========== 2. Inner Image Parallax (Optimized - uses Lenis callback) ==========
+    const parallaxImages = document.querySelectorAll('.parallax-img');
+    let imgParallaxTicking = false;
 
+    function updateImageParallax() {
+      const windowHeight = window.innerHeight;
       parallaxImages.forEach(img => {
         const wrap = img.closest('.parallax-img-wrap');
         if (!wrap) return;
@@ -3287,18 +3321,22 @@
         // 画面内に入っている時だけ計算
         if (rect.top < windowHeight && rect.bottom > 0) {
           const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
-          // -10% から 10% まで移動
           const move = -10 + (progress * 20);
           img.style.transform = `translateY(${move}%) scale(1.1)`;
         }
       });
+      imgParallaxTicking = false;
     }
 
-    // Lenisのスクロールイベントにフック、またはRAFで実行
-    requestAnimationFrame(function loop() {
-      updateParallax();
-      requestAnimationFrame(loop);
+    // Use Lenis scroll callback instead of continuous RAF
+    lenis.on('scroll', () => {
+      if (!imgParallaxTicking) {
+        requestAnimationFrame(updateImageParallax);
+        imgParallaxTicking = true;
+      }
     });
+    // Initial call
+    updateImageParallax();
 
     // ========== 3. Dynamic Footer Height for Reveal ==========
     function setFooterHeight() {

@@ -34,16 +34,16 @@
     /* ========== Custom Cursor ========== */
     .custom-cursor {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: -10px;
+      left: -10px;
       width: 20px;
       height: 20px;
       border: 2px solid var(--orange-primary);
       border-radius: 50%;
       pointer-events: none;
       z-index: 99999;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
+      will-change: transform;
+      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease;
       opacity: 0;
     }
 
@@ -54,12 +54,13 @@
     .custom-cursor.hover {
       width: 50px;
       height: 50px;
+      margin: -15px 0 0 -15px;
       background: rgba(230, 118, 53, 0.2);
       border-color: var(--orange-light);
     }
 
     .custom-cursor.clicking {
-      transform: translate(-50%, -50%) scale(0.8);
+      transform: scale(0.8);
     }
 
     /* Hide on touch devices */
@@ -2813,10 +2814,27 @@
       heroSlides[currentSlide].classList.add('active');
     }, 5000);
 
-    // Header Scroll Effect
+    // Header Scroll Effect (Optimized with RAF throttling)
+    const header = document.getElementById('header');
+    let lastScrollY = 0;
+    let headerTicking = false;
+
+    function updateHeader() {
+      if (lastScrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      headerTicking = false;
+    }
+
     window.addEventListener('scroll', () => {
-      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 100);
-    });
+      lastScrollY = window.scrollY;
+      if (!headerTicking) {
+        requestAnimationFrame(updateHeader);
+        headerTicking = true;
+      }
+    }, { passive: true });
 
     // Scroll Reveal
     const revealElements = document.querySelectorAll('.reveal');
@@ -2848,55 +2866,64 @@
       });
     });
 
-    // ========== Custom Cursor ==========
+    // ========== Custom Cursor (Optimized) ==========
     (function() {
       const cursor = document.getElementById('customCursor');
-      if (!cursor) {
-        console.error('Custom cursor element not found!');
-        return;
-      }
+      if (!cursor) return;
 
       let cursorX = 0, cursorY = 0;
       let currentX = 0, currentY = 0;
       let isFirstMove = true;
+      let cursorAnimating = false;
+
+      function animateCursor() {
+        const ease = 0.15;
+        const dx = cursorX - currentX;
+        const dy = cursorY - currentY;
+
+        // Stop animation when cursor is close enough to target
+        if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+          currentX = cursorX;
+          currentY = cursorY;
+          cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+          cursorAnimating = false;
+          return;
+        }
+
+        currentX += dx * ease;
+        currentY += dy * ease;
+        cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        requestAnimationFrame(animateCursor);
+      }
 
       document.addEventListener('mousemove', (e) => {
         cursorX = e.clientX;
         cursorY = e.clientY;
 
-        // Show cursor on first mouse move
         if (isFirstMove) {
           currentX = cursorX;
           currentY = cursorY;
-          cursor.style.left = currentX + 'px';
-          cursor.style.top = currentY + 'px';
+          cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
           cursor.classList.add('visible');
           isFirstMove = false;
         }
-      });
 
-      // Hide cursor when mouse leaves window
+        // Start animation if not already running
+        if (!cursorAnimating) {
+          cursorAnimating = true;
+          requestAnimationFrame(animateCursor);
+        }
+      }, { passive: true });
+
       document.addEventListener('mouseleave', () => {
         cursor.classList.remove('visible');
         isFirstMove = true;
+        cursorAnimating = false;
       });
 
       document.addEventListener('mouseenter', () => {
-        if (!isFirstMove) {
-          cursor.classList.add('visible');
-        }
+        if (!isFirstMove) cursor.classList.add('visible');
       });
-
-      // Smooth cursor animation
-      function animateCursor() {
-        const ease = 0.15;
-        currentX += (cursorX - currentX) * ease;
-        currentY += (cursorY - currentY) * ease;
-        cursor.style.left = currentX + 'px';
-        cursor.style.top = currentY + 'px';
-        requestAnimationFrame(animateCursor);
-      }
-      animateCursor();
 
       // Hover effect on interactive elements
       const interactiveElements = document.querySelectorAll('a, button, .menu-btn, input, textarea, [role="button"]');
