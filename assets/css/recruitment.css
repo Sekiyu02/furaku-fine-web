@@ -633,6 +633,10 @@
       padding: 0 0.1em;
     }
 
+    .hero-title .nowrap {
+      white-space: nowrap;
+    }
+
     .hero-subtitle {
       font-size: 1.1rem;
       color: rgba(255,255,255,0.85);
