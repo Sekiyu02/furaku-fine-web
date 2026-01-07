@@ -629,7 +629,7 @@
 
     /* マーカー風強調 */
     .hero-title .marker {
-      background: linear-gradient(transparent 50%, rgba(230, 118, 53, 0.35) 50%);
+      background: linear-gradient(transparent 50%, rgba(230, 118, 53, 0.55) 50%);
       padding: 0 0.1em;
     }
 
