@@ -638,10 +638,10 @@
       position: absolute;
       left: -0.1em;
       right: -0.1em;
-      bottom: 0.1em;
-      height: 0.4em;
-      background: rgba(255, 255, 255, 0.4);
-      border-radius: 2px;
+      top: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 4px;
       z-index: -1;
     }
 
