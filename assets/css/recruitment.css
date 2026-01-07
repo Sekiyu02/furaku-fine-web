@@ -621,7 +621,7 @@
       font-family: "Noto Serif JP", serif;
       font-size: clamp(2.5rem, 6vw, 4.5rem);
       font-weight: 600;
-      line-height: 1.8;
+      line-height: 1.4;
       margin-bottom: 1.5rem;
       opacity: 0;
       transform: translateY(50px);
@@ -629,11 +629,20 @@
 
     /* マーカー風強調 */
     .hero-title .marker {
-      background: rgba(255, 255, 255, 0.3);
-      padding: 0 0.1em;
-      border-radius: 4px;
-      margin: 0.1em 0;
-      display: inline-block;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title .marker::before {
+      content: '';
+      position: absolute;
+      left: -0.1em;
+      right: -0.1em;
+      bottom: 0.1em;
+      height: 0.4em;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 2px;
+      z-index: -1;
     }
 
     .hero-title .nowrap {
