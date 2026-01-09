@@ -1,164 +1,90 @@
-# 富楽ファイン コーポレートサイト
+# 株式会社富楽ファイン コーポレートサイト
 
-採用ブランディングパートナー 株式会社富楽ファインのWebサイト
+## 1. プロジェクト概要
 
-## 🛠️ 技術スタック
+- **株式会社富楽ファイン** の自社ホームページ（静的HTMLサイト）
+- 現在 **4ページ構成**（+ 管理画面）で、新規1ページ追加予定
+- Vercel にデプロイ
 
-- **フロントエンド**: 静的HTML/CSS/JavaScript
-- **ホスティング**: Vercel
-- **バージョン管理**: GitHub
-- **アクセス解析**: Google Analytics 4
-- **エディタ**: Cursor（推奨）
+## 2. 使用技術
 
----
+| 技術 | 用途 |
+|------|------|
+| HTML5 | ページ構造 |
+| CSS3 | スタイリング（各ページ専用CSS） |
+| JavaScript (ES6) | インタラクション・アニメーション |
+| Google Fonts | Cormorant Garamond, Noto Sans JP, Noto Serif JP |
+| Vercel | ホスティング・デプロイ |
 
-## 📁 ファイル構成
+## 3. ページ構成
+
+| URL | ファイル | 役割 |
+|-----|----------|------|
+| `/` | index.html | トップページ（理念・サービス紹介・会社概要・お問い合わせ） |
+| `/recruitment` | recruitment.html | 採用ブランディング伴走支援サービスページ |
+| `/medical` | medical.html | 医療特化型採用ブランディングサービスページ |
+| `/knowledge` | knowledge.html | ナレッジ記事一覧ページ |
+| `/admin` | admin.html | 管理画面（非公開・noindex） |
+
+## 4. ディレクトリ構成
 
 ```
 furaku-fine/
-├── index.html          # トップページ
-├── recruitment.html    # 採用ブランディング LP
-├── medical.html        # 医療特化型採用 LP
-├── knowledge.html      # ナレッジ一覧
-├── admin.html          # 管理者ページ
-├── articles/           # 記事フォルダ
-│   └── sample-article-1.html
+├── index.html              # トップページ
+├── recruitment.html        # 採用ブランディングページ
+├── medical.html            # 医療特化型ページ
+├── knowledge.html          # ナレッジページ
+├── admin.html              # 管理画面
+├── vercel.json             # Vercel設定（リライト・ヘッダー）
 ├── assets/
-│   ├── images/         # 画像（今後追加）
-│   └── css/            # 共通CSS（今後追加）
-├── .cursorrules        # Cursor AIルール
-├── .gitignore          # Git除外設定
-├── vercel.json         # Vercel設定
-└── README.md           # このファイル
+│   ├── css/
+│   │   ├── index.css       # トップページ用CSS
+│   │   ├── recruitment.css # 採用ブランディング用CSS
+│   │   ├── medical.css     # 医療特化型用CSS
+│   │   └── knowledge.css   # ナレッジ用CSS
+│   ├── js/
+│   │   ├── index.js        # トップページ用JS
+│   │   ├── recruitment.js  # 採用ブランディング用JS
+│   │   ├── medical.js      # 医療特化型用JS
+│   │   └── knowledge.js    # ナレッジ用JS
+│   └── images/             # 画像ファイル
+│       ├── logo-jp.svg     # 日本語ロゴ
+│       ├── logo-en.svg     # 英語ロゴ
+│       ├── index/          # トップページ用画像
+│       ├── recruitment/    # 採用ブランディング用画像
+│       └── works/          # 制作実績画像
+└── articles/               # 記事テンプレート
+    └── sample-article-1.html
 ```
 
----
+## 5. 開発・起動方法
 
-## 🚀 セットアップ手順
+### ローカル開発
 
-### 1. Cursorでプロジェクトを開く
+静的HTMLサイトのため、以下の方法で確認できます：
 
 ```bash
-# Cursorでフォルダを開く
-cursor /path/to/furaku-fine
+# 方法1: VS Code Live Server
+# VS Codeの「Live Server」拡張機能をインストールし、index.htmlを右クリック → "Open with Live Server"
+
+# 方法2: Python簡易サーバー
+python -m http.server 8000
+# http://localhost:8000 でアクセス
+
+# 方法3: Node.js serve
+npx serve .
+# http://localhost:3000 でアクセス
 ```
 
-または、Cursorアプリで「File → Open Folder」からフォルダを選択
-
-### 2. GitHubリポジトリを設定
+### Vercelへのデプロイ
 
 ```bash
-# 新規リポジトリの場合
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/furaku-fine.git
-git push -u origin main
-
-# 既存リポジトリの場合
-git remote set-url origin https://github.com/YOUR_USERNAME/furaku-fine.git
+# Vercel CLIでデプロイ
+vercel --prod
 ```
 
-### 3. Vercelと連携
+## 6. 注意事項
 
-1. [Vercel](https://vercel.com) にログイン
-2. 「New Project」→ GitHubリポジトリを選択
-3. デプロイ設定はデフォルトでOK
-4. 「Deploy」をクリック
-
-以降、`git push` するだけで自動デプロイされます。
-
----
-
-## 📊 Google Analytics 4 設定
-
-### 測定IDを取得
-
-1. [Google Analytics](https://analytics.google.com/) にアクセス
-2. 管理 → プロパティを作成 → ウェブストリーム設定
-3. 測定ID（`G-XXXXXXXXXX`）をコピー
-
-### HTMLファイルを一括置換
-
-Cursorで `Cmd/Ctrl + Shift + H`（全体置換）:
-
-```
-検索: G-XXXXXXXXXX
-置換: G-あなたの測定ID
-対象: *.html
-```
-
----
-
-## 🔐 管理者ページ
-
-| 項目 | 内容 |
-|------|------|
-| URL | `/admin.html` または `/admin` |
-| パスワード | `furakufine0120` |
-
-### パスワード変更
-
-`admin.html` の以下を編集:
-
-```javascript
-const ADMIN_PASSWORD = 'furakufine0120'; // ← 変更
-```
-
----
-
-## 🎨 ブランドカラー
-
-| 名前 | カラーコード | 用途 |
-|------|-------------|------|
-| Orange Primary | `#E67635` | メインカラー |
-| Orange Light | `#F5A66A` | アクセント |
-| Navy Dark | `#152a45` | 背景・テキスト |
-| Gold (医療LP) | `#C9A66B` | 医療LP専用 |
-
----
-
-## 📝 よく使う操作
-
-### 記事を追加
-
-1. `articles/sample-article-1.html` をコピー
-2. ファイル名を変更
-3. タイトル・本文を編集
-4. GA4測定IDを設定
-5. `knowledge.html` にリンク追加
-6. `git push`
-
-### デプロイ
-
-```bash
-git add .
-git commit -m "Update: 変更内容"
-git push origin main
-# → Vercelが自動デプロイ
-```
-
----
-
-## 🤖 CursorでClaude AIを使う
-
-### 方法1: Cursor Pro（推奨）
-
-1. Cursorの設定（`Cmd/Ctrl + ,`）を開く
-2. 「Models」タブを選択
-3. 「claude-3.5-sonnet」を有効化
-4. チャット（`Cmd/Ctrl + L`）でClaudeを使用可能
-
-### 方法2: Anthropic APIキーを使用
-
-1. [Anthropic Console](https://console.anthropic.com/) でAPIキーを取得
-2. Cursor設定 → 「Models」→ 「Anthropic API Key」に入力
-3. Claudeモデルが使用可能に
-
----
-
-## 📞 お問い合わせ
-
-株式会社富楽ファイン
-
+- Google Analytics の測定ID（G-XXXXXXXXXX）は各HTMLファイル内で設定
+- 画像はAdobe Stockから購入したものを使用
+- admin.html は検索エンジンからnoindex設定済み

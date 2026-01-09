@@ -46,6 +46,10 @@
     {
       "source": "/admin",
       "destination": "/admin.html"
+    },
+    {
+      "source": "/video",
+      "destination": "/video.html"
     }
   ]
 }

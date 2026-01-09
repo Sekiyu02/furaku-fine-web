@@ -2610,6 +2610,145 @@
       z-index: 3;
     }
 
+    /* ========== Video Banner ========== */
+    .video-banner {
+      margin: 3rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .video-banner-link {
+      display: block;
+      position: relative;
+      min-height: 320px;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .video-banner-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0;
+      transform: scale(1);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .video-banner-link:hover .video-banner-bg {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .video-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--navy-dark);
+      transition: background 0.5s ease;
+    }
+
+    .video-banner-link:hover .video-banner-overlay {
+      background: rgba(21, 42, 69, 0.6);
+    }
+
+    .video-banner-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      min-height: 320px;
+    }
+
+    .video-banner-label {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      color: var(--orange-light);
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    .video-banner-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 500;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .video-banner-desc {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.9;
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    .video-banner-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: transparent;
+      border: 1px solid var(--orange-primary);
+      color: var(--orange-light);
+      padding: 1rem 2rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .video-banner-link:hover .video-banner-cta {
+      background: var(--orange-primary);
+      color: var(--white);
+      gap: 1rem;
+    }
+
+    .video-banner-cta svg {
+      transition: transform 0.3s ease;
+    }
+
+    .video-banner-link:hover .video-banner-cta svg {
+      transform: translateX(3px);
+    }
+
+    /* Video Banner Responsive */
+    @media (max-width: 900px) {
+      .video-banner {
+        margin: 2rem 0;
+        border-radius: 8px;
+      }
+
+      .video-banner-link {
+        min-height: 280px;
+      }
+
+      .video-banner-content {
+        padding: 3rem 1.5rem;
+        min-height: 280px;
+      }
+
+      .video-banner-title {
+        font-size: 1.5rem !important;
+      }
+
+      .video-banner-desc {
+        font-size: 0.85rem;
+        line-height: 1.8;
+      }
+
+      .video-banner-cta {
+        padding: 0.85rem 1.5rem;
+        font-size: 0.8rem;
+      }
+    }
+
     /* ========== Text Stagger Animation ========== */
     .stagger-text .char {
       display: inline-block;
