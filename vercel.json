@@ -54,6 +54,10 @@
     {
       "source": "/video",
       "destination": "/video.html"
+    },
+    {
+      "source": "/voice",
+      "destination": "/voice.html"
     }
   ]
 }

@@ -558,50 +558,30 @@
       const voiceGrid = document.getElementById('voiceGrid');
 
       if (voiceGrid) {
-        console.log('[recruitment] Fetching voices...');
-
-        // まずフィルタ付きで取得を試みる
-        let data = await getVoices('recruitment', 6);
-
-        // フィルタ付きで結果がない場合、全件取得を試みる（デバッグ用）
-        if (!data || !data.contents || data.contents.length === 0) {
-          console.log('[recruitment] No filtered results, trying without filter...');
-          data = await getAllVoices(6);
-
-          if (data && data.contents) {
-            console.log('[recruitment] All voices:', data.contents);
-            // targetフィールドの値を確認
-            data.contents.forEach(v => {
-              console.log('[recruitment] Voice target value:', v.target, typeof v.target);
-            });
-            // 手動でフィルタリング（targetフィールド名が違う可能性を考慮）
-            const filtered = data.contents.filter(v =>
-              v.target === 'recruitment' ||
-              v.service === 'recruitment' ||
-              v.type === 'recruitment'
-            );
-            if (filtered.length > 0) {
-              data.contents = filtered;
-            }
-          }
-        }
+        // recruitment のみ取得
+        const data = await getVoices('recruitment', 6);
 
         if (data && data.contents && data.contents.length > 0) {
-          console.log('[recruitment] Displaying', data.contents.length, 'voices');
-          voiceGrid.innerHTML = data.contents.map(voice => `
-            <div class="voice-card">
-              <div class="voice-card-header">
-                ${voice.image ? `<img src="${voice.image.url}" alt="${voice.name}" class="voice-avatar">` : '<div class="voice-avatar-placeholder"></div>'}
-                <div class="voice-meta">
-                  <p class="voice-company">${voice.company}</p>
-                  <p class="voice-name">${voice.name} 様${voice.position ? ` / ${voice.position}` : ''}</p>
+          // recruitment に該当するもののみフィルタ（二重チェック）
+          const filteredVoices = data.contents.filter(voice => voice.target === 'recruitment');
+
+          if (filteredVoices.length > 0) {
+            voiceGrid.innerHTML = filteredVoices.map(voice => `
+              <a href="voice.html?id=${voice.id}" class="voice-card">
+                <div class="voice-card-header">
+                  ${voice.image ? `<img src="${voice.image.url}" alt="${voice.name}" class="voice-avatar">` : '<div class="voice-avatar-placeholder"></div>'}
+                  <div class="voice-meta">
+                    <p class="voice-company">${voice.company}</p>
+                    <p class="voice-name">${voice.name} 様${voice.position ? ` / ${voice.position}` : ''}</p>
+                  </div>
                 </div>
-              </div>
-              <p class="voice-comment">${voice.comment}</p>
-            </div>
-          `).join('');
+                <p class="voice-comment">${voice.comment}</p>
+              </a>
+            `).join('');
+          } else {
+            voiceGrid.innerHTML = '<p class="no-data">現在、お客様の声はありません。</p>';
+          }
         } else {
-          console.log('[recruitment] No voices to display');
           voiceGrid.innerHTML = '<p class="no-data">現在、お客様の声はありません。</p>';
         }
       }

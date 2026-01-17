@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お客様の声を読み込み中... | 株式会社富楽ファイン</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-tagu.svg">
+  <meta name="robots" content="noindex">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="株式会社富楽ファイン">
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  <!-- End Google Analytics 4 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/knowledge.css">
+  <link rel="stylesheet" href="assets/css/voice.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+    </a>
+    <nav>
+      <a href="index.html#philosophy">PHILOSOPHY</a>
+      <a href="index.html#services">SERVICE</a>
+      <a href="knowledge.html">KNOWLEDGE</a>
+      <a href="index.html#company">COMPANY</a>
+      <a href="index.html#contact" class="nav-contact">CONTACT</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="voice-page" id="voiceContainer">
+      <p class="loading-message">お客様の声を読み込み中...</p>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">
+            <img loading="lazy" src="assets/images/logo-jp.svg" alt="富楽ファイン">
+          </div>
+          <p class="footer-tagline">すべての人に、豊かさと楽しさを。</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-group">
+            <h4>SERVICE</h4>
+            <ul>
+              <li><a href="recruitment.html">採用ブランディング伴走支援</a></li>
+              <li><a href="medical.html">医療特化型採用支援</a></li>
+              <li><a href="video.html">理念ブランディング映像</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-group">
+            <h4>COMPANY</h4>
+            <ul>
+              <li><a href="index.html#company">会社概要</a></li>
+              <li><a href="#">プライバシーポリシー</a></li>
+              <li><a href="index.html#contact">お問い合わせ</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Furaku Fine Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/microcms.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const container = document.getElementById('voiceContainer');
+
+      const params = new URLSearchParams(window.location.search);
+      const voiceId = params.get('id');
+
+      if (!voiceId) {
+        container.innerHTML = `
+          <div class="error-message">
+            <p>お客様の声が見つかりませんでした。</p>
+            <a href="index.html" class="voice-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              トップページに戻る
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      const voice = await getVoiceById(voiceId);
+
+      if (!voice) {
+        container.innerHTML = `
+          <div class="error-message">
+            <p>お客様の声の取得に失敗しました。</p>
+            <a href="index.html" class="voice-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              トップページに戻る
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      const targetLabels = {
+        recruitment: '採用ブランディング',
+        medical: '医療特化型採用支援'
+      };
+
+      // 戻り先を決定
+      const backUrl = voice.target === 'medical' ? 'medical.html#voice' : 'recruitment.html#voice';
+      const backLabel = voice.target === 'medical' ? '医療採用支援ページに戻る' : '採用ブランディングページに戻る';
+
+      document.title = `${voice.company}様の声 | 株式会社富楽ファイン`;
+
+      container.innerHTML = `
+        <div class="voice-detail">
+          <span class="voice-category">${targetLabels[voice.target] || 'お客様の声'}</span>
+
+          <div class="voice-profile">
+            ${voice.image ? `<img src="${voice.image.url}" alt="${voice.name}" class="voice-profile-image">` : '<div class="voice-profile-placeholder"></div>'}
+            <div class="voice-profile-info">
+              <h1 class="voice-company-name">${voice.company}</h1>
+              <p class="voice-person-name">${voice.name} 様${voice.position ? ` / ${voice.position}` : ''}</p>
+            </div>
+          </div>
+
+          <div class="voice-content">
+            <blockquote class="voice-quote">
+              ${voice.comment}
+            </blockquote>
+
+            ${voice.detail ? `
+              <div class="voice-detail-text">
+                ${voice.detail}
+              </div>
+            ` : ''}
+          </div>
+
+          <a href="${backUrl}" class="voice-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            ${backLabel}
+          </a>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>

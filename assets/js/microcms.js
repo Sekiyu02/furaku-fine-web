@@ -63,3 +63,8 @@ async function getKnowledge(limit = 10) {
 async function getKnowledgeById(id) {
   return await fetchMicroCMS(`knowledge/${id}`);
 }
+
+// 単一のお客様の声を取得
+async function getVoiceById(id) {
+  return await fetchMicroCMS(`voices/${id}`);
+}

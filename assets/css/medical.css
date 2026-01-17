@@ -1046,6 +1046,12 @@
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     }
 
+    a.voice-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
     .voice-card-header {
       display: flex;
       align-items: center;
