@@ -109,48 +109,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
   // Hero Animations (runs after loading)
+  // 水面から浮かび上がる光のイメージ
   // ==========================================
   function initHeroAnimations() {
-    // Hero Statement Animation
+    // Hero Statement Animation - 水面から浮かび上がる光
     const heroStatement = document.querySelector('.hero-statement');
     if (heroStatement) {
-      gsap.to(heroStatement, {
+      heroStatement.style.opacity = '1';
+      const chars = splitTextToChars(heroStatement);
+      // 初期状態：ぼかし + 明るさで光が浮かび上がる表現
+      gsap.set(chars, {
+        opacity: 0,
+        filter: 'blur(20px) brightness(2)',
+        scale: 1.02,
+        y: 5
+      });
+      // アニメーション
+      gsap.to(chars, {
         opacity: 1,
-        duration: 1.5,
-        ease: 'power2.out'
+        filter: 'blur(0px) brightness(1)',
+        scale: 1,
+        y: 0,
+        duration: 1.8,
+        ease: 'power2.out',
+        stagger: 0.05
       });
     }
 
-    // Hero Title Animation
+    // Hero Title Animation - 光の中から同時にぶわっと浮かび上がる
     const heroTitle = document.querySelector('.hero-title');
     if (heroTitle) {
-      gsap.to(heroTitle, {
+      heroTitle.style.opacity = '1';
+      const chars = splitTextToChars(heroTitle);
+      // 初期状態：強い発光感（白く光る）
+      gsap.set(chars, {
+        opacity: 0,
+        filter: 'blur(40px) brightness(3)',
+        scale: 1.08,
+        color: '#ffffff',
+        textShadow: '0 0 60px rgba(255,255,255,0.8), 0 0 120px rgba(212,128,74,0.6)'
+      });
+      // アニメーション：全文字同時に浮かび上がる
+      gsap.to(chars, {
         opacity: 1,
-        duration: 1.5,
-        delay: 0.5,
-        ease: 'power2.out'
+        filter: 'blur(0px) brightness(1)',
+        scale: 1,
+        color: '#f5f0eb',
+        textShadow: '0 0 0px rgba(255,255,255,0)',
+        duration: 2.5,
+        ease: 'power2.out',
+        delay: 0.8
       });
     }
 
     // Hero Subtitle Animation
     const heroSubtitle = document.querySelector('.hero-subtitle');
     if (heroSubtitle) {
+      gsap.set(heroSubtitle, { opacity: 0, y: 20 });
       gsap.to(heroSubtitle, {
         opacity: 1,
+        y: 0,
         duration: 1,
-        delay: 1,
-        ease: 'power2.out'
+        ease: 'power2.out',
+        delay: 1.5
       });
     }
 
     // Scroll Indicator Animation
     const scrollIndicator = document.getElementById('scrollIndicator');
     if (scrollIndicator) {
+      gsap.set(scrollIndicator, { opacity: 0 });
       gsap.to(scrollIndicator, {
         opacity: 1,
         duration: 1,
-        delay: 1.5,
-        ease: 'power2.out'
+        ease: 'power2.out',
+        delay: 2
       });
     }
   }
