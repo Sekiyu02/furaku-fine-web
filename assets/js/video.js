@@ -25,8 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Loader timeline
   const loaderTl = gsap.timeline();
+  let loaderStarted = false;
 
-  window.addEventListener('load', () => {
+  function startLoaderAnimation() {
+    if (loaderStarted) return;
+    loaderStarted = true;
+
     // Enhanced loader animation
     loaderTl
       .to(loaderLogo, {
@@ -64,7 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
           initHeroAnimations();
         }
       }, '+=0.3');
-  });
+  }
+
+  // Start on window load
+  window.addEventListener('load', startLoaderAnimation);
+
+  // Fallback: start after 3 seconds if load event doesn't fire
+  setTimeout(startLoaderAnimation, 3000);
 
   // ==========================================
   // Text Split Function - Character by Character
