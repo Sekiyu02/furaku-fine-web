@@ -142,11 +142,11 @@
       document.title = `${article.title} | 富楽ファイン ナレッジ`;
 
       container.innerHTML = `
-        <header class="article-header">
+        <div class="article-info">
           <span class="article-category">${categoryNames[article.category] || article.category || 'COLUMN'}</span>
           <h1 class="article-title">${article.title}</h1>
-          <p class="article-meta">${new Date(article.publishDate || article.publishedAt || article.createdAt).toLocaleDateString('ja-JP')}</p>
-        </header>
+          <p class="article-date">${new Date(article.publishDate || article.publishedAt || article.createdAt).toLocaleDateString('ja-JP')}</p>
+        </div>
 
         ${article.thumbnail ? `
           <div class="article-thumbnail">
