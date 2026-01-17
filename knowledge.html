@@ -145,7 +145,7 @@
                 <span class="article-card-category ${article.category || 'column'}">${categoryNames[article.category] || article.category || 'COLUMN'}</span>
               </div>
               <div class="article-card-content">
-                <time class="article-card-date">${new Date(article.publishedAt || article.createdAt).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')}</time>
+                <time class="article-card-date">${new Date(article.publishDate || article.publishedAt || article.createdAt).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')}</time>
                 <h3 class="article-card-title">${article.title}</h3>
                 <p class="article-card-excerpt">${article.excerpt || ''}</p>
               </div>

@@ -145,7 +145,7 @@
         <header class="article-header">
           <span class="article-category">${categoryNames[article.category] || article.category || 'COLUMN'}</span>
           <h1 class="article-title">${article.title}</h1>
-          <p class="article-meta">${new Date(article.publishedAt || article.createdAt).toLocaleDateString('ja-JP')}</p>
+          <p class="article-meta">${new Date(article.publishDate || article.publishedAt || article.createdAt).toLocaleDateString('ja-JP')}</p>
         </header>
 
         ${article.thumbnail ? `
