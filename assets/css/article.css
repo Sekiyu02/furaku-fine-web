@@ -16,14 +16,18 @@
   padding: 8rem 2rem 6rem;
 }
 
-.article-header {
-  text-align: center;
+.article-page .article-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
   margin-bottom: 3rem;
 }
 
-.article-category {
+.article-page .article-category {
   display: inline-block;
-  margin: 0 auto 1.5rem;
+  margin-bottom: 1.5rem;
   background: var(--orange-primary);
   color: white;
   padding: 0.3rem 1rem;
@@ -32,9 +36,10 @@
   letter-spacing: 0.05em;
 }
 
-.article-title {
-  text-align: center;
-  margin: 0 auto 1rem;
+.article-page .article-title {
+  width: 100%;
+  text-align: center !important;
+  margin-bottom: 1rem;
   font-family: "Noto Serif JP", serif;
   font-size: clamp(1.5rem, 4vw, 2.2rem);
   font-weight: 500;
@@ -42,8 +47,8 @@
   color: var(--text-dark);
 }
 
-.article-meta {
-  text-align: center;
+.article-page .article-meta {
+  text-align: center !important;
   color: #666;
   font-size: 0.9rem;
 }
