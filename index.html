@@ -432,7 +432,8 @@
       </div>
 
       <div class="works-grid" id="worksGrid">
-        <!-- Works will be loaded dynamically -->
+        <!-- microCMSから動的に挿入 -->
+        <p class="loading-text">読み込み中...</p>
       </div>
 
       <div class="works-empty" id="worksEmpty">
@@ -639,5 +640,34 @@
   </footer>
 
   <script src="assets/js/index.js"></script>
+  <script src="assets/js/microcms.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const worksGrid = document.getElementById('worksGrid');
+      const worksEmpty = document.getElementById('worksEmpty');
+
+      if (worksGrid) {
+        const data = await getWorks(6);
+
+        if (data && data.contents && data.contents.length > 0) {
+          worksGrid.innerHTML = data.contents.map(work => `
+            <div class="work-card">
+              ${work.image ? `<div class="work-image"><img src="${work.image.url}" alt="${work.company}"></div>` : ''}
+              <div class="work-content">
+                <h3 class="work-company">${work.company}</h3>
+                <p class="work-meta">${work.industry || ''} ${work.employees ? `/ ${work.employees}` : ''}</p>
+                ${work.challenge ? `<p class="work-challenge"><strong>課題:</strong> ${work.challenge}</p>` : ''}
+                ${work.result ? `<p class="work-result"><strong>成果:</strong> ${work.result}</p>` : ''}
+              </div>
+            </div>
+          `).join('');
+          if (worksEmpty) worksEmpty.style.display = 'none';
+        } else {
+          worksGrid.innerHTML = '';
+          if (worksEmpty) worksEmpty.style.display = 'block';
+        }
+      }
+    });
+  </script>
 </body>
 </html>

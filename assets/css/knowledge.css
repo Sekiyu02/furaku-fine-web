@@ -181,6 +181,28 @@
       gap: 2rem;
     }
 
+    .loading-text {
+      text-align: center;
+      color: var(--text-body);
+      padding: 3rem;
+      grid-column: 1 / -1;
+    }
+
+    .no-data {
+      text-align: center;
+      color: var(--text-body);
+      padding: 3rem;
+      grid-column: 1 / -1;
+      background: var(--off-white);
+      border: 2px dashed rgba(0,0,0,0.1);
+    }
+
+    .article-card-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--off-white);
+    }
+
     .article-card {
       background: var(--white);
       text-decoration: none;

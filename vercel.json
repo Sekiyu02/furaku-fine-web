@@ -44,6 +44,10 @@
       "destination": "/knowledge.html"
     },
     {
+      "source": "/article",
+      "destination": "/article.html"
+    },
+    {
       "source": "/admin",
       "destination": "/admin.html"
     },

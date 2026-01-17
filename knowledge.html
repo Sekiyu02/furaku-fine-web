@@ -68,92 +68,9 @@
   <!-- Articles Grid -->
   <section class="articles-section">
     <div class="articles-container">
-      <div class="articles-grid">
-        <!-- Article 1 -->
-        <a href="articles/sample-article-1.html" class="article-card" data-category="column">
-          <div class="article-card-image">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="">
-            <span class="article-card-category column">COLUMN</span>
-          </div>
-          <div class="article-card-content">
-            <time class="article-card-date">2025.01.15</time>
-            <h3 class="article-card-title">採用ブランディングとは？中小企業が今すぐ始めるべき理由</h3>
-            <p class="article-card-excerpt">採用難の時代、大手企業との待遇競争に勝つことは難しい。しかし、理念や文化を武器にした「選ばれる採用」なら...</p>
-          </div>
-        </a>
-
-        <!-- Article 2 -->
-        <a href="articles/sample-article-2.html" class="article-card" data-category="report">
-          <div class="article-card-image">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=800&q=80" alt="">
-            <span class="article-card-category report">REPORT</span>
-          </div>
-          <div class="article-card-content">
-            <time class="article-card-date">2025.01.10</time>
-            <h3 class="article-card-title">【事業報告】医療法人A様の採用ブランディング支援を開始しました</h3>
-            <p class="article-card-excerpt">このたび、関東エリアで複数のクリニックを展開される医療法人A様の採用ブランディング支援を開始いたしました...</p>
-          </div>
-        </a>
-
-        <!-- Article 3 -->
-        <a href="articles/sample-article-3.html" class="article-card" data-category="column">
-          <div class="article-card-image">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80" alt="">
-            <span class="article-card-category column">COLUMN</span>
-          </div>
-          <div class="article-card-content">
-            <time class="article-card-date">2025.01.05</time>
-            <h3 class="article-card-title">「理念浸透」が採用成功の鍵である理由</h3>
-            <p class="article-card-excerpt">多くの企業が採用に苦戦する中、継続的に良い人材を採用できている企業には共通点がある。それは「理念の浸透」...</p>
-          </div>
-        </a>
-
-        <!-- Article 4 -->
-        <a href="articles/sample-article-4.html" class="article-card" data-category="news">
-          <div class="article-card-image">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80" alt="">
-            <span class="article-card-category news">NEWS</span>
-          </div>
-          <div class="article-card-content">
-            <time class="article-card-date">2025.01.01</time>
-            <h3 class="article-card-title">新年のご挨拶｜2025年も「なんとかする力」で</h3>
-            <p class="article-card-excerpt">あけましておめでとうございます。旧年中は格別のご厚情を賜り、誠にありがとうございました。本年も変わらぬご支援...</p>
-          </div>
-        </a>
-
-        <!-- Article 5 -->
-        <a href="articles/sample-article-5.html" class="article-card" data-category="column">
-          <div class="article-card-image">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=800&q=80" alt="">
-            <span class="article-card-category column">COLUMN</span>
-          </div>
-          <div class="article-card-content">
-            <time class="article-card-date">2024.12.20</time>
-            <h3 class="article-card-title">採用LP制作で失敗しないための5つのポイント</h3>
-            <p class="article-card-excerpt">採用LPを制作したものの、応募が増えない。そんな悩みを抱える企業は少なくありません。成功する採用LPには...</p>
-          </div>
-        </a>
-
-        <!-- Article 6 -->
-        <a href="articles/sample-article-6.html" class="article-card" data-category="report">
-          <div class="article-card-image">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80" alt="">
-            <span class="article-card-category report">REPORT</span>
-          </div>
-          <div class="article-card-content">
-            <time class="article-card-date">2024.12.15</time>
-            <h3 class="article-card-title">【事業報告】製造業B社様の理念浸透プログラムが完了しました</h3>
-            <p class="article-card-excerpt">約6ヶ月間にわたり支援させていただいた製造業B社様の理念浸透プログラムが無事完了いたしました。今回の...</p>
-          </div>
-        </a>
-      </div>
-
-      <!-- Pagination -->
-      <div class="pagination">
-        <span class="current">1</span>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">→</a>
+      <div class="articles-grid" id="articleGrid">
+        <!-- microCMSから動的に挿入 -->
+        <p class="loading-text">読み込み中...</p>
       </div>
     </div>
   </section>
@@ -194,5 +111,52 @@
   </footer>
 
   <script src="assets/js/knowledge.js"></script>
+  <script src="assets/js/microcms.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const articleGrid = document.getElementById('articleGrid');
+
+      if (articleGrid) {
+        console.log('[knowledge] Fetching articles...');
+        const data = await getKnowledge(12);
+
+        const categoryNames = {
+          recruitment: '採用ブランディング',
+          philosophy: '理念浸透',
+          organization: '組織開発',
+          medical: '医療採用',
+          case: '事例紹介',
+          column: 'COLUMN',
+          report: 'REPORT',
+          news: 'NEWS'
+        };
+
+        if (data && data.contents && data.contents.length > 0) {
+          console.log('[knowledge] Found', data.contents.length, 'articles');
+          data.contents.forEach(a => console.log('[knowledge] Article ID:', a.id, 'Title:', a.title));
+
+          articleGrid.innerHTML = data.contents.map(article => {
+            const articleUrl = 'article.html?id=' + encodeURIComponent(article.id);
+            console.log('[knowledge] Generated link:', articleUrl);
+            return `
+            <a href="${articleUrl}" class="article-card" data-category="${article.category || 'column'}" data-article-id="${article.id}">
+              <div class="article-card-image">
+                ${article.thumbnail ? `<img loading="lazy" src="${article.thumbnail.url}" alt="${article.title}">` : '<div class="article-card-placeholder"></div>'}
+                <span class="article-card-category ${article.category || 'column'}">${categoryNames[article.category] || article.category || 'COLUMN'}</span>
+              </div>
+              <div class="article-card-content">
+                <time class="article-card-date">${new Date(article.publishedAt || article.createdAt).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')}</time>
+                <h3 class="article-card-title">${article.title}</h3>
+                <p class="article-card-excerpt">${article.excerpt || ''}</p>
+              </div>
+            </a>
+          `}).join('');
+        } else {
+          console.log('[knowledge] No articles found');
+          articleGrid.innerHTML = '<p class="no-data">現在、記事はありません。</p>';
+        }
+      }
+    });
+  </script>
 </body>
 </html>
