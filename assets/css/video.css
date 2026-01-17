@@ -398,7 +398,6 @@ header.scrolled {
   padding: 0 20px;
   margin-left: -20px;
   margin-right: -20px;
-  opacity: 0;
 }
 
 .hero-title {
@@ -412,7 +411,6 @@ header.scrolled {
   padding: 0 40px;
   margin-left: -40px;
   margin-right: -40px;
-  opacity: 0;
 }
 
 .hero-subtitle {

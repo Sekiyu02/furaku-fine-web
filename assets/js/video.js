@@ -113,9 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   function initHeroAnimations() {
     // Hero Statement Animation - 水面から浮かび上がる光
-    const heroStatement = document.querySelector('.hero-statement');
+    const heroStatement = document.querySelector('.hero-statement.js-text-reveal');
     if (heroStatement) {
-      heroStatement.style.opacity = '1';
       const chars = splitTextToChars(heroStatement);
       // 初期状態：ぼかし + 明るさで光が浮かび上がる表現
       gsap.set(chars, {
@@ -137,9 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Hero Title Animation - 光の中から同時にぶわっと浮かび上がる
-    const heroTitle = document.querySelector('.hero-title');
+    const heroTitle = document.querySelector('.hero-title.js-text-reveal');
     if (heroTitle) {
-      heroTitle.style.opacity = '1';
       const chars = splitTextToChars(heroTitle);
       // 初期状態：強い発光感（白く光る）
       gsap.set(chars, {
@@ -165,7 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hero Subtitle Animation
     const heroSubtitle = document.querySelector('.hero-subtitle');
     if (heroSubtitle) {
-      gsap.set(heroSubtitle, { opacity: 0, y: 20 });
       gsap.to(heroSubtitle, {
         opacity: 1,
         y: 0,
@@ -178,7 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Scroll Indicator Animation
     const scrollIndicator = document.getElementById('scrollIndicator');
     if (scrollIndicator) {
-      gsap.set(scrollIndicator, { opacity: 0 });
       gsap.to(scrollIndicator, {
         opacity: 1,
         duration: 1,
