@@ -1126,10 +1126,6 @@ button:focus-visible {
 /* ==========================================
    Page Transition
 ========================================== */
-body {
-  opacity: 0;
-}
-
 body.page-out {
   animation: pageOut 0.4s ease forwards;
 }
