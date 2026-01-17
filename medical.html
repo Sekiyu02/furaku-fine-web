@@ -457,16 +457,19 @@
       const voiceGrid = document.getElementById('voiceGridMedical');
 
       if (voiceGrid) {
-        console.log('[medical] Fetching voices...');
-
-        const data = await getVoices('medical', 6);
+        // 全件取得してクライアント側でフィルタ
+        const data = await getAllVoices(20);
+        console.log('[medical] All voices:', data);
 
         if (data && data.contents && data.contents.length > 0) {
-          // 念のためJavaScriptでも再度フィルタリング
+          // 各voiceのtarget値をログ出力
+          data.contents.forEach(v => console.log('[medical] Voice:', v.company, 'target:', v.target));
+
+          // medical に該当するもののみフィルタ
           const filteredVoices = data.contents.filter(voice => voice.target === 'medical');
+          console.log('[medical] Filtered voices:', filteredVoices.length);
 
           if (filteredVoices.length > 0) {
-            console.log('[medical] Displaying', filteredVoices.length, 'voices');
             voiceGrid.innerHTML = filteredVoices.map(voice => `
               <a href="voice.html?id=${voice.id}" class="voice-card">
                 <div class="voice-card-header">
@@ -480,11 +483,9 @@
               </a>
             `).join('');
           } else {
-            console.log('[medical] No medical voices after filtering');
             voiceGrid.innerHTML = '<p class="no-data">現在、導入医療機関の声はありません。</p>';
           }
         } else {
-          console.log('[medical] No voices to display');
           voiceGrid.innerHTML = '<p class="no-data">現在、導入医療機関の声はありません。</p>';
         }
       }

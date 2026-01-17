@@ -558,12 +558,17 @@
       const voiceGrid = document.getElementById('voiceGrid');
 
       if (voiceGrid) {
-        // recruitment のみ取得
-        const data = await getVoices('recruitment', 6);
+        // 全件取得してクライアント側でフィルタ
+        const data = await getAllVoices(20);
+        console.log('[recruitment] All voices:', data);
 
         if (data && data.contents && data.contents.length > 0) {
-          // recruitment に該当するもののみフィルタ（二重チェック）
+          // 各voiceのtarget値をログ出力
+          data.contents.forEach(v => console.log('[recruitment] Voice:', v.company, 'target:', v.target));
+
+          // recruitment に該当するもののみフィルタ
           const filteredVoices = data.contents.filter(voice => voice.target === 'recruitment');
+          console.log('[recruitment] Filtered voices:', filteredVoices.length);
 
           if (filteredVoices.length > 0) {
             voiceGrid.innerHTML = filteredVoices.map(voice => `
