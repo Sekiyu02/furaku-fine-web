@@ -1,35 +1,27 @@
 /* ==========================================
    理念ブランディング映像 LP - video.css
-   ==========================================
-   
-   Design Philosophy:
-   - 説明しすぎない、断定しすぎない
-   - 余白多め、静かな佇まい
-   - 文字が浮かび上がるアニメーション
-   - パララックス効果
-   - 他のページとは違う空気感
-   
-========================================== */
+   Inspired by JR Takashimaya Recruitment
+   ========================================== */
 
 /* ==========================================
    Variables
 ========================================== */
 :root {
-  --color-bg: #12181f;
-  --color-bg-light: #1a2230;
-  --color-bg-dark: #0d1117;
+  --color-bg: #0a0f14;
+  --color-bg-light: #12181f;
+  --color-bg-dark: #050709;
   --color-text: #f5f0eb;
-  --color-text-muted: #9a948d;
-  --color-accent: #d4804a;
-  --color-accent-light: #e89860;
+  --color-text-muted: rgba(245, 240, 235, 0.6);
+  --color-accent: #E67635;
+  --color-accent-light: #F5A66A;
   --color-navy: #1e3a5f;
   --color-white: #ffffff;
   --color-border: rgba(245, 240, 235, 0.1);
-  
+
   --font-serif: "Noto Serif JP", serif;
   --font-sans: "Noto Sans JP", sans-serif;
   --font-display: "Cormorant Garamond", serif;
-  
+
   --transition-slow: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-medium: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -45,6 +37,7 @@
 
 html {
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -75,71 +68,61 @@ ul {
 }
 
 /* ==========================================
-   Loading Screen
+   Enhanced Loader
 ========================================== */
-.loading-screen {
+.loader {
   position: fixed;
   inset: 0;
   background: var(--color-bg-dark);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 9999;
 }
 
-.loading-screen.fade-out {
-  animation: loadingFadeOut 1s ease 0.5s forwards;
+.loader-content {
+  text-align: center;
 }
 
-.loading-logo {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
+.loader-logo {
+  margin-bottom: 2rem;
+}
+
+.loader-logo img {
+  width: 80px;
+  height: auto;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.loader-text {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.loader-text span {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
   color: var(--color-text);
   opacity: 0;
-  animation: logoFadeIn 1.5s ease forwards;
+  transform: translateY(20px);
 }
 
-.loading-sub {
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  color: var(--color-accent);
-  margin-top: 1rem;
-  opacity: 0;
-  animation: logoFadeIn 1.5s ease 0.5s forwards;
-}
-
-@keyframes logoFadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes loadingFadeOut {
-  0% { opacity: 1; visibility: visible; }
-  100% { opacity: 0; visibility: hidden; }
-}
-
-/* ローディングバー */
-.loading-bar {
-  width: 120px;
+.loader-progress {
+  width: 200px;
   height: 1px;
-  background: var(--color-border);
-  margin-top: 2rem;
+  background: rgba(245, 240, 235, 0.2);
+  margin: 0 auto;
   overflow: hidden;
 }
 
-.loading-bar-inner {
+.loader-progress-bar {
   width: 0;
   height: 100%;
   background: var(--color-accent);
-  animation: loadingProgress 2s ease forwards;
-}
-
-@keyframes loadingProgress {
-  0% { width: 0; }
-  100% { width: 100%; }
 }
 
 /* ==========================================
@@ -159,7 +142,7 @@ header {
 }
 
 header.scrolled {
-  background: rgba(18, 24, 31, 0.95);
+  background: rgba(10, 15, 20, 0.95);
   backdrop-filter: blur(10px);
   padding: 1.2rem 3rem;
 }
@@ -168,7 +151,6 @@ header.scrolled {
   height: 28px;
   width: auto;
   opacity: 0;
-  animation: fadeIn 1s ease 2.5s forwards;
 }
 
 .menu-btn {
@@ -180,7 +162,6 @@ header.scrolled {
   position: relative;
   z-index: 101;
   opacity: 0;
-  animation: fadeIn 1s ease 2.5s forwards;
 }
 
 .menu-btn-line {
@@ -199,7 +180,6 @@ header.scrolled {
   margin-bottom: 0;
 }
 
-/* ホバーで中央線が短くなる */
 .menu-btn:hover .menu-btn-line:nth-child(2) {
   width: 60%;
   margin-left: 40%;
@@ -218,14 +198,13 @@ header.scrolled {
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* アクティブ時はホバーエフェクト無効 */
 .menu-btn.active:hover .menu-btn-line:nth-child(2) {
   width: 100%;
   margin-left: 0;
 }
 
 /* ==========================================
-   Fullscreen Menu - Enhanced Animation
+   Fullscreen Menu
 ========================================== */
 .fullscreen-menu {
   position: fixed;
@@ -233,7 +212,6 @@ header.scrolled {
   background: var(--color-bg-dark);
   z-index: 99;
   display: flex;
-  /* clip-path による円形展開アニメーション */
   clip-path: circle(0% at calc(100% - 50px) 50px);
   visibility: hidden;
   transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1),
@@ -256,13 +234,10 @@ header.scrolled {
 
 .menu-nav li {
   margin-bottom: 1.5rem;
-  /* GSAPでアニメーション制御するため初期状態を設定 */
   opacity: 0;
   transform: translateX(-80px);
-  transition: opacity 0.4s ease;
 }
 
-/* ホバー時に他の項目を薄くする */
 .menu-nav:hover li {
   opacity: 0.3 !important;
 }
@@ -276,16 +251,13 @@ header.scrolled {
   align-items: center;
   gap: 2rem;
   position: relative;
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-              opacity 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* ホバーでテキストが右にずれる */
 .menu-nav a:hover {
   transform: translateX(20px);
 }
 
-/* 下線スライドインエフェクト */
 .menu-nav a::after {
   content: '';
   position: absolute;
@@ -310,7 +282,6 @@ header.scrolled {
   transition: transform 0.4s ease, color 0.4s ease;
 }
 
-/* ホバーで番号が左にずれる */
 .menu-nav a:hover .menu-nav-number {
   transform: translateX(-10px);
   color: var(--color-accent-light);
@@ -341,7 +312,6 @@ header.scrolled {
   padding: 3rem;
 }
 
-/* 「ご相談する」ボタンのアニメーション */
 .menu-contact a {
   display: flex;
   align-items: center;
@@ -349,31 +319,14 @@ header.scrolled {
   font-size: 0.85rem;
   letter-spacing: 0.1em;
   color: var(--color-accent);
-  position: relative;
-  overflow: hidden;
   padding: 0.8rem 1.5rem;
   border: 1px solid var(--color-accent);
   transition: color 0.4s ease, background 0.4s ease;
 }
 
-.menu-contact a::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-  transition: left 0.6s ease;
-}
-
 .menu-contact a:hover {
   background: var(--color-accent);
   color: var(--color-bg-dark);
-}
-
-.menu-contact a:hover::before {
-  left: 100%;
 }
 
 /* ==========================================
@@ -405,9 +358,9 @@ header.scrolled {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(18, 24, 31, 0.6) 0%,
+    rgba(10, 15, 20, 0.7) 0%,
     rgba(30, 58, 95, 0.3) 50%,
-    rgba(18, 24, 31, 0.8) 100%
+    rgba(10, 15, 20, 0.8) 100%
   );
 }
 
@@ -419,21 +372,16 @@ header.scrolled {
   max-width: 900px;
 }
 
-/* Character Animation */
 .hero-statement {
   font-size: 0.95rem;
   font-weight: 300;
   letter-spacing: 0.2em;
   color: var(--color-text-muted);
   margin-bottom: 3rem;
-  overflow: hidden;
-}
-
-.hero-statement .char {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(100%);
-  animation: charReveal 0.8s ease forwards;
+  overflow: visible;
+  padding: 0 20px;
+  margin-left: -20px;
+  margin-right: -20px;
 }
 
 .hero-title {
@@ -443,19 +391,10 @@ header.scrolled {
   letter-spacing: 0.12em;
   line-height: 1.4;
   margin-bottom: 2.5rem;
-  overflow: hidden;
-}
-
-.hero-title .line {
-  display: block;
-  overflow: hidden;
-}
-
-.hero-title .line-inner {
-  display: block;
-  opacity: 0;
-  transform: translateY(100%);
-  animation: lineReveal 1s ease 1.2s forwards;
+  overflow: visible;
+  padding: 0 40px;
+  margin-left: -40px;
+  margin-right: -40px;
 }
 
 .hero-subtitle {
@@ -464,39 +403,13 @@ header.scrolled {
   line-height: 2.4;
   color: var(--color-text-muted);
   opacity: 0;
-  animation: fadeInUp 1s ease 2s forwards;
+  margin-top: 2.5rem;
 }
 
-@keyframes charReveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes lineReveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.hero-scroll {
+/* ==========================================
+   Scroll Down Indicator
+========================================== */
+.scroll-indicator {
   position: absolute;
   bottom: 3rem;
   left: 50%;
@@ -505,32 +418,79 @@ header.scrolled {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  z-index: 10;
   opacity: 0;
-  animation: fadeIn 1s ease 2.5s forwards;
 }
 
-.hero-scroll span {
-  font-family: var(--font-display);
+.scroll-text {
+  font-family: var(--font-sans);
   font-size: 0.7rem;
   letter-spacing: 0.2em;
-  color: var(--color-accent);
+  color: rgba(245, 240, 235, 0.7);
+  text-transform: uppercase;
 }
 
-.hero-scroll-line {
+.scroll-line {
   width: 1px;
   height: 60px;
-  background: linear-gradient(to bottom, var(--color-accent), transparent);
-  animation: scrollPulse 2s ease infinite;
+  background: linear-gradient(to bottom, rgba(245, 240, 235, 0.7), transparent);
+  animation: scrollLine 1.5s ease-in-out infinite;
 }
 
-@keyframes scrollPulse {
-  0%, 100% { 
-    transform: scaleY(1); 
-    opacity: 1; 
+@keyframes scrollLine {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
   }
-  50% { 
-    transform: scaleY(0.6); 
-    opacity: 0.4; 
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  50.1% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* ==========================================
+   Marquee Text Section
+========================================== */
+.marquee-section {
+  overflow: hidden;
+  padding: 3rem 0;
+  background: transparent;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+.marquee-text {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 300;
+  color: rgba(245, 240, 235, 0.08);
+  white-space: nowrap;
+  padding: 0 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 
@@ -538,147 +498,272 @@ header.scrolled {
    Section Base
 ========================================== */
 .section {
-  padding: 15rem 2rem;
+  padding: 12rem 2rem;
   position: relative;
   overflow: hidden;
 }
 
 .section-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
-/* Word Animation */
-.section-title {
-  font-family: var(--font-serif);
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  line-height: 2;
-  margin-bottom: 5rem;
+/* ==========================================
+   Section Headers (English + Japanese)
+========================================== */
+.section-header {
   text-align: center;
+  margin-bottom: 5rem;
 }
 
-.section-title .word {
+.section-label {
   display: inline-block;
-  overflow: hidden;
-}
-
-.section-title .word-inner {
-  display: inline-block;
-  transform: translateY(100%);
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid var(--color-accent);
   opacity: 0;
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  transform: translateY(20px);
 }
 
-.section-title.visible .word-inner {
-  transform: translateY(0);
-  opacity: 1;
+.section-title-en {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(30px);
 }
 
+.section-title-ja {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--color-text-muted);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* ==========================================
+   Section Divider
+========================================== */
+.section-divider {
+  width: 1px;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, var(--color-accent), transparent);
+  margin: 0 auto;
+}
+
+/* ==========================================
+   Section Body
+========================================== */
 .section-body {
   text-align: center;
 }
 
 .section-body p {
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   color: var(--color-text-muted);
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1s ease, transform 1s ease;
-}
-
-.section-body.visible p {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.section-body p:nth-child(2) {
-  transition-delay: 0.2s;
-}
-
-/* ==========================================
-   Section with Images - Parallax
-========================================== */
-.section-with-images {
-  padding: 20rem 2rem;
-  position: relative;
-}
-
-.section-images {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.parallax-image {
-  position: absolute;
-  opacity: 0.15;
-  transition: transform 0.1s linear;
-}
-
-.parallax-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(100%);
-}
-
-.parallax-image.img-1 {
-  width: 300px;
-  height: 400px;
-  top: 10%;
-  left: 5%;
-}
-
-.parallax-image.img-2 {
-  width: 250px;
-  height: 350px;
-  top: 40%;
-  right: 8%;
-}
-
-.parallax-image.img-3 {
-  width: 200px;
-  height: 280px;
-  bottom: 15%;
-  left: 15%;
+  font-size: 1.05rem;
+  line-height: 2.4;
 }
 
 /* ==========================================
    Section Variations
 ========================================== */
-.section-problem {
+.section-concept {
   background: var(--color-bg);
 }
 
 .section-approach {
   background: var(--color-bg-light);
+  position: relative;
+}
+
+.parallax-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.parallax-bg {
+  position: absolute;
+  inset: -20%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.1;
+  filter: grayscale(100%);
+  will-change: transform;
 }
 
 .section-philosophy {
   background: linear-gradient(180deg, var(--color-bg-dark) 0%, var(--color-navy) 50%, var(--color-bg-dark) 100%);
-  padding: 20rem 2rem;
+  padding: 16rem 2rem;
 }
 
-.section-philosophy .section-title {
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
+.philosophy-statement {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 2.2;
+  text-align: center;
+  margin-bottom: 4rem;
   color: var(--color-accent-light);
 }
 
-.section-culture {
+.philosophy-body {
+  text-align: center;
+}
+
+.philosophy-body p {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 2.4;
+}
+
+/* ==========================================
+   Gallery Section
+========================================== */
+.gallery-section {
+  padding: 8rem 0;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 0 2rem;
+}
+
+.gallery-header .section-label,
+.gallery-header .section-title-en,
+.gallery-header .section-title-ja {
+  opacity: 1;
+  transform: none;
+}
+
+.gallery-marquee {
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.gallery-track {
+  display: flex;
+  width: max-content;
+  animation: galleryScroll 35s linear infinite;
+}
+
+.gallery-marquee.reverse .gallery-track {
+  animation-direction: reverse;
+}
+
+.gallery-item {
+  flex-shrink: 0;
+  width: 320px;
+  height: 220px;
+  margin-right: 1.5rem;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+  filter: grayscale(30%);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.08);
+  filter: grayscale(0%);
+}
+
+@keyframes galleryScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================
+   Flow Section
+========================================== */
+.section-flow {
   background: var(--color-bg-light);
 }
 
+.flow-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+.flow-item {
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  transition: transform 0.4s ease, border-color 0.4s ease;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.flow-item:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-accent);
+}
+
+.flow-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.flow-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+}
+
+.flow-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 2;
+}
+
+/* ==========================================
+   Value & Target Lists
+========================================== */
 .section-value {
   background: var(--color-bg);
+}
+
+.section-target {
+  background: var(--color-bg-light);
 }
 
 .value-list,
 .target-list {
   text-align: left;
-  max-width: 550px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -688,145 +773,91 @@ header.scrolled {
   padding-left: 2rem;
   margin-bottom: 2rem;
   color: var(--color-text-muted);
-  opacity: 0;
-  transform: translateX(-30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  font-size: 1rem;
+  line-height: 2;
 }
-
-.value-list.visible li,
-.target-list.visible li {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.value-list li:nth-child(1) { transition-delay: 0.1s; }
-.value-list li:nth-child(2) { transition-delay: 0.2s; }
-.value-list li:nth-child(3) { transition-delay: 0.3s; }
-.value-list li:nth-child(4) { transition-delay: 0.4s; }
-
-.target-list li:nth-child(1) { transition-delay: 0.1s; }
-.target-list li:nth-child(2) { transition-delay: 0.2s; }
-.target-list li:nth-child(3) { transition-delay: 0.3s; }
-.target-list li:nth-child(4) { transition-delay: 0.4s; }
 
 .value-list li::before,
 .target-list li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 0.9em;
-  width: 10px;
+  top: 1em;
+  width: 12px;
   height: 1px;
   background: var(--color-accent);
 }
 
-.section-usage {
-  background: var(--color-bg-light);
-  padding: 10rem 2rem;
-}
-
-.usage-note {
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
-  text-align: center;
-  line-height: 2.4;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1s ease, transform 1s ease;
-}
-
-.usage-note.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.section-target {
-  background: var(--color-bg);
-}
-
-.section-closing {
+/* ==========================================
+   CTA Section
+========================================== */
+.section-cta {
   background: var(--color-bg-dark);
-  padding: 20rem 2rem;
+  padding: 16rem 2rem;
+}
+
+.cta-content {
   text-align: center;
 }
 
-.closing-statement {
+.cta-statement {
+  font-family: var(--font-serif);
   font-size: clamp(1.3rem, 3.5vw, 1.8rem);
   font-weight: 400;
   letter-spacing: 0.1em;
   line-height: 2.4;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem;
 }
 
-.closing-statement .line {
-  display: block;
-  overflow: hidden;
-}
-
-.closing-statement .line-inner {
-  display: block;
-  transform: translateY(100%);
-  opacity: 0;
-  transition: transform 0.8s ease, opacity 0.8s ease;
-}
-
-.closing-statement.visible .line-inner {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.closing-statement .line:nth-child(2) .line-inner { transition-delay: 0.15s; }
-.closing-statement .line:nth-child(3) .line-inner { transition-delay: 0.3s; }
-
-.cta-link {
+.view-more-btn {
   display: inline-flex;
   align-items: center;
   gap: 1rem;
-  font-size: 1rem;
-  letter-spacing: 0.1em;
+  padding: 1.2rem 2.5rem;
+  border: 1px solid var(--color-text);
   color: var(--color-text);
-  padding: 1.5rem 3rem;
-  border: 1px solid var(--color-accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
-  transition: color 0.4s ease;
   opacity: 0;
   transform: translateY(30px);
 }
 
-/* ホバー時の背景アニメーション */
-.cta-link::before {
+.view-more-btn::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: var(--color-accent);
-  transition: left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  transform: translateX(-101%);
+  transition: transform 0.4s ease;
   z-index: -1;
 }
 
-.cta-link:hover::before {
-  left: 0;
+.view-more-btn:hover::before {
+  transform: translateX(0);
 }
 
-.cta-link.visible {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.5s;
-}
-
-.cta-link:hover {
+.view-more-btn:hover {
+  border-color: var(--color-accent);
   color: var(--color-bg-dark);
 }
 
-.cta-link svg {
-  transition: var(--transition-medium);
+.btn-arrow {
+  transition: transform 0.3s ease;
 }
 
-.cta-link:hover svg {
-  transform: translateX(8px);
+.view-more-btn:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+.cta-note {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
 }
 
 /* ==========================================
@@ -905,148 +936,6 @@ footer {
 }
 
 /* ==========================================
-   Responsive
-========================================== */
-@media (max-width: 768px) {
-  header {
-    padding: 1.5rem;
-  }
-  
-  header.scrolled {
-    padding: 1rem 1.5rem;
-  }
-  
-  .section {
-    padding: 10rem 1.5rem;
-  }
-  
-  .section-philosophy {
-    padding: 12rem 1.5rem;
-  }
-  
-  .section-with-images {
-    padding: 12rem 1.5rem;
-  }
-  
-  .section-closing {
-    padding: 12rem 1.5rem;
-  }
-  
-  .section-title {
-    margin-bottom: 3rem;
-  }
-  
-  .sp-br {
-    display: block;
-  }
-  
-  .menu-left {
-    padding: 6rem 2rem;
-  }
-  
-  .menu-right {
-    display: none;
-  }
-  
-  .menu-nav-en {
-    font-size: 1.2rem;
-  }
-  
-  .footer-top {
-    flex-direction: column;
-    gap: 3rem;
-  }
-  
-  .footer-links {
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .cta-link {
-    padding: 1.2rem 2rem;
-    font-size: 0.9rem;
-  }
-  
-  .parallax-image {
-    display: none;
-  }
-}
-
-@media (min-width: 769px) {
-  .sp-br {
-    display: none;
-  }
-}
-
-/* ==========================================
-   GSAP Text Animation Styles
-========================================== */
-.js-text-reveal .char {
-  display: inline-block;
-  will-change: transform, opacity, filter;
-}
-
-.js-text-reveal .whitespace {
-  display: inline;
-  white-space: pre;
-}
-
-/* ==========================================
-   Blur Animation Fix（修正版）
-========================================== */
-
-.hero-content {
-  overflow: visible;
-}
-
-/* blur対象の要素 - 左右のみpadding/margin */
-.hero .js-text-reveal {
-  overflow: visible;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: -20px;
-  margin-right: -20px;
-}
-
-.hero .js-text-reveal .char {
-  display: inline-block;
-  will-change: transform, opacity, filter;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-/* タイトル用 */
-.hero-title.js-text-reveal {
-  padding-left: 40px;
-  padding-right: 40px;
-  margin-left: -40px;
-  margin-right: -40px;
-}
-
-/* サブタイトルの間隔を確保 */
-.hero-subtitle {
-  margin-top: 2.5rem;
-}
-
-/* Remove old animation styles for hero since GSAP handles it */
-.hero-statement .char {
-  animation: none;
-}
-
-.hero-title .line,
-.hero-title .line-inner {
-  display: inline;
-  transform: none;
-  animation: none;
-}
-
-.closing-statement .line,
-.closing-statement .line-inner {
-  display: inline;
-  transform: none;
-}
-
-/* ==========================================
    Scroll Progress Bar
 ========================================== */
 .scroll-progress {
@@ -1058,52 +947,6 @@ footer {
   background: var(--color-accent);
   z-index: 1000;
   transition: width 0.1s linear;
-}
-
-/* ==========================================
-   Section Divider
-========================================== */
-.section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 80px;
-  background: linear-gradient(to bottom, transparent, var(--color-border), transparent);
-  opacity: 0.5;
-}
-
-.section:first-of-type::before {
-  display: none;
-}
-
-/* ==========================================
-   Focus States（キーボード操作対応）
-========================================== */
-a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 4px;
-}
-
-.menu-btn:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 8px;
-}
-
-.cta-link:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--color-accent);
-}
-
-.menu-nav a:focus-visible {
-  outline: none;
-}
-
-.menu-nav a:focus-visible::after {
-  transform: translateX(0);
 }
 
 /* ==========================================
@@ -1123,13 +966,99 @@ button:focus-visible {
 
 .cursor.hover {
   transform: scale(2);
-  background: rgba(212, 128, 74, 0.1);
+  background: rgba(230, 118, 53, 0.1);
 }
 
-/* スマホでは非表示 */
+/* ==========================================
+   GSAP Animation Classes
+========================================== */
+.js-text-reveal .char {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+}
+
+.js-text-reveal .whitespace {
+  display: inline;
+  white-space: pre;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+@media (max-width: 1024px) {
+  .flow-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
+  header {
+    padding: 1.5rem;
+  }
+
+  header.scrolled {
+    padding: 1rem 1.5rem;
+  }
+
+  .section {
+    padding: 8rem 1.5rem;
+  }
+
+  .section-philosophy {
+    padding: 10rem 1.5rem;
+  }
+
+  .section-cta {
+    padding: 10rem 1.5rem;
+  }
+
+  .menu-left {
+    padding: 6rem 2rem;
+  }
+
+  .menu-right {
+    display: none;
+  }
+
+  .menu-nav-en {
+    font-size: 1.2rem;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .marquee-text {
+    font-size: clamp(2rem, 8vw, 4rem);
+  }
+
+  .gallery-item {
+    width: 260px;
+    height: 180px;
+  }
+
+  .flow-item {
+    padding: 2rem;
+  }
+
   .cursor {
     display: none;
+  }
+
+  .scroll-indicator {
+    bottom: 2rem;
+  }
+
+  .scroll-line {
+    height: 40px;
   }
 }
 
@@ -1140,28 +1069,26 @@ button:focus-visible {
 }
 
 /* ==========================================
-   Page Transition
+   Focus States
 ========================================== */
-body {
-  opacity: 0;
-  animation: pageIn 0.6s ease 0.1s forwards;
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
 }
 
-@keyframes pageIn {
-  to { opacity: 1; }
+.menu-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 8px;
 }
 
-/* ページ離脱時（JSで制御） */
-body.page-out {
-  animation: pageOut 0.4s ease forwards;
-}
-
-@keyframes pageOut {
-  to { opacity: 0; }
+.view-more-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-accent);
 }
 
 /* ==========================================
-   Reduced Motion（アニメーション軽減）
+   Reduced Motion
 ========================================== */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -1172,11 +1099,28 @@ body.page-out {
     transition-duration: 0.01ms !important;
   }
 
-  .hero-scroll-line {
-    animation: none;
+  .scroll-line,
+  .marquee-track,
+  .gallery-track {
+    animation: none !important;
   }
 
-  .parallax-image {
+  .parallax-bg {
     transform: none !important;
   }
+}
+
+/* ==========================================
+   Page Transition
+========================================== */
+body {
+  opacity: 0;
+}
+
+body.page-out {
+  animation: pageOut 0.4s ease forwards;
+}
+
+@keyframes pageOut {
+  to { opacity: 0; }
 }

@@ -54,12 +54,20 @@
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- Loading Screen -->
-  <div class="loading-screen" id="loading">
-    <div class="loading-logo">理念ブランディング映像</div>
-    <div class="loading-sub">PHILOSOPHY BRANDING FILM</div>
-    <div class="loading-bar">
-      <div class="loading-bar-inner"></div>
+  <!-- Loading Screen (Enhanced) -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <div class="loader-logo">
+        <img src="assets/images/logo-icon.svg" alt="富楽ファイン">
+      </div>
+      <div class="loader-text">
+        <span>Philosophy</span>
+        <span>Branding</span>
+        <span>Film</span>
+      </div>
+      <div class="loader-progress">
+        <div class="loader-progress-bar"></div>
+      </div>
     </div>
   </div>
 
@@ -83,23 +91,19 @@
           <span class="menu-nav-number">HOME</span>
           <span class="menu-nav-text"><span class="menu-nav-en">Home</span><span class="menu-nav-ja">ホーム</span></span>
         </a></li>
-        <li><a href="#problem">
+        <li><a href="#concept">
           <span class="menu-nav-number">01</span>
-          <span class="menu-nav-text"><span class="menu-nav-en">Why</span><span class="menu-nav-ja">なぜ今、理念映像か</span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Concept</span><span class="menu-nav-ja">コンセプト</span></span>
         </a></li>
         <li><a href="#approach">
           <span class="menu-nav-number">02</span>
           <span class="menu-nav-text"><span class="menu-nav-en">Approach</span><span class="menu-nav-ja">私たちのアプローチ</span></span>
         </a></li>
-        <li><a href="#value">
+        <li><a href="#flow">
           <span class="menu-nav-number">03</span>
-          <span class="menu-nav-text"><span class="menu-nav-en">Value</span><span class="menu-nav-ja">もたらす変化</span></span>
+          <span class="menu-nav-text"><span class="menu-nav-en">Flow</span><span class="menu-nav-ja">制作の流れ</span></span>
         </a></li>
-        <li><a href="#target">
-          <span class="menu-nav-number">04</span>
-          <span class="menu-nav-text"><span class="menu-nav-en">For You</span><span class="menu-nav-ja">こんな方へ</span></span>
-        </a></li>
-        <li><a href="mailto:info@furakufine.com">
+        <li><a href="#contact">
           <span class="menu-nav-number">CONTACT</span>
           <span class="menu-nav-text"><span class="menu-nav-en">Contact</span><span class="menu-nav-ja">お問い合わせ</span></span>
         </a></li>
@@ -124,16 +128,14 @@
   <section class="hero" id="hero">
     <div class="hero-bg">
       <div class="hero-overlay"></div>
-      <!-- 動画背景：実際の動画ファイルに差し替えてください -->
       <video class="hero-video" autoplay muted loop playsinline poster="assets/images/video/hero-poster.jpg">
         <source src="assets/images/video/hero-video.mp4" type="video/mp4">
-        <!-- フォールバック画像 -->
         <img src="assets/images/video/hero-poster.jpg" alt="">
       </video>
     </div>
 
     <div class="hero-content">
-      <p class="hero-statement js-text-reveal" id="heroStatement">会社の本質は、言葉になる前の想いの中にある。</p>
+      <p class="hero-statement js-text-reveal">会社の本質は、言葉になる前の想いの中にある。</p>
       <h1 class="hero-title js-text-reveal">理念ブランディング映像</h1>
       <p class="hero-subtitle">
         映像によって、会社の本質を深掘りし、<br>
@@ -141,16 +143,31 @@
       </p>
     </div>
 
-    <div class="hero-scroll">
-      <span>SCROLL</span>
-      <div class="hero-scroll-line"></div>
+    <!-- Scroll Down Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">
+      <span class="scroll-text">SCROLL DOWN</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
 
-  <!-- Section 1: 問題提起 -->
-  <section class="section section-problem" id="problem">
+  <!-- Marquee Text Section -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span class="marquee-text">PHILOSOPHY BRANDING FILM</span>
+      <span class="marquee-text">PHILOSOPHY BRANDING FILM</span>
+      <span class="marquee-text">PHILOSOPHY BRANDING FILM</span>
+      <span class="marquee-text">PHILOSOPHY BRANDING FILM</span>
+    </div>
+  </div>
+
+  <!-- Concept Section -->
+  <section class="section section-concept" id="concept">
     <div class="section-container">
-      <h2 class="section-title js-text-reveal">なぜ今、理念ブランディング映像なのか。</h2>
+      <div class="section-header">
+        <span class="section-label">CONCEPT</span>
+        <h2 class="section-title-en">Why Philosophy Film</h2>
+        <h3 class="section-title-ja">なぜ今、理念映像なのか</h3>
+      </div>
       <div class="section-body" data-animate="fade">
         <p>
           情報があふれる今、<br>
@@ -166,18 +183,20 @@
     </div>
   </section>
 
-  <!-- Section 2: 私たちのアプローチ -->
-  <section class="section section-approach section-with-images" id="approach">
-    <div class="section-images">
-      <div class="parallax-image img-1" data-speed="0.05">
-        <img loading="lazy" src="assets/images/video/approach-img1.jpg" alt="">
-      </div>
-      <div class="parallax-image img-2" data-speed="-0.03">
-        <img loading="lazy" src="assets/images/video/approach-img2.jpg" alt="">
-      </div>
+  <!-- Section Divider -->
+  <div class="section-divider"></div>
+
+  <!-- Approach Section -->
+  <section class="section section-approach" id="approach">
+    <div class="parallax-container">
+      <div class="parallax-bg" style="background-image: url('assets/images/video/approach-img1.jpg');"></div>
     </div>
     <div class="section-container">
-      <h2 class="section-title js-text-reveal">私たちが、まず行うこと。</h2>
+      <div class="section-header">
+        <span class="section-label">APPROACH</span>
+        <h2 class="section-title-en">Our Approach</h2>
+        <h3 class="section-title-ja">私たちのアプローチ</h3>
+      </div>
       <div class="section-body" data-animate="fade">
         <p>
           私たちが最初に行うのは、<br>
@@ -193,15 +212,14 @@
     </div>
   </section>
 
-  <!-- Section 3: 思想 -->
+  <!-- Philosophy Statement Section -->
   <section class="section section-philosophy">
     <div class="section-container">
-      <h2 class="section-title js-text-reveal">理念は、つくるものではない。</h2>
-      <div class="section-body" data-animate="fade">
-        <p>
-          理念は、つくるものではなく、<br>
-          すでにその人の中に存在しているものだと考えています。
-        </p>
+      <div class="philosophy-statement js-text-reveal">
+        理念は、つくるものではない。<br>
+        すでにその人の中に存在しているもの。
+      </div>
+      <div class="philosophy-body" data-animate="fade">
         <p>
           私たちの役割は、それを引き出し、<br>
           言葉にならない部分まで受け止め、<br>
@@ -211,34 +229,96 @@
     </div>
   </section>
 
-  <!-- Section 4: 組織文化 -->
-  <section class="section section-culture section-with-images">
-    <div class="section-images">
-      <div class="parallax-image img-3" data-speed="0.04">
-        <img loading="lazy" src="assets/images/video/culture-img1.jpg" alt="">
+  <!-- Marquee Text Section (Reverse) -->
+  <div class="marquee-section">
+    <div class="marquee-track reverse">
+      <span class="marquee-text">TRANSLATE YOUR VISION</span>
+      <span class="marquee-text">TRANSLATE YOUR VISION</span>
+      <span class="marquee-text">TRANSLATE YOUR VISION</span>
+      <span class="marquee-text">TRANSLATE YOUR VISION</span>
+    </div>
+  </div>
+
+  <!-- Gallery Section -->
+  <section class="gallery-section">
+    <div class="gallery-header">
+      <span class="section-label">GALLERY</span>
+      <h2 class="section-title-en">Production Scene</h2>
+      <h3 class="section-title-ja">制作風景</h3>
+    </div>
+    <div class="gallery-marquee">
+      <div class="gallery-track">
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=600&q=80" alt="制作風景1"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80" alt="制作風景2"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533750516457-a7f992034fec?auto=format&fit=crop&w=600&q=80" alt="制作風景3"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80" alt="制作風景4"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80" alt="制作風景5"></div>
+        <!-- Duplicate for infinite loop -->
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=600&q=80" alt="制作風景1"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80" alt="制作風景2"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533750516457-a7f992034fec?auto=format&fit=crop&w=600&q=80" alt="制作風景3"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80" alt="制作風景4"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80" alt="制作風景5"></div>
       </div>
     </div>
-    <div class="section-container">
-      <h2 class="section-title js-text-reveal">理念は、働く人に伝わってこそ意味を持つ。</h2>
-      <div class="section-body" data-animate="fade">
-        <p>
-          経営者の想いは、<br>
-          組織の中でどのように受け取られているのか。<br>
-          私たちは、働く人の声や現場の空気にも耳を傾けます。
-        </p>
-        <p>
-          理念が正しく理解され、<br>
-          日々の仕事の中で息づいているかどうか。<br>
-          そこにこそ、会社の文化が表れます。
-        </p>
+    <div class="gallery-marquee reverse">
+      <div class="gallery-track">
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80" alt="制作風景6"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="制作風景7"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="制作風景8"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=600&q=80" alt="制作風景9"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="制作風景10"></div>
+        <!-- Duplicate for infinite loop -->
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80" alt="制作風景6"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="制作風景7"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="制作風景8"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=600&q=80" alt="制作風景9"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="制作風景10"></div>
       </div>
     </div>
   </section>
 
-  <!-- Section 5: もたらす変化 -->
+  <!-- Flow Section -->
+  <section class="section section-flow" id="flow">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-label">FLOW</span>
+        <h2 class="section-title-en">Production Flow</h2>
+        <h3 class="section-title-ja">制作の流れ</h3>
+      </div>
+      <div class="flow-grid">
+        <div class="flow-item" data-animate="flow-item">
+          <span class="flow-number">01</span>
+          <h4 class="flow-title">ヒアリング</h4>
+          <p class="flow-desc">経営者の想い、会社の歴史、大切にしている価値観を深掘りします。</p>
+        </div>
+        <div class="flow-item" data-animate="flow-item">
+          <span class="flow-number">02</span>
+          <h4 class="flow-title">理念の言語化</h4>
+          <p class="flow-desc">ヒアリング内容をもとに、理念を言葉として整理・構成します。</p>
+        </div>
+        <div class="flow-item" data-animate="flow-item">
+          <span class="flow-number">03</span>
+          <h4 class="flow-title">映像構成</h4>
+          <p class="flow-desc">理念を最も効果的に伝える映像構成・シナリオを設計します。</p>
+        </div>
+        <div class="flow-item" data-animate="flow-item">
+          <span class="flow-number">04</span>
+          <h4 class="flow-title">撮影・編集</h4>
+          <p class="flow-desc">プロフェッショナルな撮影と編集で、理念を映像として完成させます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Section -->
   <section class="section section-value" id="value">
     <div class="section-container">
-      <h2 class="section-title js-text-reveal">映像が、会社の「指針」になる。</h2>
+      <div class="section-header">
+        <span class="section-label">VALUE</span>
+        <h2 class="section-title-en">What You Get</h2>
+        <h3 class="section-title-ja">もたらす変化</h3>
+      </div>
       <div class="section-body">
         <ul class="value-list" data-animate="list">
           <li>経営者自身が、迷ったときに立ち返れる</li>
@@ -250,21 +330,14 @@
     </div>
   </section>
 
-  <!-- Section 6: 展開（控えめ） -->
-  <section class="section section-usage">
+  <!-- Target Section -->
+  <section class="section section-target">
     <div class="section-container">
-      <p class="usage-note" data-animate="fade-single">
-        理念ブランディング映像は、<br>
-        採用サイトや企業サイトの中核コンテンツとしても活用できます。<br>
-        必要に応じて、映像を軸としたLP制作や構成設計も行っています。
-      </p>
-    </div>
-  </section>
-
-  <!-- Section 7: ターゲット -->
-  <section class="section section-target" id="target">
-    <div class="section-container">
-      <h2 class="section-title js-text-reveal">こんな経営者の方へ</h2>
+      <div class="section-header">
+        <span class="section-label">FOR YOU</span>
+        <h2 class="section-title-en">Who It's For</h2>
+        <h3 class="section-title-ja">こんな経営者の方へ</h3>
+      </div>
       <div class="section-body">
         <ul class="target-list" data-animate="list">
           <li>理念を掲げているが、伝わっている実感がない</li>
@@ -276,16 +349,24 @@
     </div>
   </section>
 
-  <!-- Section 8: クロージング -->
-  <section class="section section-closing" id="contact">
+  <!-- CTA Section -->
+  <section class="section section-cta" id="contact">
     <div class="section-container">
-      <p class="closing-statement js-text-reveal">理念を語ることは、<br>会社の未来に責任を持つことだと、<br>私たちは考えています。</p>
-      <a href="mailto:info@furakufine.com" class="cta-link" data-animate="cta">
-        理念について、話を聞かせてください。
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </a>
+      <div class="cta-content">
+        <p class="cta-statement js-text-reveal">
+          理念を語ることは、<br>
+          会社の未来に責任を持つこと。
+        </p>
+        <a href="mailto:info@furakufine.com" class="view-more-btn" data-animate="cta">
+          <span class="btn-text">CONTACT US</span>
+          <span class="btn-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </a>
+        <p class="cta-note">理念について、話を聞かせてください。</p>
+      </div>
     </div>
   </section>
 
