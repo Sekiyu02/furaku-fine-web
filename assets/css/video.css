@@ -71,15 +71,8 @@ ul {
    Enhanced Loader
 ========================================== */
 .loader {
-  position: fixed;
-  inset: 0;
-  background: var(--color-bg-dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  /* CSS fallback: auto-hide after 3s if JS fails */
-  animation: loaderFadeOut 0.8s ease 3s forwards;
+  /* TEMPORARILY HIDDEN FOR DEBUGGING */
+  display: none !important;
 }
 
 @keyframes loaderFadeOut {
@@ -160,9 +153,7 @@ header.scrolled {
 .logo img {
   height: 28px;
   width: auto;
-  /* CSS fallback: auto-show after 3.5s */
-  opacity: 0;
-  animation: heroFadeIn 0.8s ease 3.5s forwards;
+  opacity: 1;
 }
 
 .menu-btn {
@@ -173,9 +164,7 @@ header.scrolled {
   cursor: pointer;
   position: relative;
   z-index: 101;
-  /* CSS fallback: auto-show after 3.5s */
-  opacity: 0;
-  animation: heroFadeIn 0.8s ease 3.5s forwards;
+  opacity: 1;
 }
 
 .menu-btn-line {
@@ -404,9 +393,7 @@ header.scrolled {
   padding: 0 20px;
   margin-left: -20px;
   margin-right: -20px;
-  /* CSS fallback: auto-show after 3.5s */
-  opacity: 0;
-  animation: heroFadeIn 1s ease 3.5s forwards;
+  opacity: 1;
 }
 
 .hero-title {
@@ -420,13 +407,7 @@ header.scrolled {
   padding: 0 40px;
   margin-left: -40px;
   margin-right: -40px;
-  /* CSS fallback: auto-show after 4s */
-  opacity: 0;
-  animation: heroFadeIn 1s ease 4s forwards;
-}
-
-@keyframes heroFadeIn {
-  to { opacity: 1; }
+  opacity: 1;
 }
 
 .hero-subtitle {
@@ -435,9 +416,7 @@ header.scrolled {
   line-height: 2.4;
   color: var(--color-text-muted);
   margin-top: 2.5rem;
-  /* CSS fallback: auto-show after 4.5s */
-  opacity: 0;
-  animation: heroFadeIn 1s ease 4.5s forwards;
+  opacity: 1;
 }
 
 /* ==========================================
@@ -453,9 +432,7 @@ header.scrolled {
   align-items: center;
   gap: 1rem;
   z-index: 10;
-  /* CSS fallback: auto-show after 5s */
-  opacity: 0;
-  animation: heroFadeIn 1s ease 5s forwards;
+  opacity: 1;
 }
 
 .scroll-text {
