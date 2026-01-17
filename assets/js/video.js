@@ -16,65 +16,37 @@ document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
 
   // ==========================================
-  // Enhanced Loading Screen Animation
+  // Loading Screen Animation (Simplified)
   // ==========================================
   const loader = document.getElementById('loader');
-  const loaderLogo = document.querySelector('.loader-logo img');
-  const loaderTextSpans = document.querySelectorAll('.loader-text span');
-  const loaderProgressBar = document.querySelector('.loader-progress-bar');
 
-  // Loader timeline
-  const loaderTl = gsap.timeline();
-  let loaderStarted = false;
-
-  function startLoaderAnimation() {
-    if (loaderStarted) return;
-    loaderStarted = true;
-
-    // Enhanced loader animation
-    loaderTl
-      .to(loaderLogo, {
-        opacity: 1,
-        scale: 1,
-        duration: 1,
-        ease: 'power2.out'
-      })
-      .to(loaderTextSpans, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: 'power2.out'
-      }, '-=0.5')
-      .to(loaderProgressBar, {
-        width: '100%',
-        duration: 1.5,
-        ease: 'power1.inOut'
-      }, '-=0.3')
-      .to(loader, {
-        yPercent: -100,
-        duration: 1,
-        ease: 'power3.inOut',
-        onComplete: () => {
+  function hideLoader() {
+    try {
+      if (loader) {
+        loader.style.opacity = '0';
+        loader.style.transition = 'opacity 0.8s ease';
+        setTimeout(() => {
           loader.style.display = 'none';
-          // Reveal header elements
-          gsap.to('.logo img, .menu-btn', {
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power2.out'
-          });
-          // Start hero animations after loading
-          initHeroAnimations();
-        }
-      }, '+=0.3');
+        }, 800);
+      }
+
+      // Reveal header elements
+      const logoImg = document.querySelector('.logo img');
+      const menuBtn = document.querySelector('.menu-btn');
+      if (logoImg) logoImg.style.opacity = '1';
+      if (menuBtn) menuBtn.style.opacity = '1';
+
+      // Start hero animations
+      initHeroAnimations();
+    } catch (e) {
+      console.error('Loader error:', e);
+      // Force hide loader on error
+      if (loader) loader.style.display = 'none';
+    }
   }
 
-  // Start on window load
-  window.addEventListener('load', startLoaderAnimation);
-
-  // Fallback: start after 3 seconds if load event doesn't fire
-  setTimeout(startLoaderAnimation, 3000);
+  // Hide loader after a short delay
+  setTimeout(hideLoader, 1500);
 
   // ==========================================
   // Text Split Function - Character by Character
@@ -110,80 +82,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
   // Hero Animations (runs after loading)
-  // 水面から浮かび上がる光のイメージ
   // ==========================================
   function initHeroAnimations() {
-    // Hero Statement Animation - 水面から浮かび上がる光
-    const heroStatement = document.querySelector('.hero-statement.js-text-reveal');
-    if (heroStatement) {
-      const chars = splitTextToChars(heroStatement);
-      // 初期状態：ぼかし + 明るさで光が浮かび上がる表現
-      gsap.set(chars, {
-        opacity: 0,
-        filter: 'blur(20px) brightness(2)',
-        scale: 1.02,
-        y: 5
-      });
-      // アニメーション
-      gsap.to(chars, {
-        opacity: 1,
-        filter: 'blur(0px) brightness(1)',
-        scale: 1,
-        y: 0,
-        duration: 1.8,
-        ease: 'power2.out',
-        stagger: 0.05
-      });
-    }
+    try {
+      // Hero Statement Animation
+      const heroStatement = document.querySelector('.hero-statement');
+      if (heroStatement) {
+        heroStatement.style.transition = 'opacity 1.5s ease';
+        heroStatement.style.opacity = '1';
+      }
 
-    // Hero Title Animation - 光の中から同時にぶわっと浮かび上がる
-    const heroTitle = document.querySelector('.hero-title.js-text-reveal');
-    if (heroTitle) {
-      const chars = splitTextToChars(heroTitle);
-      // 初期状態：強い発光感（白く光る）
-      gsap.set(chars, {
-        opacity: 0,
-        filter: 'blur(40px) brightness(3)',
-        scale: 1.08,
-        color: '#ffffff',
-        textShadow: '0 0 60px rgba(255,255,255,0.8), 0 0 120px rgba(212,128,74,0.6)'
-      });
-      // アニメーション：全文字同時に浮かび上がる
-      gsap.to(chars, {
-        opacity: 1,
-        filter: 'blur(0px) brightness(1)',
-        scale: 1,
-        color: '#f5f0eb',
-        textShadow: '0 0 0px rgba(255,255,255,0)',
-        duration: 2.5,
-        ease: 'power2.out',
-        delay: 0.8
-      });
-    }
+      // Hero Title Animation
+      const heroTitle = document.querySelector('.hero-title');
+      if (heroTitle) {
+        heroTitle.style.transition = 'opacity 1.5s ease 0.5s';
+        heroTitle.style.opacity = '1';
+      }
 
-    // Hero Subtitle Animation
-    const heroSubtitle = document.querySelector('.hero-subtitle');
-    if (heroSubtitle) {
-      gsap.set(heroSubtitle, { opacity: 0, y: 20 });
-      gsap.to(heroSubtitle, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: 'power2.out',
-        delay: 1.5
-      });
-    }
+      // Hero Subtitle Animation
+      const heroSubtitle = document.querySelector('.hero-subtitle');
+      if (heroSubtitle) {
+        heroSubtitle.style.transition = 'opacity 1s ease 1s';
+        heroSubtitle.style.opacity = '1';
+      }
 
-    // Scroll Indicator Animation
-    const scrollIndicator = document.getElementById('scrollIndicator');
-    if (scrollIndicator) {
-      gsap.set(scrollIndicator, { opacity: 0 });
-      gsap.to(scrollIndicator, {
-        opacity: 1,
-        duration: 1,
-        ease: 'power2.out',
-        delay: 2
-      });
+      // Scroll Indicator Animation
+      const scrollIndicator = document.getElementById('scrollIndicator');
+      if (scrollIndicator) {
+        scrollIndicator.style.transition = 'opacity 1s ease 1.5s';
+        scrollIndicator.style.opacity = '1';
+      }
+    } catch (e) {
+      console.error('Hero animation error:', e);
     }
   }
 

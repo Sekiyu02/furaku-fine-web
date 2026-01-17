@@ -389,6 +389,7 @@ header.scrolled {
   overflow: visible;
   padding: 0 20px;
   margin-left: -20px;
+  opacity: 0;
   margin-right: -20px;
 }
 
@@ -401,6 +402,7 @@ header.scrolled {
   margin-bottom: 2.5rem;
   overflow: visible;
   padding: 0 40px;
+  opacity: 0;
   margin-left: -40px;
   margin-right: -40px;
 }
