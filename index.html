@@ -498,42 +498,9 @@
         </a>
       </div>
 
-      <div class="knowledge-grid">
-        <a href="articles/sample-article-1.html" class="knowledge-card reveal">
-          <div class="knowledge-card-image parallax-img-wrap">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="" class="parallax-img">
-            <span class="knowledge-card-category">COLUMN</span>
-          </div>
-          <div class="knowledge-card-content">
-            <time class="knowledge-card-date">2025.01.15</time>
-            <h3 class="knowledge-card-title">採用ブランディングとは？中小企業が今すぐ始めるべき理由</h3>
-            <p class="knowledge-card-excerpt">採用難の時代、大手企業との待遇競争に勝つことは難しい。しかし、理念や文化を武器にした「選ばれる採用」なら...</p>
-          </div>
-        </a>
-
-        <a href="articles/sample-article-2.html" class="knowledge-card reveal">
-          <div class="knowledge-card-image parallax-img-wrap">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=800&q=80" alt="" class="parallax-img">
-            <span class="knowledge-card-category">REPORT</span>
-          </div>
-          <div class="knowledge-card-content">
-            <time class="knowledge-card-date">2025.01.10</time>
-            <h3 class="knowledge-card-title">【事業報告】医療法人A様の採用ブランディング支援を開始しました</h3>
-            <p class="knowledge-card-excerpt">このたび、関東エリアで複数のクリニックを展開される医療法人A様の採用ブランディング支援を開始いたしました...</p>
-          </div>
-        </a>
-
-        <a href="articles/sample-article-3.html" class="knowledge-card reveal">
-          <div class="knowledge-card-image parallax-img-wrap">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80" alt="" class="parallax-img">
-            <span class="knowledge-card-category">COLUMN</span>
-          </div>
-          <div class="knowledge-card-content">
-            <time class="knowledge-card-date">2025.01.05</time>
-            <h3 class="knowledge-card-title">「理念浸透」が採用成功の鍵である理由</h3>
-            <p class="knowledge-card-excerpt">多くの企業が採用に苦戦する中、継続的に良い人材を採用できている企業には共通点がある。それは「理念の浸透」...</p>
-          </div>
-        </a>
+      <div class="knowledge-grid" id="knowledgeGrid">
+        <!-- microCMSから動的に挿入 -->
+        <p class="loading-text">読み込み中...</p>
       </div>
     </div>
   </section>
@@ -643,6 +610,7 @@
   <script src="assets/js/microcms.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
+      // Works Section
       const worksGrid = document.getElementById('worksGrid');
       const worksEmpty = document.getElementById('worksEmpty');
 
@@ -665,6 +633,42 @@
         } else {
           worksGrid.innerHTML = '';
           if (worksEmpty) worksEmpty.style.display = 'block';
+        }
+      }
+
+      // Knowledge Section
+      const knowledgeGrid = document.getElementById('knowledgeGrid');
+
+      if (knowledgeGrid) {
+        const categoryNames = {
+          recruitment: '採用ブランディング',
+          philosophy: '理念浸透',
+          organization: '組織開発',
+          medical: '医療採用',
+          case: '事例紹介',
+          column: 'COLUMN',
+          report: 'REPORT',
+          news: 'NEWS'
+        };
+
+        const data = await getKnowledge(3);
+
+        if (data && data.contents && data.contents.length > 0) {
+          knowledgeGrid.innerHTML = data.contents.map(article => `
+            <a href="article.html?id=${article.id}" class="knowledge-card reveal">
+              <div class="knowledge-card-image parallax-img-wrap">
+                ${article.thumbnail ? `<img loading="lazy" src="${article.thumbnail.url}" alt="${article.title}" class="parallax-img">` : '<div class="knowledge-card-placeholder"></div>'}
+                <span class="knowledge-card-category">${categoryNames[article.category] || article.category || 'COLUMN'}</span>
+              </div>
+              <div class="knowledge-card-content">
+                <time class="knowledge-card-date">${new Date(article.publishDate || article.publishedAt || article.createdAt).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')}</time>
+                <h3 class="knowledge-card-title">${article.title}</h3>
+                <p class="knowledge-card-excerpt">${article.excerpt || ''}</p>
+              </div>
+            </a>
+          `).join('');
+        } else {
+          knowledgeGrid.innerHTML = '<p class="no-data">現在、記事はありません。</p>';
         }
       }
     });
