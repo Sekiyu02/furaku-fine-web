@@ -655,9 +655,9 @@
 
         if (data && data.contents && data.contents.length > 0) {
           knowledgeGrid.innerHTML = data.contents.map(article => `
-            <a href="article.html?id=${article.id}" class="knowledge-card reveal">
-              <div class="knowledge-card-image parallax-img-wrap">
-                ${article.thumbnail ? `<img loading="lazy" src="${article.thumbnail.url}" alt="${article.title}" class="parallax-img">` : '<div class="knowledge-card-placeholder"></div>'}
+            <a href="article.html?id=${article.id}" class="knowledge-card">
+              <div class="knowledge-card-image">
+                ${article.thumbnail ? `<img loading="lazy" src="${article.thumbnail.url}" alt="${article.title}">` : '<div class="knowledge-card-placeholder"></div>'}
                 <span class="knowledge-card-category">${categoryNames[article.category] || article.category || 'COLUMN'}</span>
               </div>
               <div class="knowledge-card-content">
