@@ -16,37 +16,64 @@ document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
 
   // ==========================================
-  // Loading Screen Animation (Simplified)
+  // Enhanced Loading Screen Animation
   // ==========================================
   const loader = document.getElementById('loader');
+  const loaderLogo = document.querySelector('.loader-logo img');
+  const loaderTextSpans = document.querySelectorAll('.loader-text span');
+  const loaderProgressBar = document.querySelector('.loader-progress-bar');
 
-  function hideLoader() {
-    try {
-      if (loader) {
-        loader.style.opacity = '0';
-        loader.style.transition = 'opacity 0.8s ease';
-        setTimeout(() => {
+  function startLoaderAnimation() {
+    // Enhanced loader animation with GSAP
+    const loaderTl = gsap.timeline();
+
+    loaderTl
+      .to(loaderLogo, {
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        ease: 'power2.out'
+      })
+      .to(loaderTextSpans, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: 'power2.out'
+      }, '-=0.5')
+      .to(loaderProgressBar, {
+        width: '100%',
+        duration: 1.5,
+        ease: 'power1.inOut'
+      }, '-=0.3')
+      .to(loader, {
+        yPercent: -100,
+        duration: 1,
+        ease: 'power3.inOut',
+        onComplete: () => {
           loader.style.display = 'none';
-        }, 800);
-      }
-
-      // Reveal header elements
-      const logoImg = document.querySelector('.logo img');
-      const menuBtn = document.querySelector('.menu-btn');
-      if (logoImg) logoImg.style.opacity = '1';
-      if (menuBtn) menuBtn.style.opacity = '1';
-
-      // Start hero animations
-      initHeroAnimations();
-    } catch (e) {
-      console.error('Loader error:', e);
-      // Force hide loader on error
-      if (loader) loader.style.display = 'none';
-    }
+          // Reveal header elements
+          gsap.to('.logo img, .menu-btn', {
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: 'power2.out'
+          });
+          // Start hero animations
+          initHeroAnimations();
+        }
+      }, '+=0.3');
   }
 
-  // Hide loader after a short delay
-  setTimeout(hideLoader, 1500);
+  // Start loader animation when page loads
+  window.addEventListener('load', startLoaderAnimation);
+
+  // Fallback: start after 2 seconds if load event doesn't fire
+  setTimeout(() => {
+    if (loader && loader.style.display !== 'none') {
+      startLoaderAnimation();
+    }
+  }, 2000);
 
   // ==========================================
   // Text Split Function - Character by Character
@@ -84,36 +111,47 @@ document.addEventListener('DOMContentLoaded', () => {
   // Hero Animations (runs after loading)
   // ==========================================
   function initHeroAnimations() {
-    try {
-      // Hero Statement Animation
-      const heroStatement = document.querySelector('.hero-statement');
-      if (heroStatement) {
-        heroStatement.style.transition = 'opacity 1.5s ease';
-        heroStatement.style.opacity = '1';
-      }
+    // Hero Statement Animation
+    const heroStatement = document.querySelector('.hero-statement');
+    if (heroStatement) {
+      gsap.to(heroStatement, {
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power2.out'
+      });
+    }
 
-      // Hero Title Animation
-      const heroTitle = document.querySelector('.hero-title');
-      if (heroTitle) {
-        heroTitle.style.transition = 'opacity 1.5s ease 0.5s';
-        heroTitle.style.opacity = '1';
-      }
+    // Hero Title Animation
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) {
+      gsap.to(heroTitle, {
+        opacity: 1,
+        duration: 1.5,
+        delay: 0.5,
+        ease: 'power2.out'
+      });
+    }
 
-      // Hero Subtitle Animation
-      const heroSubtitle = document.querySelector('.hero-subtitle');
-      if (heroSubtitle) {
-        heroSubtitle.style.transition = 'opacity 1s ease 1s';
-        heroSubtitle.style.opacity = '1';
-      }
+    // Hero Subtitle Animation
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    if (heroSubtitle) {
+      gsap.to(heroSubtitle, {
+        opacity: 1,
+        duration: 1,
+        delay: 1,
+        ease: 'power2.out'
+      });
+    }
 
-      // Scroll Indicator Animation
-      const scrollIndicator = document.getElementById('scrollIndicator');
-      if (scrollIndicator) {
-        scrollIndicator.style.transition = 'opacity 1s ease 1.5s';
-        scrollIndicator.style.opacity = '1';
-      }
-    } catch (e) {
-      console.error('Hero animation error:', e);
+    // Scroll Indicator Animation
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    if (scrollIndicator) {
+      gsap.to(scrollIndicator, {
+        opacity: 1,
+        duration: 1,
+        delay: 1.5,
+        ease: 'power2.out'
+      });
     }
   }
 
