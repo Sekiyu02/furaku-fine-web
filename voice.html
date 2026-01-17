@@ -119,20 +119,20 @@
         return;
       }
 
-      const targetLabels = {
-        recruitment: '採用ブランディング',
-        medical: '医療特化型採用支援'
-      };
+      // targetが配列かどうかをチェックしてmedical/recruitmentを判定
+      const isMedical = Array.isArray(voice.target)
+        ? voice.target.some(t => t.toLowerCase().includes('medical'))
+        : String(voice.target).toLowerCase().includes('medical');
 
-      // 戻り先を決定
-      const backUrl = voice.target === 'medical' ? 'medical.html#voice' : 'recruitment.html#voice';
-      const backLabel = voice.target === 'medical' ? '医療採用支援ページに戻る' : '採用ブランディングページに戻る';
+      const categoryLabel = isMedical ? '医療特化型採用支援' : '採用ブランディング';
+      const backUrl = isMedical ? 'medical.html#voice' : 'recruitment.html#voice';
+      const backLabel = isMedical ? '医療採用支援ページに戻る' : '採用ブランディングページに戻る';
 
       document.title = `${voice.company}様の声 | 株式会社富楽ファイン`;
 
       container.innerHTML = `
         <div class="voice-detail">
-          <span class="voice-category">${targetLabels[voice.target] || 'お客様の声'}</span>
+          <span class="voice-category">${categoryLabel}</span>
 
           <div class="voice-profile">
             ${voice.image ? `<img src="${voice.image.url}" alt="${voice.name}" class="voice-profile-image">` : '<div class="voice-profile-placeholder"></div>'}

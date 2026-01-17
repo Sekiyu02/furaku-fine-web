@@ -563,12 +563,13 @@
         console.log('[recruitment] All voices:', data);
 
         if (data && data.contents && data.contents.length > 0) {
-          // 各voiceのtarget値をログ出力
-          data.contents.forEach(v => console.log('[recruitment] Voice:', v.company, 'target:', v.target));
-
-          // recruitment に該当するもののみフィルタ
-          const filteredVoices = data.contents.filter(voice => voice.target === 'recruitment');
-          console.log('[recruitment] Filtered voices:', filteredVoices.length);
+          // recruitment に該当するもののみフィルタ（配列内に'recruitment'を含むかチェック）
+          const filteredVoices = data.contents.filter(voice => {
+            if (Array.isArray(voice.target)) {
+              return voice.target.some(t => t.toLowerCase().includes('recruitment'));
+            }
+            return String(voice.target).toLowerCase().includes('recruitment');
+          });
 
           if (filteredVoices.length > 0) {
             voiceGrid.innerHTML = filteredVoices.map(voice => `
