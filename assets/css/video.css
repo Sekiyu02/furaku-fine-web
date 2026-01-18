@@ -988,6 +988,11 @@ footer {
 /* ==========================================
    GSAP Animation Classes
 ========================================== */
+/* 初期状態で非表示（JSでテキスト分割後に表示） */
+.js-text-reveal {
+  opacity: 0;
+}
+
 .js-text-reveal .char {
   display: inline-block;
   will-change: transform, opacity, filter;

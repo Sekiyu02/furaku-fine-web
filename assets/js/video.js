@@ -126,6 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroStatement = document.querySelector('.hero-statement.js-text-reveal');
     if (heroStatement) {
       const chars = splitTextToChars(heroStatement);
+      // テキスト分割後にコンテナを表示（各文字は個別に非表示のまま）
+      heroStatement.style.opacity = '1';
       const shuffledChars = shuffleArray(chars);
       // シャッフルした順番でアニメーション
       shuffledChars.forEach((char, i) => {
@@ -143,6 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroTitle = document.querySelector('.hero-title.js-text-reveal');
     if (heroTitle) {
       const chars = splitTextToChars(heroTitle);
+      // テキスト分割後にコンテナを表示
+      heroTitle.style.opacity = '1';
       const shuffledChars = shuffleArray(chars);
       // シャッフルした順番でアニメーション
       shuffledChars.forEach((char, i) => {
@@ -271,6 +275,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.section-title.js-text-reveal, .closing-statement.js-text-reveal, .philosophy-statement.js-text-reveal, .cta-statement.js-text-reveal').forEach(element => {
     // Split text into characters (初期状態はインラインスタイルで非表示)
     const chars = splitTextToChars(element);
+    // テキスト分割後にコンテナを表示（各文字は個別に非表示のまま）
+    element.style.opacity = '1';
     const shuffledChars = shuffleArray(chars);
 
     // Create scroll-triggered animation
