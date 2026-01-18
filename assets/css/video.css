@@ -1010,6 +1010,32 @@ footer {
 }
 
 /* ==========================================
+   Smooth Animation Performance (JR高島屋風)
+========================================== */
+.section-container,
+.hero-content,
+.hero-bg,
+.marquee-section,
+.gallery-section,
+.flow-item,
+.cta-content,
+footer {
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+}
+
+/* Section transitions */
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hero background for parallax */
+.hero-bg {
+  transform-origin: center center;
+}
+
+/* ==========================================
    Responsive
 ========================================== */
 @media (max-width: 1024px) {
@@ -1131,8 +1157,22 @@ button:focus-visible {
     animation: none !important;
   }
 
-  .parallax-bg {
+  .parallax-bg,
+  .hero-bg {
     transform: none !important;
+  }
+
+  .section-container,
+  .hero-content,
+  .marquee-section,
+  .gallery-section,
+  .flow-item,
+  .cta-content,
+  footer {
+    will-change: auto;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
   }
 }
 

@@ -201,9 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // Scroll Indicator Fade
   // ==========================================
-  const scrollIndicator = document.getElementById('scrollIndicator');
-  if (scrollIndicator) {
-    gsap.to(scrollIndicator, {
+  const scrollIndicatorFade = document.getElementById('scrollIndicator');
+  if (scrollIndicatorFade) {
+    gsap.to(scrollIndicatorFade, {
       opacity: 0,
       scrollTrigger: {
         trigger: '.hero',
@@ -215,16 +215,234 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // Section Header Animations (Staggered Reveal)
+  // Hero Section Fade Out on Scroll (JR高島屋風)
+  // ==========================================
+  const heroContent = document.querySelector('.hero-content');
+  const heroSection = document.querySelector('.hero');
+
+  if (heroContent && heroSection) {
+    gsap.to(heroContent, {
+      opacity: 0,
+      y: -100,
+      filter: 'blur(10px)',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: heroSection,
+        start: 'top top',
+        end: '80% top',
+        scrub: 1
+      }
+    });
+  }
+
+  // Hero背景のパララックス（ズーム効果）
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    gsap.to(heroBg, {
+      scale: 1.1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: heroSection,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+  }
+
+  // ==========================================
+  // Section Fade In/Out Animation (JR高島屋風)
+  // ==========================================
+  document.querySelectorAll('.section').forEach(section => {
+    const content = section.querySelector('.section-container');
+
+    if (content) {
+      // フェードアウト（上に消える）- scrubで滑らかに
+      gsap.to(content, {
+        opacity: 0,
+        y: -50,
+        filter: 'blur(5px)',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'bottom 60%',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
+    }
+  });
+
+  // ==========================================
+  // Marquee Section Animations
+  // ==========================================
+  document.querySelectorAll('.marquee-section').forEach(marquee => {
+    gsap.set(marquee, { opacity: 0 });
+
+    // フェードイン
+    gsap.to(marquee, {
+      opacity: 1,
+      duration: 1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: marquee,
+        start: 'top 90%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // フェードアウト
+    gsap.to(marquee, {
+      opacity: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: marquee,
+        start: 'bottom 50%',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+  });
+
+  // ==========================================
+  // Gallery Section Animation
+  // ==========================================
+  const gallerySection = document.querySelector('.gallery-section');
+  if (gallerySection) {
+    const galleryMarquees = gallerySection.querySelectorAll('.gallery-marquee');
+
+    // ギャラリーのフェードイン（順番に）
+    galleryMarquees.forEach((marquee, index) => {
+      gsap.set(marquee, { opacity: 0, y: 30 });
+      gsap.to(marquee, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: gallerySection,
+          start: 'top 70%',
+          toggleActions: 'play none none none'
+        },
+        delay: index * 0.2
+      });
+    });
+
+    // セクション全体のフェードアウト
+    gsap.to(gallerySection, {
+      opacity: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: gallerySection,
+        start: 'bottom 50%',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+  }
+
+  // ==========================================
+  // Philosophy Section - より印象的なアニメーション
+  // ==========================================
+  const philosophySection = document.querySelector('.section-philosophy');
+  if (philosophySection) {
+    const statement = philosophySection.querySelector('.philosophy-statement');
+
+    // ステートメントのパララックス効果
+    if (statement) {
+      gsap.to(statement, {
+        y: -30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: philosophySection,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 2
+        }
+      });
+    }
+
+    // セクションが離れる時のフェードアウト
+    const philosophyContainer = philosophySection.querySelector('.section-container');
+    if (philosophyContainer) {
+      gsap.to(philosophyContainer, {
+        opacity: 0,
+        y: -80,
+        filter: 'blur(8px)',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: philosophySection,
+          start: 'bottom 60%',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
+    }
+  }
+
+  // ==========================================
+  // CTA Section Animation
+  // ==========================================
+  const ctaSection = document.querySelector('.section-cta');
+  if (ctaSection) {
+    const ctaContent = ctaSection.querySelector('.cta-content');
+
+    if (ctaContent) {
+      gsap.set(ctaContent, {
+        opacity: 0,
+        y: 80,
+        scale: 0.98
+      });
+
+      gsap.to(ctaContent, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: ctaSection,
+          start: 'top 70%',
+          toggleActions: 'play none none none'
+        }
+      });
+    }
+  }
+
+  // ==========================================
+  // Footer Fade In
+  // ==========================================
+  const footerElement = document.querySelector('footer');
+  if (footerElement) {
+    gsap.set(footerElement, {
+      opacity: 0,
+      y: 40
+    });
+
+    gsap.to(footerElement, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: footerElement,
+        start: 'top 90%',
+        toggleActions: 'play none none none'
+      }
+    });
+  }
+
+  // ==========================================
+  // Section Header Animations (Staggered Reveal) - 更新版
   // ==========================================
   document.querySelectorAll('.section-header').forEach(header => {
     const label = header.querySelector('.section-label');
     const titleEn = header.querySelector('.section-title-en');
     const titleJa = header.querySelector('.section-title-ja');
 
-    // Set initial states
-    if (label) gsap.set(label, { opacity: 0, y: 20 });
-    if (titleEn) gsap.set(titleEn, { opacity: 0, y: 30 });
+    // 初期状態（ぼかし付き）
+    if (label) gsap.set(label, { opacity: 0, y: 30, filter: 'blur(5px)' });
+    if (titleEn) gsap.set(titleEn, { opacity: 0, y: 40, filter: 'blur(5px)' });
     if (titleJa) gsap.set(titleJa, { opacity: 0, y: 30 });
 
     ScrollTrigger.create({
@@ -237,32 +455,34 @@ document.addEventListener('DOMContentLoaded', () => {
           tl.to(label, {
             opacity: 1,
             y: 0,
-            duration: 0.6,
-            ease: 'power2.out'
+            filter: 'blur(0px)',
+            duration: 0.8,
+            ease: 'power3.out'
           });
         }
         if (titleEn) {
           tl.to(titleEn, {
             opacity: 1,
             y: 0,
-            duration: 0.8,
-            ease: 'power2.out'
-          }, '-=0.3');
+            filter: 'blur(0px)',
+            duration: 1,
+            ease: 'power3.out'
+          }, '-=0.5');
         }
         if (titleJa) {
           tl.to(titleJa, {
             opacity: 1,
             y: 0,
             duration: 0.8,
-            ease: 'power2.out'
-          }, '-=0.5');
+            ease: 'power3.out'
+          }, '-=0.6');
         }
       }
     });
   });
 
   // ==========================================
-  // Gallery Header Animation
+  // Gallery Header Animation - 更新版
   // ==========================================
   const galleryHeader = document.querySelector('.gallery-header');
   if (galleryHeader) {
@@ -270,8 +490,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const titleEn = galleryHeader.querySelector('.section-title-en');
     const titleJa = galleryHeader.querySelector('.section-title-ja');
 
-    if (label) gsap.set(label, { opacity: 0, y: 20 });
-    if (titleEn) gsap.set(titleEn, { opacity: 0, y: 30 });
+    if (label) gsap.set(label, { opacity: 0, y: 30, filter: 'blur(5px)' });
+    if (titleEn) gsap.set(titleEn, { opacity: 0, y: 40, filter: 'blur(5px)' });
     if (titleJa) gsap.set(titleJa, { opacity: 0, y: 30 });
 
     ScrollTrigger.create({
@@ -280,9 +500,9 @@ document.addEventListener('DOMContentLoaded', () => {
       once: true,
       onEnter: () => {
         const tl = gsap.timeline();
-        if (label) tl.to(label, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
-        if (titleEn) tl.to(titleEn, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.3');
-        if (titleJa) tl.to(titleJa, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.5');
+        if (label) tl.to(label, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.8, ease: 'power3.out' });
+        if (titleEn) tl.to(titleEn, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out' }, '-=0.5');
+        if (titleJa) tl.to(titleJa, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
       }
     });
   }
@@ -418,25 +638,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // Flow Item Animations
+  // Flow Item Animations - 順番にふわっと登場
   // ==========================================
   document.querySelectorAll('[data-animate="flow-item"]').forEach((item, index) => {
     gsap.set(item, {
       opacity: 0,
-      y: 50
+      y: 60,
+      scale: 0.95
     });
 
     ScrollTrigger.create({
       trigger: item,
-      start: 'top 90%',
+      start: 'top 85%',
       once: true,
       onEnter: () => {
         gsap.to(item, {
           opacity: 1,
           y: 0,
+          scale: 1,
           duration: 0.8,
           ease: 'power3.out',
-          delay: index * 0.15
+          delay: index * 0.1
         });
       }
     });
