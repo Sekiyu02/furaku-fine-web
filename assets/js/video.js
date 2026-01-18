@@ -131,6 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Scroll Animations (initialized after loader)
   // ==========================================
   function initScrollAnimations() {
+    // 現在のスクロール位置を取得
+    const currentScroll = window.pageYOffset;
+
     // Scroll Indicator Fade
     const scrollIndicatorFade = document.getElementById('scrollIndicator');
     if (scrollIndicatorFade) {
@@ -185,23 +188,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.section-header').forEach(header => {
       const label = header.querySelector('.section-label');
       const title = header.querySelector('.section-title-en');
+      const elements = [label, title].filter(Boolean);
 
-      gsap.fromTo([label, title].filter(Boolean),
-        { opacity: 0, y: 40, filter: 'blur(5px)' },
-        {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          duration: 1,
-          ease: 'power3.out',
-          stagger: 0.15,
-          scrollTrigger: {
-            trigger: header,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
-          }
+      // 初期状態を設定
+      gsap.set(elements, { opacity: 0, y: 40 });
+
+      gsap.to(elements, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: header,
+          start: 'top 85%',
+          end: 'bottom 15%',
+          toggleActions: 'play reverse play reverse'
         }
-      );
+      });
     });
 
     // Gallery Header Animation
@@ -209,23 +213,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (galleryHeader) {
       const label = galleryHeader.querySelector('.section-label');
       const title = galleryHeader.querySelector('.section-title-en');
+      const elements = [label, title].filter(Boolean);
 
-      gsap.fromTo([label, title].filter(Boolean),
-        { opacity: 0, y: 40, filter: 'blur(5px)' },
-        {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          duration: 1,
-          ease: 'power3.out',
-          stagger: 0.15,
-          scrollTrigger: {
-            trigger: galleryHeader,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
-          }
+      gsap.set(elements, { opacity: 0, y: 40 });
+
+      gsap.to(elements, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: galleryHeader,
+          start: 'top 85%',
+          end: 'bottom 15%',
+          toggleActions: 'play reverse play reverse'
         }
-      );
+      });
     }
 
     // ==========================================
@@ -234,21 +238,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-animate="fade"]').forEach(element => {
       const paragraphs = element.querySelectorAll('p');
 
-      gsap.fromTo(paragraphs,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: 'power3.out',
-          stagger: 0.2,
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
-          }
+      gsap.set(paragraphs, { y: 40, opacity: 0 });
+
+      gsap.to(paragraphs, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 85%',
+          end: 'bottom 15%',
+          toggleActions: 'play reverse play reverse'
         }
-      );
+      });
     });
 
     // ==========================================
@@ -257,21 +261,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-animate="list"]').forEach(element => {
       const items = element.querySelectorAll('li');
 
-      gsap.fromTo(items,
-        { x: -30, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
-          }
+      gsap.set(items, { x: -30, opacity: 0 });
+
+      gsap.to(items, {
+        x: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power3.out',
+        stagger: 0.08,
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 85%',
+          end: 'bottom 15%',
+          toggleActions: 'play reverse play reverse'
         }
-      );
+      });
     });
 
     // ==========================================
@@ -279,116 +283,99 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     document.querySelectorAll('.philosophy-statement.js-text-reveal, .cta-statement.js-text-reveal').forEach(element => {
       element.style.visibility = 'visible';
-      element.style.opacity = '1';
 
-      gsap.fromTo(element,
-        { opacity: 0, y: 40, filter: 'blur(8px)' },
-        {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
-          }
+      gsap.set(element, { opacity: 0, y: 40 });
+
+      gsap.to(element, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 85%',
+          end: 'bottom 15%',
+          toggleActions: 'play reverse play reverse'
         }
-      );
+      });
     });
 
     // Philosophy body
     document.querySelectorAll('.philosophy-body').forEach(element => {
       const paragraphs = element.querySelectorAll('p');
 
-      gsap.fromTo(paragraphs,
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: 'power3.out',
-          stagger: 0.2,
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
-          }
+      gsap.set(paragraphs, { y: 30, opacity: 0 });
+
+      gsap.to(paragraphs, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 85%',
+          end: 'bottom 15%',
+          toggleActions: 'play reverse play reverse'
         }
-      );
+      });
     });
 
     // ==========================================
     // Flow Item Animations
     // ==========================================
-    document.querySelectorAll('[data-animate="flow-item"]').forEach((item, index) => {
-      gsap.fromTo(item,
-        { opacity: 0, y: 60, scale: 0.95 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          ease: 'power3.out',
-          delay: index * 0.1,
-          scrollTrigger: {
-            trigger: item,
-            start: 'top 90%',
-            toggleActions: 'play none none none'
-          }
+    document.querySelectorAll('[data-animate="flow-item"]').forEach((item) => {
+      gsap.set(item, { opacity: 0, y: 50 });
+
+      gsap.to(item, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 90%',
+          end: 'bottom 10%',
+          toggleActions: 'play reverse play reverse'
         }
-      );
+      });
     });
 
     // ==========================================
     // CTA Button Animation
     // ==========================================
     document.querySelectorAll('[data-animate="cta"]').forEach(element => {
-      gsap.fromTo(element,
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
-          delay: 0.3,
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 90%',
-            toggleActions: 'play none none none'
-          }
+      gsap.set(element, { y: 30, opacity: 0 });
+
+      gsap.to(element, {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 90%',
+          end: 'bottom 10%',
+          toggleActions: 'play reverse play reverse'
         }
-      );
+      });
     });
 
     // ==========================================
     // Marquee Section Animations
     // ==========================================
     document.querySelectorAll('.marquee-section').forEach(marquee => {
-      gsap.fromTo(marquee,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: marquee,
-            start: 'top 90%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
+      gsap.set(marquee, { opacity: 0 });
 
-      // フェードアウト
       gsap.to(marquee, {
-        opacity: 0,
-        ease: 'none',
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: marquee,
-          start: 'bottom 50%',
-          end: 'bottom top',
-          scrub: 1
+          start: 'top 90%',
+          end: 'bottom 10%',
+          toggleActions: 'play reverse play reverse'
         }
       });
     });
@@ -400,57 +387,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (gallerySection) {
       const galleryMarquees = gallerySection.querySelectorAll('.gallery-marquee');
 
+      gsap.set(galleryMarquees, { opacity: 0, y: 30 });
+
       galleryMarquees.forEach((marquee, index) => {
-        gsap.fromTo(marquee,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: 'power2.out',
-            delay: index * 0.2,
-            scrollTrigger: {
-              trigger: gallerySection,
-              start: 'top 70%',
-              toggleActions: 'play none none none'
-            }
-          }
-        );
-      });
-
-      gsap.to(gallerySection, {
-        opacity: 0,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: gallerySection,
-          start: 'bottom 50%',
-          end: 'bottom top',
-          scrub: 1
-        }
-      });
-    }
-
-    // ==========================================
-    // Section Fade Out on Scroll
-    // ==========================================
-    document.querySelectorAll('.section').forEach(section => {
-      const content = section.querySelector('.section-container');
-
-      if (content) {
-        gsap.to(content, {
-          opacity: 0,
-          y: -50,
-          filter: 'blur(5px)',
-          ease: 'none',
+        gsap.to(marquee, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          delay: index * 0.1,
           scrollTrigger: {
-            trigger: section,
-            start: 'bottom 60%',
-            end: 'bottom top',
-            scrub: 1
+            trigger: gallerySection,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse'
           }
         });
-      }
-    });
+      });
+    }
 
     // ==========================================
     // CTA Section Animation
@@ -460,21 +414,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const ctaContent = ctaSection.querySelector('.cta-content');
 
       if (ctaContent) {
-        gsap.fromTo(ctaContent,
-          { opacity: 0, y: 80, scale: 0.98 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: ctaSection,
-              start: 'top 70%',
-              toggleActions: 'play none none none'
-            }
+        gsap.set(ctaContent, { opacity: 0, y: 60 });
+
+        gsap.to(ctaContent, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: ctaSection,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse'
           }
-        );
+        });
       }
     }
 
@@ -483,20 +436,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     const footerElement = document.querySelector('footer');
     if (footerElement) {
-      gsap.fromTo(footerElement,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: footerElement,
-            start: 'top 90%',
-            toggleActions: 'play none none none'
-          }
+      gsap.set(footerElement, { opacity: 0, y: 40 });
+
+      gsap.to(footerElement, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: footerElement,
+          start: 'top 95%',
+          end: 'bottom 5%',
+          toggleActions: 'play reverse play reverse'
         }
-      );
+      });
     }
 
     // ==========================================
@@ -515,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // ScrollTriggerをリフレッシュ
+    // ScrollTriggerをリフレッシュして現在の状態を反映
     ScrollTrigger.refresh();
   }
 
