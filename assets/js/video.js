@@ -112,19 +112,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // 下からふわっと湧き上がるアニメーション
   // ==========================================
   function initHeroAnimations() {
-    // Hero Statement Animation - 1文字ずつ下からふわっと
+    // Hero Statement Animation - その場でふわっと
     const heroStatement = document.querySelector('.hero-statement.js-text-reveal');
     if (heroStatement) {
       const chars = splitTextToChars(heroStatement);
       // 初期状態
       gsap.set(chars, {
-        y: 40,
         opacity: 0,
         filter: 'blur(10px)'
       });
       // アニメーション
       gsap.to(chars, {
-        y: 0,
         opacity: 1,
         filter: 'blur(0px)',
         duration: 1.4,
@@ -133,19 +131,17 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Hero Title Animation - 1文字ずつ下からふわっと
+    // Hero Title Animation - その場でふわっと
     const heroTitle = document.querySelector('.hero-title.js-text-reveal');
     if (heroTitle) {
       const chars = splitTextToChars(heroTitle);
       // 初期状態
       gsap.set(chars, {
-        y: 40,
         opacity: 0,
         filter: 'blur(10px)'
       });
       // アニメーション
       gsap.to(chars, {
-        y: 0,
         opacity: 1,
         filter: 'blur(0px)',
         duration: 1.4,
@@ -155,12 +151,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Hero Subtitle Animation - 下からふわっと
+    // Hero Subtitle Animation - その場でふわっと
     const heroSubtitle = document.querySelector('.hero-subtitle');
     if (heroSubtitle) {
-      gsap.set(heroSubtitle, { y: 30, opacity: 0, filter: 'blur(8px)' });
+      gsap.set(heroSubtitle, { opacity: 0, filter: 'blur(8px)' });
       gsap.to(heroSubtitle, {
-        y: 0,
         opacity: 1,
         filter: 'blur(0px)',
         duration: 1.2,
@@ -273,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
   // Scroll-Triggered Text Animations
-  // 下からふわっと湧き上がるアニメーション
+  // その場でふわっと表示
   // ==========================================
   document.querySelectorAll('.section-title.js-text-reveal, .closing-statement.js-text-reveal, .philosophy-statement.js-text-reveal, .cta-statement.js-text-reveal').forEach(element => {
     // Split text into characters
@@ -281,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set initial state
     gsap.set(chars, {
-      y: 40,
       opacity: 0,
       filter: 'blur(10px)'
     });
@@ -293,7 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
       once: true,
       onEnter: () => {
         gsap.to(chars, {
-          y: 0,
           opacity: 1,
           filter: 'blur(0px)',
           duration: 1.4,
