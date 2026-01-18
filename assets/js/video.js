@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 下からふわっと湧き上がるアニメーション
   // ==========================================
   function initHeroAnimations() {
-    // Hero Statement Animation - その場でふわっと
+    // Hero Statement Animation - バラバラにふわっと
     const heroStatement = document.querySelector('.hero-statement.js-text-reveal');
     if (heroStatement) {
       const chars = splitTextToChars(heroStatement);
@@ -121,17 +121,20 @@ document.addEventListener('DOMContentLoaded', () => {
         opacity: 0,
         filter: 'blur(10px)'
       });
-      // アニメーション
+      // アニメーション（ランダム順）
       gsap.to(chars, {
         opacity: 1,
         filter: 'blur(0px)',
         duration: 1.4,
         ease: 'power4.out',
-        stagger: 0.06
+        stagger: {
+          each: 0.06,
+          from: 'random'
+        }
       });
     }
 
-    // Hero Title Animation - その場でふわっと
+    // Hero Title Animation - バラバラにふわっと
     const heroTitle = document.querySelector('.hero-title.js-text-reveal');
     if (heroTitle) {
       const chars = splitTextToChars(heroTitle);
@@ -140,13 +143,16 @@ document.addEventListener('DOMContentLoaded', () => {
         opacity: 0,
         filter: 'blur(10px)'
       });
-      // アニメーション
+      // アニメーション（ランダム順）
       gsap.to(chars, {
         opacity: 1,
         filter: 'blur(0px)',
         duration: 1.4,
         ease: 'power4.out',
-        stagger: 0.06,
+        stagger: {
+          each: 0.06,
+          from: 'random'
+        },
         delay: 0.5
       });
     }
@@ -268,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
   // Scroll-Triggered Text Animations
-  // その場でふわっと表示
+  // バラバラにふわっと表示
   // ==========================================
   document.querySelectorAll('.section-title.js-text-reveal, .closing-statement.js-text-reveal, .philosophy-statement.js-text-reveal, .cta-statement.js-text-reveal').forEach(element => {
     // Split text into characters
@@ -291,7 +297,10 @@ document.addEventListener('DOMContentLoaded', () => {
           filter: 'blur(0px)',
           duration: 1.4,
           ease: 'power4.out',
-          stagger: 0.06
+          stagger: {
+            each: 0.06,
+            from: 'random'
+          }
         });
       }
     });
