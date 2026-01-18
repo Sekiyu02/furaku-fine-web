@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (char === '\n' || char === '\r') {
         // Skip newlines
       } else {
-        result += `<span class="char">${char}</span>`;
+        result += `<span class="char" style="opacity:0;filter:blur(10px);">${char}</span>`;
       }
     }
 
@@ -107,81 +107,71 @@ document.addEventListener('DOMContentLoaded', () => {
     return element.querySelectorAll('.char');
   }
 
+  // 配列をシャッフルする関数
+  function shuffleArray(array) {
+    const arr = Array.from(array);
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
   // ==========================================
   // Hero Animations (runs after loading)
-  // 下からふわっと湧き上がるアニメーション
+  // バラバラにふわっと表示
   // ==========================================
   function initHeroAnimations() {
     // Hero Statement Animation - バラバラにふわっと
     const heroStatement = document.querySelector('.hero-statement.js-text-reveal');
     if (heroStatement) {
-      heroStatement.style.visibility = 'visible';
       const chars = splitTextToChars(heroStatement);
-      // 初期状態
-      gsap.set(chars, {
-        opacity: 0,
-        filter: 'blur(10px)'
-      });
-      // アニメーション（ランダム順）
-      gsap.to(chars, {
-        opacity: 1,
-        filter: 'blur(0px)',
-        duration: 1.4,
-        ease: 'power4.out',
-        stagger: {
-          each: 0.06,
-          from: 'random'
-        }
+      const shuffledChars = shuffleArray(chars);
+      // シャッフルした順番でアニメーション
+      shuffledChars.forEach((char, i) => {
+        gsap.to(char, {
+          opacity: 1,
+          filter: 'blur(0px)',
+          duration: 1.4,
+          ease: 'power4.out',
+          delay: i * 0.04
+        });
       });
     }
 
     // Hero Title Animation - バラバラにふわっと
     const heroTitle = document.querySelector('.hero-title.js-text-reveal');
     if (heroTitle) {
-      heroTitle.style.visibility = 'visible';
       const chars = splitTextToChars(heroTitle);
-      // 初期状態
-      gsap.set(chars, {
-        opacity: 0,
-        filter: 'blur(10px)'
-      });
-      // アニメーション（ランダム順）
-      gsap.to(chars, {
-        opacity: 1,
-        filter: 'blur(0px)',
-        duration: 1.4,
-        ease: 'power4.out',
-        stagger: {
-          each: 0.06,
-          from: 'random'
-        },
-        delay: 0.5
+      const shuffledChars = shuffleArray(chars);
+      // シャッフルした順番でアニメーション
+      shuffledChars.forEach((char, i) => {
+        gsap.to(char, {
+          opacity: 1,
+          filter: 'blur(0px)',
+          duration: 1.4,
+          ease: 'power4.out',
+          delay: 0.5 + i * 0.04
+        });
       });
     }
 
-    // Hero Subtitle Animation - その場でふわっと
+    // Hero Subtitle Animation - ふわっと
     const heroSubtitle = document.querySelector('.hero-subtitle');
     if (heroSubtitle) {
-      gsap.set(heroSubtitle, { opacity: 0, filter: 'blur(8px)' });
-      gsap.to(heroSubtitle, {
-        opacity: 1,
-        filter: 'blur(0px)',
-        duration: 1.2,
-        ease: 'power4.out',
-        delay: 1.2
-      });
+      gsap.fromTo(heroSubtitle,
+        { opacity: 0, filter: 'blur(8px)' },
+        { opacity: 1, filter: 'blur(0px)', duration: 1.2, ease: 'power4.out', delay: 1.5 }
+      );
     }
 
     // Scroll Indicator Animation
     const scrollIndicator = document.getElementById('scrollIndicator');
     if (scrollIndicator) {
-      gsap.set(scrollIndicator, { opacity: 0 });
-      gsap.to(scrollIndicator, {
-        opacity: 1,
-        duration: 1,
-        ease: 'power2.out',
-        delay: 2
-      });
+      gsap.fromTo(scrollIndicator,
+        { opacity: 0 },
+        { opacity: 1, duration: 1, ease: 'power2.out', delay: 2 }
+      );
     }
   }
 
@@ -279,17 +269,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // バラバラにふわっと表示
   // ==========================================
   document.querySelectorAll('.section-title.js-text-reveal, .closing-statement.js-text-reveal, .philosophy-statement.js-text-reveal, .cta-statement.js-text-reveal').forEach(element => {
-    // 初期状態で非表示
-    element.style.visibility = 'hidden';
-
-    // Split text into characters
+    // Split text into characters (初期状態はインラインスタイルで非表示)
     const chars = splitTextToChars(element);
-
-    // Set initial state
-    gsap.set(chars, {
-      opacity: 0,
-      filter: 'blur(10px)'
-    });
+    const shuffledChars = shuffleArray(chars);
 
     // Create scroll-triggered animation
     ScrollTrigger.create({
@@ -297,16 +279,15 @@ document.addEventListener('DOMContentLoaded', () => {
       start: 'top 85%',
       once: true,
       onEnter: () => {
-        element.style.visibility = 'visible';
-        gsap.to(chars, {
-          opacity: 1,
-          filter: 'blur(0px)',
-          duration: 1.4,
-          ease: 'power4.out',
-          stagger: {
-            each: 0.06,
-            from: 'random'
-          }
+        // シャッフルした順番でアニメーション
+        shuffledChars.forEach((char, i) => {
+          gsap.to(char, {
+            opacity: 1,
+            filter: 'blur(0px)',
+            duration: 1.4,
+            ease: 'power4.out',
+            delay: i * 0.04
+          });
         });
       }
     });

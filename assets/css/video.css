@@ -400,10 +400,6 @@ header.scrolled {
   margin-right: -20px;
 }
 
-.hero-statement.js-text-reveal {
-  visibility: hidden;
-}
-
 .hero-title {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 6vw, 3.5rem);
@@ -415,16 +411,6 @@ header.scrolled {
   padding: 0 40px;
   margin-left: -40px;
   margin-right: -40px;
-}
-
-.hero-title.js-text-reveal {
-  visibility: hidden;
-}
-
-/* スクロールトリガー用テキストも初期非表示 */
-.philosophy-statement.js-text-reveal,
-.cta-statement.js-text-reveal {
-  visibility: hidden;
 }
 
 .hero-subtitle {
