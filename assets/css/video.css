@@ -97,8 +97,8 @@ ul {
 }
 
 .loader-logo img {
-  width: 180px;
-  height: auto;
+  height: 40px;
+  width: auto;
   opacity: 0;
   transform: scale(0.8);
 }
