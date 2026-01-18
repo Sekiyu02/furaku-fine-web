@@ -420,6 +420,9 @@ header.scrolled {
   color: var(--color-text-muted);
   margin-top: 2.5rem;
   opacity: 0;
+  visibility: hidden;
+  filter: blur(8px);
+  transform: translateY(20px);
 }
 
 /* ==========================================
@@ -436,6 +439,7 @@ header.scrolled {
   gap: 1rem;
   z-index: 10;
   opacity: 0;
+  visibility: hidden;
 }
 
 .scroll-text {
@@ -988,9 +992,10 @@ footer {
 /* ==========================================
    GSAP Animation Classes
 ========================================== */
-/* 初期状態で非表示（JSでテキスト分割後に表示） */
+/* 初期状態で完全に非表示（JSでアニメーション開始時に表示） */
 .js-text-reveal {
   opacity: 0;
+  visibility: hidden;
 }
 
 .js-text-reveal .char {

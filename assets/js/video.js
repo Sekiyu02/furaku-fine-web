@@ -49,20 +49,25 @@ document.addEventListener('DOMContentLoaded', () => {
       .to(loader, {
         yPercent: -100,
         duration: 1,
-        ease: 'power3.inOut',
-        onComplete: () => {
-          loader.style.display = 'none';
-          // Reveal header elements
-          gsap.to('.logo img, .menu-btn', {
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power2.out'
-          });
-          // Start hero animations
-          initHeroAnimations();
-        }
-      }, '+=0.3');
+        ease: 'power3.inOut'
+      }, '+=0.3')
+      .add(() => {
+        // ローダーを非表示にしてから次へ
+        loader.style.display = 'none';
+      })
+      .add(() => {
+        // ヘッダー要素を表示
+        gsap.to('.logo img, .menu-btn', {
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power2.out'
+        });
+      })
+      .add(() => {
+        // ヒーローアニメーションを開始（少し遅延）
+        initHeroAnimations();
+      }, '+=0.2');
   }
 
   // Start loader animation when page loads
@@ -99,7 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (char === '\n' || char === '\r') {
         // Skip newlines
       } else {
-        result += `<span class="char" style="opacity:0;filter:blur(10px);">${char}</span>`;
+        // 初期状態：非表示、ぼかし、少し下に配置
+        result += `<span class="char" style="opacity:0; filter:blur(8px); transform:translateY(10px); display:inline-block;">${char}</span>`;
       }
     }
 
@@ -119,63 +125,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
   // Hero Animations (runs after loading)
-  // バラバラにふわっと表示
+  // バラバラにふわっと浮かび上がる
   // ==========================================
   function initHeroAnimations() {
-    // Hero Statement Animation - バラバラにふわっと
+    // Hero Statement Animation - ふわっと浮かび上がる
     const heroStatement = document.querySelector('.hero-statement.js-text-reveal');
     if (heroStatement) {
+      // まず要素を表示可能な状態にする
+      heroStatement.style.visibility = 'visible';
+
       const chars = splitTextToChars(heroStatement);
-      // テキスト分割後にコンテナを表示（各文字は個別に非表示のまま）
       heroStatement.style.opacity = '1';
+
       const shuffledChars = shuffleArray(chars);
-      // シャッフルした順番でアニメーション
       shuffledChars.forEach((char, i) => {
         gsap.to(char, {
           opacity: 1,
           filter: 'blur(0px)',
-          duration: 1.4,
-          ease: 'power4.out',
-          delay: i * 0.04
+          y: 0,
+          duration: 1.2,
+          ease: 'power3.out',
+          delay: i * 0.025
         });
       });
     }
 
-    // Hero Title Animation - バラバラにふわっと
+    // Hero Title Animation - ふわっと浮かび上がる
     const heroTitle = document.querySelector('.hero-title.js-text-reveal');
     if (heroTitle) {
+      heroTitle.style.visibility = 'visible';
+
       const chars = splitTextToChars(heroTitle);
-      // テキスト分割後にコンテナを表示
       heroTitle.style.opacity = '1';
+
       const shuffledChars = shuffleArray(chars);
-      // シャッフルした順番でアニメーション
       shuffledChars.forEach((char, i) => {
         gsap.to(char, {
           opacity: 1,
           filter: 'blur(0px)',
-          duration: 1.4,
-          ease: 'power4.out',
-          delay: 0.5 + i * 0.04
+          y: 0,
+          duration: 1.2,
+          ease: 'power3.out',
+          delay: 0.5 + i * 0.025
         });
       });
     }
 
-    // Hero Subtitle Animation - ふわっと
+    // Hero Subtitle Animation - ふわっとフェードイン
     const heroSubtitle = document.querySelector('.hero-subtitle');
     if (heroSubtitle) {
-      gsap.fromTo(heroSubtitle,
-        { opacity: 0, filter: 'blur(8px)' },
-        { opacity: 1, filter: 'blur(0px)', duration: 1.2, ease: 'power4.out', delay: 1.5 }
-      );
+      gsap.to(heroSubtitle, {
+        opacity: 1,
+        visibility: 'visible',
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 1.2,
+        ease: 'power3.out',
+        delay: 1.5
+      });
     }
 
-    // Scroll Indicator Animation
+    // Scroll Indicator Animation - ふわっと表示
     const scrollIndicator = document.getElementById('scrollIndicator');
     if (scrollIndicator) {
-      gsap.fromTo(scrollIndicator,
-        { opacity: 0 },
-        { opacity: 1, duration: 1, ease: 'power2.out', delay: 2 }
-      );
+      gsap.to(scrollIndicator, {
+        opacity: 1,
+        visibility: 'visible',
+        duration: 1,
+        ease: 'power2.out',
+        delay: 2.2
+      });
     }
   }
 
@@ -270,9 +289,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
   // Scroll-Triggered Text Animations
-  // バラバラにふわっと表示
+  // バラバラにふわっと浮かび上がる
   // ==========================================
   document.querySelectorAll('.section-title.js-text-reveal, .closing-statement.js-text-reveal, .philosophy-statement.js-text-reveal, .cta-statement.js-text-reveal').forEach(element => {
+    // まず要素を表示可能な状態にする
+    element.style.visibility = 'visible';
+
     // Split text into characters (初期状態はインラインスタイルで非表示)
     const chars = splitTextToChars(element);
     // テキスト分割後にコンテナを表示（各文字は個別に非表示のまま）
@@ -290,9 +312,10 @@ document.addEventListener('DOMContentLoaded', () => {
           gsap.to(char, {
             opacity: 1,
             filter: 'blur(0px)',
-            duration: 1.4,
-            ease: 'power4.out',
-            delay: i * 0.04
+            y: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            delay: i * 0.025
           });
         });
       }
