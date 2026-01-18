@@ -437,13 +437,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   document.querySelectorAll('.section-header').forEach(header => {
     const label = header.querySelector('.section-label');
-    const titleEn = header.querySelector('.section-title-en');
-    const titleJa = header.querySelector('.section-title-ja');
+    const title = header.querySelector('.section-title-en');
 
     // 初期状態（ぼかし付き）
     if (label) gsap.set(label, { opacity: 0, y: 30, filter: 'blur(5px)' });
-    if (titleEn) gsap.set(titleEn, { opacity: 0, y: 40, filter: 'blur(5px)' });
-    if (titleJa) gsap.set(titleJa, { opacity: 0, y: 30 });
+    if (title) gsap.set(title, { opacity: 0, y: 40, filter: 'blur(5px)' });
 
     ScrollTrigger.create({
       trigger: header,
@@ -460,22 +458,14 @@ document.addEventListener('DOMContentLoaded', () => {
             ease: 'power3.out'
           });
         }
-        if (titleEn) {
-          tl.to(titleEn, {
+        if (title) {
+          tl.to(title, {
             opacity: 1,
             y: 0,
             filter: 'blur(0px)',
             duration: 1,
             ease: 'power3.out'
           }, '-=0.5');
-        }
-        if (titleJa) {
-          tl.to(titleJa, {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out'
-          }, '-=0.6');
         }
       }
     });
@@ -487,12 +477,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const galleryHeader = document.querySelector('.gallery-header');
   if (galleryHeader) {
     const label = galleryHeader.querySelector('.section-label');
-    const titleEn = galleryHeader.querySelector('.section-title-en');
-    const titleJa = galleryHeader.querySelector('.section-title-ja');
+    const title = galleryHeader.querySelector('.section-title-en');
 
     if (label) gsap.set(label, { opacity: 0, y: 30, filter: 'blur(5px)' });
-    if (titleEn) gsap.set(titleEn, { opacity: 0, y: 40, filter: 'blur(5px)' });
-    if (titleJa) gsap.set(titleJa, { opacity: 0, y: 30 });
+    if (title) gsap.set(title, { opacity: 0, y: 40, filter: 'blur(5px)' });
 
     ScrollTrigger.create({
       trigger: galleryHeader,
@@ -501,8 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
       onEnter: () => {
         const tl = gsap.timeline();
         if (label) tl.to(label, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.8, ease: 'power3.out' });
-        if (titleEn) tl.to(titleEn, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out' }, '-=0.5');
-        if (titleJa) tl.to(titleJa, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
+        if (title) tl.to(title, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out' }, '-=0.5');
       }
     });
   }
