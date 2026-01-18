@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hero Statement Animation - バラバラにふわっと
     const heroStatement = document.querySelector('.hero-statement.js-text-reveal');
     if (heroStatement) {
+      heroStatement.style.visibility = 'visible';
       const chars = splitTextToChars(heroStatement);
       // 初期状態
       gsap.set(chars, {
@@ -137,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hero Title Animation - バラバラにふわっと
     const heroTitle = document.querySelector('.hero-title.js-text-reveal');
     if (heroTitle) {
+      heroTitle.style.visibility = 'visible';
       const chars = splitTextToChars(heroTitle);
       // 初期状態
       gsap.set(chars, {
@@ -277,6 +279,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // バラバラにふわっと表示
   // ==========================================
   document.querySelectorAll('.section-title.js-text-reveal, .closing-statement.js-text-reveal, .philosophy-statement.js-text-reveal, .cta-statement.js-text-reveal').forEach(element => {
+    // 初期状態で非表示
+    element.style.visibility = 'hidden';
+
     // Split text into characters
     const chars = splitTextToChars(element);
 
@@ -292,6 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
       start: 'top 85%',
       once: true,
       onEnter: () => {
+        element.style.visibility = 'visible';
         gsap.to(chars, {
           opacity: 1,
           filter: 'blur(0px)',
