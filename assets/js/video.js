@@ -109,72 +109,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
   // Hero Animations (runs after loading)
-  // 水面から浮かび上がる光のイメージ
+  // 下からふわっと湧き上がるアニメーション
   // ==========================================
   function initHeroAnimations() {
-    // Hero Statement Animation - 水面から浮かび上がる光
+    // Hero Statement Animation - 1文字ずつ下からふわっと
     const heroStatement = document.querySelector('.hero-statement.js-text-reveal');
     if (heroStatement) {
       const chars = splitTextToChars(heroStatement);
-      // 初期状態：ぼかし + 明るさで光が浮かび上がる表現
+      // 初期状態
       gsap.set(chars, {
+        y: 40,
         opacity: 0,
-        filter: 'blur(20px) brightness(2)',
-        scale: 1.02,
-        y: 5
+        filter: 'blur(10px)'
       });
       // アニメーション
       gsap.to(chars, {
-        opacity: 1,
-        filter: 'blur(0px) brightness(1)',
-        scale: 1,
         y: 0,
-        duration: 1.8,
-        ease: 'power2.out',
-        stagger: 0.05
+        opacity: 1,
+        filter: 'blur(0px)',
+        duration: 1.4,
+        ease: 'power4.out',
+        stagger: 0.06
       });
     }
 
-    // Hero Title Animation - 光の中から同時にぶわっと浮かび上がる
+    // Hero Title Animation - 1文字ずつ下からふわっと
     const heroTitle = document.querySelector('.hero-title.js-text-reveal');
     if (heroTitle) {
       const chars = splitTextToChars(heroTitle);
-      // 初期状態：強い発光感（白く光る）
+      // 初期状態
       gsap.set(chars, {
+        y: 40,
         opacity: 0,
-        filter: 'blur(40px) brightness(3)',
-        scale: 1.08,
-        color: '#ffffff',
-        textShadow: '0 0 60px rgba(255,255,255,0.8), 0 0 120px rgba(212,128,74,0.6)'
+        filter: 'blur(10px)'
       });
-      // アニメーション：全文字同時に浮かび上がる
+      // アニメーション
       gsap.to(chars, {
+        y: 0,
         opacity: 1,
-        filter: 'blur(0px) brightness(1)',
-        scale: 1,
-        color: '#f5f0eb',
-        textShadow: '0 0 0px rgba(255,255,255,0)',
-        duration: 2.5,
-        ease: 'power2.out',
-        delay: 0.8
+        filter: 'blur(0px)',
+        duration: 1.4,
+        ease: 'power4.out',
+        stagger: 0.06,
+        delay: 0.5
       });
     }
 
-    // Hero Subtitle Animation
+    // Hero Subtitle Animation - 下からふわっと
     const heroSubtitle = document.querySelector('.hero-subtitle');
     if (heroSubtitle) {
+      gsap.set(heroSubtitle, { y: 30, opacity: 0, filter: 'blur(8px)' });
       gsap.to(heroSubtitle, {
-        opacity: 1,
         y: 0,
-        duration: 1,
-        ease: 'power2.out',
-        delay: 1.5
+        opacity: 1,
+        filter: 'blur(0px)',
+        duration: 1.2,
+        ease: 'power4.out',
+        delay: 1.2
       });
     }
 
     // Scroll Indicator Animation
     const scrollIndicator = document.getElementById('scrollIndicator');
     if (scrollIndicator) {
+      gsap.set(scrollIndicator, { opacity: 0 });
       gsap.to(scrollIndicator, {
         opacity: 1,
         duration: 1,
@@ -275,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
   // Scroll-Triggered Text Animations
+  // 下からふわっと湧き上がるアニメーション
   // ==========================================
   document.querySelectorAll('.section-title.js-text-reveal, .closing-statement.js-text-reveal, .philosophy-statement.js-text-reveal, .cta-statement.js-text-reveal').forEach(element => {
     // Split text into characters
@@ -284,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.set(chars, {
       y: 40,
       opacity: 0,
-      filter: 'blur(8px)'
+      filter: 'blur(10px)'
     });
 
     // Create scroll-triggered animation
@@ -297,9 +296,9 @@ document.addEventListener('DOMContentLoaded', () => {
           y: 0,
           opacity: 1,
           filter: 'blur(0px)',
-          duration: 1.2,
+          duration: 1.4,
           ease: 'power4.out',
-          stagger: 0.04
+          stagger: 0.06
         });
       }
     });
