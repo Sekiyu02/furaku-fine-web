@@ -1,0 +1,27 @@
+{
+  "name": "株式会社富楽ファイン",
+  "short_name": "富楽ファイン",
+  "description": "理念で、人が集まる会社をつくる。採用ブランディング×組織開発の伴走支援。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f14",
+  "theme_color": "#0a0f14",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "/assets/images/pwa/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/images/pwa/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"]
+}

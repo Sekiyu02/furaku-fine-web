@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# 管理ページを除外
+Disallow: /admin
+Disallow: /admin.html
+
+# サイトマップ
+Sitemap: https://furakufine.co.jp/sitemap.xml

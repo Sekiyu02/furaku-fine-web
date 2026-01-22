@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ページが見つかりません｜株式会社富楽ファイン</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-tagu.svg">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: #0a0f14;
+      color: #f5f0eb;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .error-code {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(5rem, 15vw, 10rem);
+      font-weight: 400;
+      color: #E67635;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .error-title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+    .error-message {
+      color: rgba(245, 240, 235, 0.6);
+      margin-bottom: 3rem;
+      line-height: 2;
+    }
+    .error-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .error-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border: 1px solid #f5f0eb;
+      color: #f5f0eb;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      transition: all 0.3s ease;
+    }
+    .error-link:hover {
+      background: #E67635;
+      border-color: #E67635;
+      color: #0a0f14;
+    }
+    .error-link svg {
+      width: 16px;
+      height: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-code">404</div>
+  <h1 class="error-title">ページが見つかりません</h1>
+  <p class="error-message">
+    お探しのページは移動または削除された可能性があります。<br>
+    URLをご確認いただくか、以下のリンクからお進みください。
+  </p>
+  <div class="error-links">
+    <a href="/" class="error-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      トップページへ
+    </a>
+    <a href="/knowledge" class="error-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      </svg>
+      ナレッジ一覧へ
+    </a>
+  </div>
+</body>
+</html>

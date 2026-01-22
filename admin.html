@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理画面 | 富楽ファイン</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="refresh" content="0; url=https://furaku-fine.microcms.io">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: #152a45;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .redirect-container {
+      padding: 2rem;
+    }
+    .redirect-logo {
+      margin-bottom: 2rem;
+    }
+    .redirect-logo img {
+      height: 50px;
+      width: auto;
+    }
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+    .redirect-link {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      background: #E67635;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+    .redirect-link:hover {
+      background: #F5A66A;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255,255,255,0.2);
+      border-top-color: #E67635;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="redirect-container">
+    <div class="redirect-logo">
+      <img src="assets/images/logo-jp.svg" alt="富楽ファイン">
+    </div>
+    <div class="spinner"></div>
+    <h1>microCMS管理画面へリダイレクトしています...</h1>
+    <p>自動的に移動しない場合は、下のボタンをクリックしてください。</p>
+    <a href="https://furaku-fine.microcms.io" class="redirect-link">microCMSを開く</a>
+  </div>
+</body>
+</html>

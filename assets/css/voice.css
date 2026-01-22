@@ -1,0 +1,182 @@
+/* ==========================================
+   Voice Detail Page
+========================================== */
+
+:root {
+  --orange-primary: #E67635;
+  --orange-light: #F5A66A;
+  --text-dark: #1a1a1a;
+  --text-body: #4a4a4a;
+  --off-white: #FAF8F5;
+}
+
+.voice-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 8rem 2rem 6rem;
+}
+
+.voice-detail {
+  text-align: center;
+}
+
+.voice-category {
+  display: inline-block;
+  margin-bottom: 2rem;
+  background: var(--orange-primary);
+  color: white;
+  padding: 0.3rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.voice-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.voice-profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--orange-light);
+}
+
+.voice-profile-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange-light), var(--orange-primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.voice-profile-info {
+  text-align: center;
+}
+
+.voice-company-name {
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.voice-person-name {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.voice-content {
+  text-align: left;
+  margin-bottom: 3rem;
+}
+
+.voice-quote {
+  font-family: "Noto Serif JP", serif;
+  font-size: 1.2rem;
+  line-height: 2;
+  color: var(--text-dark);
+  border-left: 4px solid var(--orange-primary);
+  padding: 1.5rem 2rem;
+  margin: 0 0 2rem 0;
+  background: #f9f9f9;
+  font-style: normal;
+}
+
+.voice-detail-text {
+  font-size: 1rem;
+  line-height: 2;
+  color: #333;
+}
+
+.voice-detail-text p {
+  margin-bottom: 1.5rem;
+}
+
+.voice-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  border: 1px solid #ddd;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.voice-back:hover {
+  background: var(--orange-primary);
+  border-color: var(--orange-primary);
+  color: white;
+}
+
+.voice-back svg {
+  transition: transform 0.3s ease;
+}
+
+.voice-back:hover svg {
+  transform: translateX(-4px);
+}
+
+.loading-message,
+.error-message {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+}
+
+.error-message {
+  color: #c00;
+}
+
+.error-message p {
+  margin-bottom: 2rem;
+}
+
+.error-message .voice-back {
+  margin-top: 0;
+}
+
+/* Clickable voice cards on list pages */
+a.voice-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+a.voice-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 768px) {
+  .voice-page {
+    padding: 6rem 1.5rem 4rem;
+  }
+
+  .voice-profile-image,
+  .voice-profile-placeholder {
+    width: 100px;
+    height: 100px;
+  }
+
+  .voice-quote {
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .voice-back {
+    width: 100%;
+    justify-content: center;
+  }
+}
