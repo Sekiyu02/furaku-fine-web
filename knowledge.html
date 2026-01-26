@@ -80,10 +80,14 @@
   <!-- Filter -->
   <section class="filter-section">
     <div class="filter-container">
-      <button class="filter-btn active" data-filter="all">ALL</button>
-      <button class="filter-btn" data-filter="column">COLUMN</button>
-      <button class="filter-btn" data-filter="report">REPORT</button>
-      <button class="filter-btn" data-filter="news">NEWS</button>
+      <div class="knowledge-filter">
+        <button class="filter-btn active" data-category="all">すべて</button>
+        <button class="filter-btn" data-category="recruitment">採用ブランディング</button>
+        <button class="filter-btn" data-category="philosophy">理念浸透</button>
+        <button class="filter-btn" data-category="medical">医療採用</button>
+        <button class="filter-btn" data-category="organization">組織開発</button>
+        <button class="filter-btn" data-category="case">事例紹介</button>
+      </div>
     </div>
   </section>
 
@@ -132,46 +136,13 @@
     </div>
   </footer>
 
-  <script src="assets/js/knowledge.js"></script>
   <script src="assets/js/microcms.js"></script>
+  <script src="assets/js/knowledge.js"></script>
   <script>
+    // 初回ロード時に記事を取得して描画
     document.addEventListener('DOMContentLoaded', async () => {
-      const articleGrid = document.getElementById('articleGrid');
-
-      if (articleGrid) {
-        const data = await getKnowledge(12);
-
-        const categoryNames = {
-          recruitment: '採用ブランディング',
-          philosophy: '理念浸透',
-          organization: '組織開発',
-          medical: '医療採用',
-          case: '事例紹介',
-          column: 'COLUMN',
-          report: 'REPORT',
-          news: 'NEWS'
-        };
-
-        if (data && data.contents && data.contents.length > 0) {
-          articleGrid.innerHTML = data.contents.map(article => {
-            const articleUrl = 'article.html?id=' + encodeURIComponent(article.id);
-            return `
-            <a href="${articleUrl}" class="article-card" data-category="${article.category || 'column'}" data-article-id="${article.id}">
-              <div class="article-card-image">
-                ${article.thumbnail ? `<img loading="lazy" src="${article.thumbnail.url}" alt="${article.title}">` : '<div class="article-card-placeholder"></div>'}
-                <span class="article-card-category ${article.category || 'column'}">${categoryNames[article.category] || article.category || 'COLUMN'}</span>
-              </div>
-              <div class="article-card-content">
-                <time class="article-card-date">${new Date(article.publishDate || article.publishedAt || article.createdAt).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')}</time>
-                <h3 class="article-card-title">${article.title}</h3>
-                <p class="article-card-excerpt">${article.excerpt || ''}</p>
-              </div>
-            </a>
-          `}).join('');
-        } else {
-          articleGrid.innerHTML = '<p class="no-data">現在、記事はありません。</p>';
-        }
-      }
+      const data = await getKnowledge(20);
+      renderKnowledgeGrid(data);
     });
   </script>
 </body>

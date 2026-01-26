@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>理念ブランディング映像｜株式会社富楽ファイン</title>
+  <title>採用動画・理念ブランディング映像制作｜千葉｜富楽ファイン</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/logo-tagu.svg">
   <link rel="canonical" href="https://furakufine.co.jp/video.html">
-  <meta name="description" content="映像によって、会社の本質を深掘りし、信頼と共感で選ばれる会社になる。経営者の想いを言語化し、理念を映像として翻訳します。">
-  <meta property="og:title" content="理念ブランディング映像｜株式会社富楽ファイン">
-  <meta property="og:description" content="映像によって、会社の本質を深掘りし、信頼と共感で選ばれる会社になる。経営者の想いを言語化し、理念を映像として翻訳します。">
+  <meta name="description" content="会社の本質を映像で伝える理念ブランディング映像制作。採用動画、企業VP、インタビュー動画など。千葉県を拠点に全国対応。">
+  <meta property="og:title" content="採用動画・理念ブランディング映像制作｜千葉｜富楽ファイン">
+  <meta property="og:description" content="会社の本質を映像で伝える理念ブランディング映像制作。採用動画、企業VP、インタビュー動画など。千葉県を拠点に全国対応。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://furakufine.co.jp/video.html">
-  <meta property="og:image" content="https://furakufine.co.jp/assets/images/ogp.jpg">
+  <meta property="og:image" content="https://furakufine.co.jp/assets/images/ogp-video.jpg">
   <meta property="og:site_name" content="株式会社富楽ファイン">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="理念ブランディング映像｜株式会社富楽ファイン">
-  <meta name="twitter:description" content="映像によって、会社の本質を深掘りし、信頼と共感で選ばれる会社になる。経営者の想いを言語化し、理念を映像として翻訳します。">
-  <meta name="twitter:image" content="https://furakufine.co.jp/assets/images/ogp.jpg">
+  <meta name="twitter:title" content="理念ブランディング映像｜富楽ファイン">
+  <meta name="twitter:description" content="映像によって会社の本質を深掘りし、信頼と共感で選ばれる会社になる。">
+  <meta name="twitter:image" content="https://furakufine.co.jp/assets/images/ogp-video.jpg">
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
@@ -42,16 +42,16 @@
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "理念ブランディング映像",
+  "name": "理念ブランディング映像制作",
   "provider": {
     "@type": "Organization",
     "name": "株式会社富楽ファイン",
     "url": "https://furakufine.co.jp"
   },
-  "description": "映像によって、会社の本質を深掘りし、信頼と共感で選ばれる会社になる。経営者の想いを言語化し、理念を映像として翻訳します。",
+  "description": "会社の本質を映像で深掘りし、信頼と共感で選ばれる会社をつくる理念ブランディング映像を制作します。",
   "url": "https://furakufine.co.jp/video.html",
-  "areaServed": "JP",
-  "serviceType": "映像制作・ブランディング"
+  "areaServed": "日本",
+  "serviceType": "映像制作"
 }
 </script>
 </head>
@@ -357,14 +357,14 @@
           会社の未来に責任を持つこと。
         </p>
         <a href="mailto:info@furakufine.com" class="view-more-btn" data-animate="cta">
-          <span class="btn-text">CONTACT US</span>
+          <span class="btn-text">映像制作の相談をする</span>
           <span class="btn-arrow">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </span>
         </a>
-        <p class="cta-note">理念について、話を聞かせてください。</p>
+        <p class="cta-note">まずは企画からご相談ください。</p>
       </div>
     </div>
   </section>
@@ -411,5 +411,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="assets/js/video.js"></script>
+
+  <!-- Fixed CTA Mobile -->
+  <div class="fixed-cta-mobile">
+    <a href="mailto:info@furakufine.com" class="fixed-cta-btn">
+      <span>無料相談する</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+
+  <script>
+    // フッター付近で固定CTAを非表示
+    const fixedCta = document.querySelector('.fixed-cta-mobile');
+    const footer = document.querySelector('footer');
+
+    if (fixedCta && footer) {
+      window.addEventListener('scroll', () => {
+        const footerRect = footer.getBoundingClientRect();
+        if (footerRect.top < window.innerHeight) {
+          fixedCta.classList.add('hidden');
+        } else {
+          fixedCta.classList.remove('hidden');
+        }
+      });
+    }
+  </script>
 </body>
 </html>

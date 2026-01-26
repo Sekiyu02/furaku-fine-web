@@ -134,34 +134,42 @@
     /* ========== Filter ========== */
     .filter-section {
       padding: 3rem 2rem;
-      background: var(--off-white);
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+      background: var(--navy-dark);
     }
 
     .filter-container {
       max-width: 1200px;
       margin: 0 auto;
+    }
+
+    .knowledge-filter {
       display: flex;
-      gap: 1rem;
       flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
     }
 
     .filter-btn {
-      padding: 0.75rem 1.5rem;
-      background: var(--white);
-      border: 1px solid rgba(0,0,0,0.1);
-      font-size: 0.85rem;
-      color: var(--text-body);
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.875rem;
+      border-radius: 30px;
       cursor: pointer;
       transition: all 0.3s ease;
       font-family: inherit;
     }
 
-    .filter-btn:hover,
+    .filter-btn:hover {
+      border-color: #D4A03C;
+      color: #D4A03C;
+    }
+
     .filter-btn.active {
-      background: var(--orange-primary);
-      border-color: var(--orange-primary);
-      color: var(--white);
+      background: #D4A03C;
+      border-color: #D4A03C;
+      color: #fff;
     }
 
     /* ========== Articles Grid ========== */
@@ -422,5 +430,16 @@
       .footer-links {
         flex-direction: column;
         gap: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .knowledge-filter {
+        gap: 8px;
+      }
+
+      .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
       }
     }

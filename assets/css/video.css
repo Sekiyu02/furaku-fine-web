@@ -1211,3 +1211,55 @@ body.page-out {
 @keyframes pageOut {
   to { opacity: 0; }
 }
+
+/* ========== 固定CTAボタン（モバイルのみ） ========== */
+.fixed-cta-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .fixed-cta-mobile {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, rgba(10, 15, 20, 0.95) 0%, rgba(10, 15, 20, 0) 100%);
+    pointer-events: none;
+  }
+
+  .fixed-cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #D4A03C 0%, #B8860B 100%);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 4px;
+    pointer-events: auto;
+    box-shadow: 0 4px 20px rgba(212, 160, 60, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .fixed-cta-btn:active {
+    transform: scale(0.98);
+  }
+
+  .fixed-cta-mobile.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  body {
+    padding-bottom: 80px;
+  }
+}

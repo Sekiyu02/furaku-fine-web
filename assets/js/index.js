@@ -26,21 +26,47 @@
     window.addEventListener('resize', setVH);
 
     // ========== Loading Screen ==========
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('loading').classList.add('hidden');
-        startHeroAnimations();
-      }, 3000);
-    });
+    const loading = document.getElementById('loading');
 
-    // フォールバック：5秒後に強制的にローディングを非表示
-    setTimeout(() => {
-      const loading = document.getElementById('loading');
-      if (loading && !loading.classList.contains('hidden')) {
-        loading.classList.add('hidden');
+    if (loading) {
+      // 同一セッションで既に訪問済みかチェック
+      const hasVisited = sessionStorage.getItem('furakufine_visited');
+
+      if (hasVisited) {
+        // 2回目以降：即座に非表示
+        loading.style.display = 'none';
+        document.body.classList.add('loaded');
         startHeroAnimations();
+      } else {
+        // 初回訪問：短縮版ローディングアニメーション（1.5秒）
+        const minLoadTime = 1500;
+        const startTime = Date.now();
+
+        window.addEventListener('load', () => {
+          const elapsed = Date.now() - startTime;
+          const remaining = Math.max(0, minLoadTime - elapsed);
+
+          setTimeout(() => {
+            loading.classList.add('hidden');
+            document.body.classList.add('loaded');
+            startHeroAnimations();
+
+            // 訪問フラグを保存
+            sessionStorage.setItem('furakufine_visited', 'true');
+          }, remaining);
+        });
+
+        // フォールバック：3秒後に強制的にローディングを非表示
+        setTimeout(() => {
+          if (loading && !loading.classList.contains('hidden')) {
+            loading.classList.add('hidden');
+            document.body.classList.add('loaded');
+            startHeroAnimations();
+            sessionStorage.setItem('furakufine_visited', 'true');
+          }
+        }, 3000);
       }
-    }, 5000);
+    }
 
     // ========== Fullscreen Menu ==========
     const menuBtn = document.getElementById('menuBtn');

@@ -43,6 +43,15 @@ async function getKnowledge(limit = 10) {
   return await fetchMicroCMS('knowledge', { limit, orders: '-publishedAt' });
 }
 
+// カテゴリ別ナレッジ記事を取得
+async function getKnowledgeByCategory(category, limit = 10) {
+  return await fetchMicroCMS('knowledge', {
+    limit,
+    orders: '-publishedAt',
+    filters: `category[equals]${category}`
+  });
+}
+
 // 単一記事を取得
 async function getKnowledgeById(id) {
   return await fetchMicroCMS(`knowledge/${id}`);
