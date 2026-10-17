@@ -15,6 +15,11 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-6QFFFQ5449');
+    // 問い合わせ（メールリンク）クリックを計測
+    document.addEventListener('click', function(e) {
+      var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
+      if (a) gtag('event', 'contact_mail_click');
+    });
   </script>
   <!-- End Google Analytics 4 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
