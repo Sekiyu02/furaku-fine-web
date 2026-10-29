@@ -73,6 +73,13 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://furakufine.co.jp/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/recruitment",
