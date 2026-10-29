@@ -75,6 +75,11 @@
   ],
   "redirects": [
     {
+      "source": "/",
+      "destination": "https://furakufine.co.jp/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "destination": "https://furakufine.co.jp/:path*",
       "permanent": true
